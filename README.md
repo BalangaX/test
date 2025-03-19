@@ -1,1 +1,1 @@
-# StudyBuddy
+# StudyBuddy - מערכת לניהול קבוצות לימוד
