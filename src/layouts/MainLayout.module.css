@@ -1,0 +1,8 @@
+/* src/layouts/MainLayout.module.css */
+
+.contentArea {
+  padding: var(--spacing-unit-lg); /* Using 'lg' from theme.css (24px) */
+  max-width: var(--container-max-width-xl, 1200px); /* Using 'xl' from theme.css (1140px), with fallback */
+  margin: 0 auto; /* Center content */
+  margin-top: var(--spacing-unit-md); /* Add some space below the NavBar */
+}

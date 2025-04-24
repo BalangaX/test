@@ -1,0 +1,139 @@
+/* src/pages/Summaries/SummariesPage.module.css */
+
+.summariesPageContainer {
+  padding: var(--spacing-unit-lg);
+  max-width: var(--container-max-width-xl); /* Wider container for library-style content */
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-unit-lg);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: var(--font-size-h1);
+  color: var(--text-color-headings);
+}
+
+.uploadButton {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.uploadButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.searchFilterControls {
+  margin-bottom: var(--spacing-unit-lg);
+  display: flex;
+  gap: var(--spacing-unit-md);
+}
+
+.searchInput {
+  flex-grow: 1; /* Allow search input to take available space */
+  padding: var(--spacing-unit-sm) var(--spacing-unit-md);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color-light);
+}
+
+.summaryList {
+  display: grid;
+  /* Adjust minmax for summary cards, e.g., allow more width */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+  gap: var(--spacing-unit-lg);
+}
+
+.summaryItem {
+  background-color: var(--background-color-cards);
+  padding: var(--spacing-unit-lg); /* More padding for summary items */
+  border-radius: var(--border-radius-lg); /* Larger radius for a softer look */
+  box-shadow: var(--box-shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-sm);
+}
+
+.summaryTitle {
+  margin: 0 0 var(--spacing-unit-xs) 0;
+  font-size: var(--font-size-h4);
+  color: var(--primary-color); /* Make title stand out */
+}
+
+.summaryMeta {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+  display: flex;
+  flex-direction: column; /* Stack meta items */
+  gap: var(--spacing-unit-xs);
+  margin-bottom: var(--spacing-unit-sm);
+}
+
+.subject, .author, .uploadDate {
+  /* Individual styling if needed, e.g., icons */
+}
+
+.summaryPreview {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color-default);
+  flex-grow: 1; /* Allow preview to take available space */
+}
+
+.summaryTags {
+  margin-top: var(--spacing-unit-sm);
+  font-size: var(--font-size-sm);
+  color: var(--secondary-color-dark);
+}
+
+.summaryTags span { /* If tags are individually wrapped */
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-default);
+  padding: 2px var(--spacing-unit-xs);
+  border-radius: var(--border-radius-sm);
+  margin-right: var(--spacing-unit-xs);
+}
+
+.noSummariesMessage {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--text-color-muted);
+  padding: var(--spacing-unit-xl) 0;
+  grid-column: 1 / -1; /* Span full grid width */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-unit-md);
+    align-items: stretch;
+  }
+  .header h1 {
+    text-align: center;
+  }
+  .searchFilterControls {
+    flex-direction: column;
+  }
+  .summaryList {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+  }
+}

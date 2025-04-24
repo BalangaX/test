@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-unit-xxl); /* 3.5rem -> 48px */
+  padding: var(--spacing-unit-xxl) var(--spacing-unit-md) var(--spacing-unit-xl); /* 5rem, 1rem, 4rem -> 48px, 16px, 32px */
+  width: 100%; /* Ensure wrapper takes full width */
+}
+@media (max-width: 768px) { /* Adjusted breakpoint for better responsiveness */
+  .wrapper {
+    padding-top: var(--spacing-unit-xl); /* 3rem -> 32px */
+    gap: var(--spacing-unit-xl);
+  }
+}
+.header {
+  text-align: center;
+}
+.heading {
+  margin: 0;
+  font-size: var(--font-size-h1); /* clamp(2.2rem, 4.5vw, 3.5rem) -> h1 (2.5rem / 40px) */
+  color: var(--primary-color); /* Use theme variable */
+  font-weight: var(--font-weight-bold);
+}
+.tagline {
+  margin: var(--spacing-unit-sm) 0 0; /* 0.75rem -> 8px */
+  font-size: var(--font-size-lg); /* 1.05rem -> 1.25rem (20px) */
+  color: var(--text-color-muted);
+  opacity: 1; /* Rely on text-color-muted for emphasis */
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Increased minmax for better content fit */
+  gap: var(--spacing-unit-lg); /* 1.7rem -> 24px */
+  width: 100%;
+  max-width: var(--container-max-width-xl); /* Use theme variable for max width */
+}

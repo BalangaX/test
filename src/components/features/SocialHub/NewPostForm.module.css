@@ -1,0 +1,61 @@
+/* src/components/features/SocialHub/NewPostForm.module.css */
+
+.newPostForm {
+  background-color: var(--background-color-cards);
+  padding: var(--spacing-unit-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow-sm);
+  margin-bottom: var(--spacing-unit-xl); /* Space below the form */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.postTextarea {
+  width: 100%;
+  min-height: 80px;
+  padding: var(--spacing-unit-md);
+  font-family: var(--font-family-sans-serif);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  resize: vertical;
+  background-color: var(--background-color-body); /* Slightly different bg for textarea */
+  color: var(--text-color-default);
+}
+
+.postTextarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color-light);
+}
+
+.submitButton {
+  align-self: flex-end; /* Align button to the right */
+  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.submitButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+@media (max-width: 768px) {
+  .newPostForm {
+    padding: var(--spacing-unit-md);
+    margin-bottom: var(--spacing-unit-lg);
+  }
+  .postTextarea {
+    min-height: 60px;
+  }
+  .submitButton {
+    align-self: stretch; /* Full width on smaller screens */
+  }
+}

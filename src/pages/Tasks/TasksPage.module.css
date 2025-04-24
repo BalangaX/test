@@ -1,0 +1,186 @@
+/* src/pages/Tasks/TasksPage.module.css */
+
+.tasksPageContainer {
+  padding: var(--spacing-unit-lg);
+  max-width: var(--container-max-width-lg); /* Use a smaller max-width for task lists */
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-unit-lg);
+}
+
+.header h1 {
+  margin: 0; /* Remove default heading margin */
+  font-size: var(--font-size-h1);
+  color: var(--text-color-headings);
+}
+
+.addButton {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.addButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.taskItem {
+  background-color: var(--background-color-cards);
+  padding: var(--spacing-unit-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--box-shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top for multi-line descriptions */
+  gap: var(--spacing-unit-md);
+  transition: var(--transition-base);
+}
+
+.taskItem.completed .taskTitle {
+  text-decoration: line-through;
+  color: var(--text-color-muted);
+}
+.taskItem.completed .taskDescription {
+  color: var(--text-color-muted);
+}
+
+
+.taskDetails {
+  display: flex;
+  align-items: flex-start; /* Align checkbox with the top of text */
+  gap: var(--spacing-unit-md);
+  flex-grow: 1; /* Allow details to take available space */
+}
+
+.checkbox {
+  margin-top: 5px; /* Adjust for better alignment with text */
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary-color); /* Style the checkbox color */
+}
+
+.taskInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xs);
+}
+
+.taskTitle {
+  margin: 0;
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-headings);
+}
+
+.taskDescription {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--text-color-default);
+  white-space: pre-wrap; /* Preserve line breaks in description */
+}
+
+.taskMeta {
+  margin-top: var(--spacing-unit-sm);
+  display: flex;
+  flex-wrap: wrap; /* Allow meta items to wrap on small screens */
+  gap: var(--spacing-unit-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+}
+
+.dueDate {} /* Specific styling if needed */
+
+.priority {
+  font-weight: var(--font-weight-bold);
+  padding: 2px var(--spacing-unit-xs);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-color-light); /* Default for light text on colored bg */
+  text-transform: capitalize;
+}
+
+.priority.high { background-color: var(--error-color); }
+.priority.medium { background-color: var(--warning-color); color: var(--text-color-default); } /* Warning often needs dark text */
+.priority.low { background-color: var(--info-color); }
+
+
+.taskActions {
+  display: flex;
+  gap: var(--spacing-unit-sm);
+  align-items: center; /* Align buttons vertically if they wrap */
+  flex-shrink: 0; /* Prevent actions from shrinking */
+}
+
+.editButton,
+.deleteButton {
+  background-color: transparent;
+  border: 1px solid var(--secondary-color-light);
+  color: var(--text-color-default);
+  padding: var(--spacing-unit-xs) var(--spacing-unit-sm);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: var(--transition-base);
+  font-size: var(--font-size-sm);
+}
+
+.editButton:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color);
+  color: var(--text-color-light);
+}
+
+.deleteButton:hover {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: var(--text-color-light);
+}
+
+.noTasksMessage {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--text-color-muted);
+  padding: var(--spacing-unit-xl) 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-unit-md);
+    align-items: stretch; /* Make button full width */
+  }
+  .header h1 {
+    text-align: center;
+  }
+
+  .taskItem {
+    flex-direction: column;
+    align-items: stretch; /* Stretch details and actions */
+  }
+
+  .taskDetails {
+    width: 100%;
+  }
+  
+  .taskActions {
+    justify-content: flex-end; /* Align buttons to the right on stacked view */
+    margin-top: var(--spacing-unit-md);
+  }
+}

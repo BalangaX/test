@@ -1,0 +1,221 @@
+/* src/pages/SocialHub/SocialHubPage.module.css */
+
+.socialHubContainer {
+  padding: var(--spacing-unit-lg);
+  max-width: var(--container-max-width-lg); /* Good width for a feed */
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-unit-xl);
+}
+
+.header h1 {
+  margin: 0 0 var(--spacing-unit-sm) 0;
+  font-size: var(--font-size-h1);
+  color: var(--text-color-headings);
+}
+
+.header p {
+  font-size: var(--font-size-lg);
+  color: var(--text-color-muted);
+}
+
+.postFeed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xl); /* Space between posts */
+}
+
+.postItem {
+  background-color: var(--background-color-cards);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow-md);
+  padding: var(--spacing-unit-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit-md);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarDefault {
+  color: var(--secondary-color); /* Default icon color */
+  /* Ensure the icon size matches the img avatar size if possible */
+  /* The size={40} prop in JSX handles this for FaUserCircle */
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-headings);
+}
+
+.timestamp {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+}
+
+.postContent {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color-default);
+  white-space: pre-wrap; /* Preserve line breaks */
+}
+
+.postFooter {
+  display: flex;
+  gap: var(--spacing-unit-lg);
+  align-items: center;
+  padding-top: var(--spacing-unit-sm);
+  border-top: 1px solid var(--secondary-color-light); /* Separator */
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  color: var(--text-color-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit-xs);
+  font-size: var(--font-size-base);
+  padding: var(--spacing-unit-xs);
+  border-radius: var(--border-radius-sm);
+}
+
+.actionButton:hover {
+  color: var(--primary-color);
+  /* A subtle background on hover can be nice */
+  background-color: rgba(0, 123, 255, 0.05); /* Example: primary color with low opacity */
+}
+
+.actionButton svg { /* For FaHeart, FaRegHeart, FaCommentDots */
+  margin-right: 4px; /* Space between icon and text, if any */
+  /* Vertical alignment if needed, but flex align-items should handle it */
+}
+
+.commentSection {
+  margin-top: var(--spacing-unit-md);
+  border-top: 1px solid var(--secondary-color-light);
+  padding-top: var(--spacing-unit-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.comment {
+  display: flex;
+  flex-direction: column; /* Stack header and text */
+  gap: var(--spacing-unit-xs);
+  font-size: var(--font-size-sm);
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-unit-sm);
+}
+
+.commentAvatarSmall {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.commentAvatarSmallDefault {
+   color: var(--secondary-color);
+   /* size={20} prop in JSX handles this for FaUserCircle */
+}
+
+
+.commentAuthor {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-default);
+}
+.commentTimestamp {
+  color: var(--text-color-muted);
+  font-size: calc(var(--font-size-sm) * 0.9); /* Slightly smaller than comment text */
+}
+
+.commentText {
+  color: var(--text-color-default);
+  padding-left: calc(24px + var(--spacing-unit-sm)); /* Align with author name if avatar is present */
+  line-height: var(--line-height-base);
+}
+
+.addComment {
+  display: flex;
+  gap: var(--spacing-unit-sm);
+  margin-top: var(--spacing-unit-sm);
+}
+
+.commentInput {
+  flex-grow: 1;
+  padding: var(--spacing-unit-sm);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 2px var(--primary-color-light);
+}
+
+.commentSubmitButton {
+  padding: var(--spacing-unit-sm) var(--spacing-unit-md);
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: var(--transition-base);
+}
+
+.commentSubmitButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .socialHubContainer {
+    padding: var(--spacing-unit-md);
+  }
+  .header h1 {
+    font-size: var(--font-size-h2);
+  }
+  .header p {
+    font-size: var(--font-size-base);
+  }
+  .postItem {
+    padding: var(--spacing-unit-md);
+  }
+  .postFooter {
+    gap: var(--spacing-unit-md); /* Reduce gap on smaller screens */
+  }
+  .actionButton {
+    font-size: var(--font-size-sm); /* Slightly smaller action buttons */
+  }
+  .commentText {
+     padding-left: 0; /* Stack comment text below header on small screens */
+  }
+}
