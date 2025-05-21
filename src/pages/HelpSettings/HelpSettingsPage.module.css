@@ -1,0 +1,200 @@
+/* src/pages/HelpSettings/HelpSettingsPage.module.css */
+
+.helpSettingsContainer {
+  padding: var(--spacing-unit-lg);
+  max-width: var(--container-max-width-lg); /* Good width for settings/FAQ */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xl); /* Space between sections */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-unit-lg); /* Space below header */
+}
+
+.header h1 {
+  margin: 0 0 var(--spacing-unit-sm) 0;
+  font-size: var(--font-size-h1);
+  color: var(--text-color-headings);
+}
+
+.pageSection {
+  background-color: var(--background-color-cards);
+  padding: var(--spacing-unit-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow-sm);
+}
+
+.pageSection h2 {
+  font-size: var(--font-size-h2);
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit-lg);
+  border-bottom: 2px solid var(--primary-color-light);
+  padding-bottom: var(--spacing-unit-sm);
+}
+
+/* FAQ Section */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.faqItem {
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  overflow: hidden; /* Ensures border-radius is respected by children */
+}
+
+.faqQuestion {
+  background-color: transparent; /* Make it look like part of the item, not a separate button bg */
+  border: none; 
+  /* border-bottom: 1px solid var(--secondary-color-light); */ /* Separator if answer is hidden */
+  width: 100%;
+  padding: var(--spacing-unit-md);
+  text-align: left;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-default);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.faqItem:not(:first-child) {
+  /* margin-top: var(--spacing-unit-sm); */ /* Add some space between FAQ items if border is removed */
+}
+
+.faqQuestion.open { /* Style when FAQ item is open */
+   border-bottom: 1px solid var(--secondary-color-light);
+}
+.faqQuestion:not(.open) {
+   border-bottom: none; /* No border if closed and it's the last visual element */
+}
+
+
+.faqQuestion:hover {
+  background-color: rgba(0, 123, 255, 0.05); /* Using primary color with low opacity directly */
+}
+
+.faqQuestion svg { /* For FaChevronDown/Up */
+  font-size: var(--font-size-base);
+  color: var(--primary-color);
+  transition: transform 0.2s ease;
+}
+
+.faqQuestion.open svg {
+  transform: rotate(180deg);
+}
+
+
+.faqAnswer {
+  padding: var(--spacing-unit-md);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--background-color-light); /* Slightly different bg for answer */
+  border-top: 1px solid var(--secondary-color-light); /* Separator line above answer */
+}
+
+.faqAnswer p {
+  margin: 0;
+}
+
+/* Profile Form Section */
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-lg);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xs);
+}
+
+.formGroup label {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-default);
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="password"] {
+  width: 100%;
+  padding: var(--spacing-unit-sm);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  background-color: var(--background-color-body); /* Light background for inputs */
+  color: var(--text-color-default);
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="email"]:focus,
+.formGroup input[type="password"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color-light);
+}
+
+.formGroup .readOnlyInput {
+  background-color: var(--secondary-color-light);
+  color: var(--text-color-muted);
+  cursor: not-allowed;
+}
+
+.formGroup small {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+}
+
+.saveButton {
+  align-self: flex-start;
+  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+  background-color: var(--success-color);
+  color: var(--text-color-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.saveButton:hover {
+  opacity: 0.9; /* Standard hover for save button */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .helpSettingsContainer {
+    padding: var(--spacing-unit-md);
+    gap: var(--spacing-unit-lg);
+  }
+  .header h1 {
+    font-size: var(--font-size-h2);
+  }
+  .pageSection {
+    padding: var(--spacing-unit-md);
+  }
+  .pageSection h2 {
+    font-size: var(--font-size-h3);
+  }
+  .faqQuestion {
+    font-size: var(--font-size-base);
+    padding: var(--spacing-unit-sm);
+  }
+  .faqAnswer {
+    padding: var(--spacing-unit-sm);
+    font-size: var(--font-size-sm);
+  }
+  .saveButton {
+    align-self: stretch; /* Full width button on mobile */
+  }
+}

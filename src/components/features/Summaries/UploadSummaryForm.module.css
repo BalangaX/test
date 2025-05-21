@@ -1,0 +1,121 @@
+/* src/components/features/Summaries/UploadSummaryForm.module.css */
+
+.formOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.uploadForm {
+  background-color: var(--background-color-cards);
+  padding: var(--spacing-unit-xl); /* Larger padding for modal form */
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+  width: 100%;
+  max-width: 500px; /* Max width for the form */
+  position: relative; /* For potential close button positioning */
+}
+
+.uploadForm h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit-sm);
+  color: var(--text-color-headings);
+  font-size: var(--font-size-h3);
+  text-align: center;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xs);
+}
+
+.formGroup label {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-default);
+}
+
+.formGroup input[type="text"],
+.formGroup textarea {
+  width: 100%;
+  padding: var(--spacing-unit-sm);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  background-color: var(--background-color-body);
+  color: var(--text-color-default);
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color-light);
+}
+
+.formGroup textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.formActions {
+  display: flex;
+  gap: var(--spacing-unit-md);
+  justify-content: flex-end;
+  margin-top: var(--spacing-unit-md);
+}
+
+.submitButton,
+.cancelButton {
+  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.submitButton {
+  background-color: var(--primary-color); /* Using primary for upload */
+  color: var(--text-color-light);
+}
+
+.submitButton:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.cancelButton {
+  background-color: var(--secondary-color);
+  color: var(--text-color-light);
+}
+
+.cancelButton:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .uploadForm {
+    padding: var(--spacing-unit-lg);
+    margin: var(--spacing-unit-md); /* Add some margin on small screens */
+    max-height: 90vh; /* Prevent form from being too tall */
+    overflow-y: auto; /* Allow scrolling within form if needed */
+  }
+  .formActions {
+    flex-direction: column;
+  }
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+  }
+}

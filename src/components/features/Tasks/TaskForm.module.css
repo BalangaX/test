@@ -1,0 +1,106 @@
+/* src/components/features/Tasks/TaskForm.module.css */
+
+.taskForm {
+  background-color: var(--background-color-cards);
+  padding: var(--spacing-unit-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+  margin-bottom: var(--spacing-unit-lg); /* Add some space if shown inline */
+}
+
+.taskForm h2 {
+  margin-top: 0;
+  color: var(--text-color-headings);
+  font-size: var(--font-size-h3);
+  text-align: center;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xs);
+}
+
+.formGroup label {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color-default);
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="date"],
+.formGroup textarea,
+.formGroup select {
+  width: 100%; /* Inputs take full width of their container */
+  padding: var(--spacing-unit-sm);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  background-color: var(--background-color-body); /* Light background for inputs */
+  color: var(--text-color-default);
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="date"]:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color-light);
+}
+
+.formGroup textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.formActions {
+  display: flex;
+  gap: var(--spacing-unit-md);
+  justify-content: flex-end; /* Align buttons to the right */
+  margin-top: var(--spacing-unit-sm);
+}
+
+.submitButton,
+.cancelButton {
+  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.submitButton {
+  background-color: var(--success-color);
+  color: var(--text-color-light);
+}
+
+.submitButton:hover {
+  background-color: #1e7e34; /* Darker success */
+}
+
+.cancelButton {
+  background-color: var(--secondary-color);
+  color: var(--text-color-light);
+}
+
+.cancelButton:hover {
+  background-color: var(--secondary-color-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .taskForm {
+    padding: var(--spacing-unit-md);
+  }
+  .formActions {
+    flex-direction: column; /* Stack buttons on smaller screens */
+  }
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+  }
+}

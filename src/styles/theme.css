@@ -1,0 +1,90 @@
+:root {
+  /* Color Palette */
+  --primary-color: #007bff; /* Blue */
+  --primary-color-dark: #0056b3;
+  --primary-color-light: #3395ff;
+
+  --secondary-color: #6c757d; /* Gray */
+  --secondary-color-dark: #545b62;
+  --secondary-color-light: #adb5bd;
+
+  --accent-color: #17a2b8; /* Teal/Cyan */
+  --accent-color-dark: #117a8b;
+  --accent-color-light: #4dd2e7;
+
+  --success-color: #28a745; /* Green */
+  --warning-color: #ffc107; /* Yellow */
+  --error-color: #dc3545;   /* Red */
+  --info-color: #17a2b8;    /* Cyan (same as accent for now) */
+
+  /* Text Colors */
+  --text-color-default: #212529; /* Dark Gray */
+  --text-color-headings: #343a40;
+  --text-color-links: var(--primary-color);
+  --text-color-links-hover: var(--primary-color-dark);
+  --text-color-light: #f8f9fa; /* Light Gray / White */
+  --text-color-muted: var(--secondary-color);
+
+  /* Background Colors */
+  --background-color-body: #f8f9fa; /* Light Gray */
+  --background-color-cards: #ffffff; /* White */
+  --background-color-navbar: var(--primary-color);
+  --background-color-footer: #343a40;
+  --background-color-dark: #343a40;
+  --background-color-light: #f8f9fa;
+
+  /* Font Families */
+  --font-family-sans-serif: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-headings: var(--font-family-sans-serif); /* Same as body for simplicity */
+
+  /* Font Sizes */
+  --font-size-base: 1rem; /* Typically 16px */
+  --font-size-sm: calc(var(--font-size-base) * 0.875); /* 14px */
+  --font-size-lg: calc(var(--font-size-base) * 1.25);  /* 20px */
+
+  --font-size-h1: calc(var(--font-size-base) * 2.5);   /* 40px */
+  --font-size-h2: calc(var(--font-size-base) * 2);     /* 32px */
+  --font-size-h3: calc(var(--font-size-base) * 1.75);  /* 28px */
+  --font-size-h4: calc(var(--font-size-base) * 1.5);   /* 24px */
+  --font-size-h5: calc(var(--font-size-base) * 1.25);  /* 20px */
+  --font-size-h6: var(--font-size-base);             /* 16px */
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --font-weight-headings: var(--font-weight-bold);
+
+  /* Line Heights */
+  --line-height-base: 1.5;
+  --line-height-headings: 1.2;
+
+  /* Spacing Units */
+  --spacing-unit-xs: 4px;
+  --spacing-unit-sm: 8px;
+  --spacing-unit-md: 16px;
+  --spacing-unit-lg: 24px;
+  --spacing-unit-xl: 32px;
+  --spacing-unit-xxl: 48px;
+
+  /* Border Radius */
+  --border-radius-sm: 0.2rem;  /* Approx 3.2px */
+  --border-radius-md: 0.375rem; /* Approx 6px */
+  --border-radius-lg: 0.5rem;  /* Approx 8px */
+  --border-radius-pill: 50rem;
+
+  /* Box Shadows */
+  --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --box-shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+
+  /* Transitions */
+  --transition-base: all 0.2s ease-in-out;
+
+  /* Container Max Widths */
+  --container-max-width-sm: 540px;
+  --container-max-width-md: 720px;
+  --container-max-width-lg: 960px;
+  --container-max-width-xl: 1140px;
+}
