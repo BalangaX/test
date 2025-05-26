@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { writingTemplates } from '../../data/writingTemplates'; // Adjusted path
-import styles from './WritingAssistantPage.module.css';
+import { writingTemplates } from "../../../data/writingTemplates";
+import styles from './style.module.css';
 
 export default function WritingAssistantPage() {
   const [templates, setTemplates] = useState(writingTemplates);

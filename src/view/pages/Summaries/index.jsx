@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import initialSummaries from '../../data/summaries';
-import styles from './SummariesPage.module.css';
-import UploadSummaryForm from '../../components/features/Summaries/UploadSummaryForm'; // Import form
+import initialSummaries from '../../../data/summaries';
+import styles from './style.module.css';
+import UploadSummaryForm from '../../components/Summaries/UploadSummaryForm'; // Import form
 
 // Helper function to generate unique IDs
 const generateId = () => `summary_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;

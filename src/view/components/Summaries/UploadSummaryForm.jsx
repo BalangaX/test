@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './UploadSummaryForm.module.css'; // To be created in Step 5
+import styles from './style.module.css'; // To be created in Step 5
 
 const UploadSummaryForm = ({ onSubmit, onCancel }) => {
   const [title, setTitle] = useState('');

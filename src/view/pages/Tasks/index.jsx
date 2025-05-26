@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import initialTasks from '../../data/tasks';
-import styles from './TasksPage.module.css';
-import TaskForm from '../../components/features/Tasks/TaskForm'; // Import TaskForm
+import initialTasks from '../../../data/tasks';
+import styles from './style.module.css';
+import TaskForm from '../../components/Tasks/TaskForm'; // Import TaskForm
 
 // Helper function to generate unique IDs (if not already in tasks.js or for new tasks)
 const generateId = () => `task_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;

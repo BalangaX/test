@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './NewPostForm.module.css'; // To be created in Step 5
+import styles from './style.module.css'; // To be created in Step 5
 
 const NewPostForm = ({ onAddPost }) => {
   const [postContent, setPostContent] = useState('');

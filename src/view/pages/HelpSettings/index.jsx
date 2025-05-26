@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { faqData } from '../../data/faq'; // Adjusted path
-import styles from './HelpSettingsPage.module.css';
+import { faqData } from '../../../data/faq'; // Adjusted path
+import styles from './style.module.css';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // For accordion icons
 
 export default function HelpSettingsPage() {

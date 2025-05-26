@@ -1,4 +1,4 @@
-import HomeCard from "../../components/common/HomeCard"; // Corrected path
+import HomeCard from "../../components/Home/HomeCard";
 import styles from "./style.module.css";
 
 export default function Home() {

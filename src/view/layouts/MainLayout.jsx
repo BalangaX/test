@@ -1,6 +1,6 @@
 import React from 'react';
-import NavBar from '../components/common/NavBar'; // Adjusted path
-import styles from './MainLayout.module.css';
+import NavBar from "../../components/NavBar";
+import styles from "./style.module.css";
 
 const MainLayout = ({ children }) => {
   return (

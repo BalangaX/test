@@ -2,15 +2,15 @@ import { Routes, Route } from "react-router-dom";
 // NavBar is now part of MainLayout, so it's not directly imported here unless needed for other purposes.
 // For this change, we assume NavBar is only in MainLayout.
 // import NavBar from "./components/common/NavBar"; 
-import MainLayout from "./layouts/MainLayout"; // Import MainLayout
-import Home from "./pages/Home";
-import Tasks from "./pages/Tasks";
-import Summaries from "./pages/Summaries";
-import WritingAssistant from "./pages/WritingAssistant";
-import SocialHub from "./pages/SocialHub";
-import HelpSettings from "./pages/HelpSettings";
-import Dashboard from "./pages/Dashboard";
-import Admin from "./pages/Admin";
+import MainLayout from "./view/layouts/MainLayout";
+import Home from "./view/pages/Home";
+import Tasks from "./view/pages/Tasks";
+import Summaries from "./view/pages/Summaries";
+import WritingAssistant from "./view/pages/WritingAssistant";
+import SocialHub from "./view/pages/SocialHub";
+import HelpSettings from "./view/pages/HelpSettings";
+import Dashboard from "./view/pages/Dashboard";
+import Admin from "./view/pages/Admin";
 
 export default function App() {
   return (

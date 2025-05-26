@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaUserCircle, FaHeart, FaRegHeart, FaCommentDots } from 'react-icons/fa';
-import initialSocialPosts from '../../data/socialPosts';
-import NewPostForm from '../../components/features/SocialHub/NewPostForm';
-import styles from './SocialHubPage.module.css';
+import initialSocialPosts from '../../../data/socialPosts';
+import NewPostForm from '../../components/SocialHub/NewPostForm';
+import styles from './style.module.css';
 
 // Helper function to generate unique IDs
 const generateId = (prefix = 'post') => `${prefix}_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;
