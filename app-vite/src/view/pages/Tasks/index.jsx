@@ -1,51 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'; // Removed useEffect as useTasks handles data fetching
 import TaskList from '../../components/Tasks/TaskList';
 import TaskForm from '../../components/Tasks/TaskForm';
-import MyCalendar from '../../components/Tasks/MyCalendar';
-import Chat from '../../components/Tasks/Chat';
-import { mockTasks } from '../../../data/tasks'; // Using mock data
-import { useAuth } from '../../../context/AuthContext';
+import MyCalendar from '../../components/Tasks/MyCalendar'; // Stays as placeholder
+import Chat from '../../components/Tasks/Chat'; // Stays as placeholder
+import useTasks from '../../../hooks/useTasks'; // Import the new hook
+import { useAuth } from '../../../context/AuthContext'; // To ensure user is loaded
 
-const tasksPageStyle = {
-  padding: '20px',
-};
-
-const taskBoardStyle = {
-  display: 'flex',
-  flexDirection: 'row', // Default for larger screens
-  gap: '20px',
-  overflowX: 'auto', // Allow horizontal scrolling for columns if needed
-  paddingBottom: '10px', // Space for scrollbar
-  // Media query for smaller screens will be handled by CSS file or more complex JS
-};
+const tasksPageStyle = { padding: '20px' };
+const taskBoardStyle = { display: 'flex', flexDirection: 'row', gap: '20px', overflowX: 'auto', paddingBottom: '10px' };
 
 const TasksPage = () => {
-  const [tasks, setTasks] = useState([]);
+  const { currentUser } = useAuth();
+  const {
+    tasks,
+    loading: tasksLoading,
+    error: tasksError,
+    addTask,
+    updateTask,
+    deleteTask,
+    updateTaskStatus // Added from useTasks
+  } = useTasks();
+
   const [taskToEdit, setTaskToEdit] = useState(null);
-  const { currentUser } = useAuth(); // To potentially assign tasks or filter by user
 
-  useEffect(() => {
-    // Simulate fetching tasks - eventually from Firestore
-    // For now, assign all tasks to the current user for simplicity in mock
-    const userTasks = mockTasks.map(task => ({ ...task, assignee: currentUser ? currentUser.email : 'unassigned' }));
-    setTasks(userTasks);
-  }, [currentUser]);
-
-  const handleAddTask = (newTaskData) => {
-    const newTask = {
-      ...newTaskData,
-      id: `t${Date.now()}`, // Simple unique ID for mock
-      assignee: currentUser ? currentUser.email : 'unassigned',
-      // status is already set in TaskForm, defaults to 'todo'
-    };
-    setTasks(prevTasks => [...prevTasks, newTask]);
-  };
-
-  const handleEditTask = (editedTaskData) => {
-    setTasks(prevTasks =>
-      prevTasks.map(task => (task.id === editedTaskData.id ? { ...task, ...editedTaskData } : task))
-    );
-    setTaskToEdit(null); // Clear editing state
+  const handleFormSubmit = async (taskData) => {
+    try {
+      if (taskToEdit) {
+        // Ensure not to spread taskData.id if it's what we are editing by.
+        // The updateTask in the hook expects (taskId, dataToUpdate)
+        const { id, ...dataToUpdate } = taskData;
+        await updateTask(id, dataToUpdate);
+        setTaskToEdit(null); // Clear editing state
+      } else {
+        // Ensure status is part of taskData if not set by TaskForm by default for new tasks
+        const dataWithStatus = taskData.status ? taskData : {...taskData, status: 'todo'};
+        await addTask(dataWithStatus);
+      }
+    } catch (err) {
+      // Should display this error to the user appropriately
+      alert(`Error saving task: ${err.message}`);
+      console.error("Task operation error:", err);
+    }
   };
 
   const handleSetTaskToEdit = (task) => {
@@ -56,17 +51,37 @@ const TasksPage = () => {
     setTaskToEdit(null);
   };
 
-  const handleDeleteTask = (taskId) => {
-    setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+  const handleDelete = async (taskId) => {
+    if (window.confirm('Are you sure you want to delete this task?')) {
+      try {
+        await deleteTask(taskId);
+      } catch (err) {
+        alert(`Error deleting task: ${err.message}`);
+        console.error("Delete task error:", err);
+      }
+    }
   };
 
-  const handleStatusChange = (taskId, newStatus) => {
-    setTasks(prevTasks =>
-      prevTasks.map(task =>
-        task.id === taskId ? { ...task, status: newStatus } : task
-      )
-    );
+  const handleStatusChange = async (taskId, newStatus) => {
+    try {
+      await updateTaskStatus(taskId, newStatus); // Use the specific hook function
+    } catch (err) {
+      alert(`Error updating task status: ${err.message}`);
+      console.error("Status change error:", err);
+    }
   };
+
+  if (!currentUser) {
+    return <div style={tasksPageStyle}><p>Please login to manage your tasks.</p></div>;
+  }
+
+  if (tasksLoading) {
+    return <div style={tasksPageStyle}><p>Loading tasks...</p></div>;
+  }
+
+  if (tasksError) {
+    return <div style={tasksPageStyle}><p style={{color: 'red'}}>Error loading tasks: {tasksError}</p></div>;
+  }
 
   // Filter tasks by status for Kanban columns
   const todoTasks = tasks.filter(task => task.status === 'todo');
@@ -77,32 +92,33 @@ const TasksPage = () => {
     <div style={tasksPageStyle}>
       <h1>My Tasks</h1>
       <TaskForm
-        onSubmit={taskToEdit ? handleEditTask : handleAddTask}
+        onSubmit={handleFormSubmit}
         taskToEdit={taskToEdit}
         onCancelEdit={handleCancelEdit}
       />
 
       <h2>Task Board</h2>
+      {tasks.length === 0 && !tasksLoading && <p>No tasks found. Add one above!</p>}
       <div style={taskBoardStyle}>
         <TaskList
             title="To Do"
             tasks={todoTasks}
             onEditTask={handleSetTaskToEdit}
-            onDeleteTask={handleDeleteTask}
+            onDeleteTask={handleDelete}
             onStatusChange={handleStatusChange}
         />
         <TaskList
             title="In Progress"
             tasks={inProgressTasks}
             onEditTask={handleSetTaskToEdit}
-            onDeleteTask={handleDeleteTask}
+            onDeleteTask={handleDelete}
             onStatusChange={handleStatusChange}
         />
         <TaskList
             title="Done"
             tasks={doneTasks}
-            onEditTask={handleSetTaskToEdit} // Usually can't edit 'done' tasks, but enabled for now
-            onDeleteTask={handleDeleteTask}
+            onEditTask={handleSetTaskToEdit}
+            onDeleteTask={handleDelete}
             onStatusChange={handleStatusChange}
         />
       </div>

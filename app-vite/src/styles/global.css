@@ -1,0 +1,107 @@
+/* src/styles/global.css */
+@import './theme.css'; /* Import theme variables first */
+
+/* Basic Reset & Box Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size-base); /* Typically 16px */
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  font-weight: var(--font-weight-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+  font-weight: 500;
+}
+
+p {
+  margin-bottom: var(--spacing-unit); /* 8px */
+}
+
+button {
+  cursor: pointer;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2); /* 8px 16px */
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  font-size: var(--font-size-base);
+  transition: background-color 0.15s ease-in-out;
+}
+button:hover {
+  background-color: #0056b3; /* Darker shade of primary */
+}
+button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit); /* 6px 8px */
+  border: 1px solid #ced4da; /* A common border color */
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-unit); /* Add some default margin */
+}
+input[type="checkbox"], input[type="radio"] {
+    margin-right: calc(var(--spacing-unit) * 0.5);
+}
+
+
+/* Main application layout responsiveness (basic example) */
+/* This would apply to a container around your MainLayout's Outlet */
+.app-container {
+  max-width: var(--breakpoint-xl);
+  margin: 0 auto;
+  padding: var(--spacing-unit); /* 8px */
+}
+
+@media (min-width: var(--breakpoint-sm)) {
+  .app-container {
+    padding: calc(var(--spacing-unit) * 2); /* 16px */
+  }
+}
+
+/* Utility classes (optional) */
+.text-center { text-align: center; }
+.mt-1 { margin-top: var(--spacing-unit); }
+.mb-1 { margin-bottom: var(--spacing-unit); }
+/* Add more as needed */
+
+
+/* HomePage specific container style */
+.homePageCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--spacing-unit) * 2.5); /* 20px */
+  max-width: 1000px; /* From original inline style */
+  margin-top: calc(var(--spacing-unit) * 2); /* Add some top margin */
+}

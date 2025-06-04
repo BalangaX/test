@@ -1,16 +1,18 @@
 import React from 'react';
 
-const RatingsList = ({ likes, itemId, onLikeUnlike, currentUserId }) => {
+const RatingsList = ({ likes = [], onLikeUnlike, currentUserId }) => {
   const handleLike = () => {
-    onLikeUnlike(itemId, currentUserId);
+    if (onLikeUnlike) {
+      onLikeUnlike();
+    }
   };
 
-  const hasLiked = likes && currentUserId ? likes.includes(currentUserId) : false;
+  const hasLiked = currentUserId ? likes.includes(currentUserId) : false;
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '5px' }}>
-      <span>{likes ? likes.length : 0} Likes</span>
-      {currentUserId && ( // Only show like button if a user is "logged in"
+      <span>{likes.length} Likes</span>
+      {currentUserId && onLikeUnlike && (
         <button onClick={handleLike} style={{ padding: '3px 8px', fontSize: '0.8em' }}>
           {hasLiked ? 'Unlike' : 'Like'}
         </button>

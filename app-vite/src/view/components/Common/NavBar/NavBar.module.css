@@ -1,0 +1,42 @@
+/* src/view/components/Common/NavBar/NavBar.module.css */
+.navBar {
+  background-color: var(--surface-color);
+  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2); /* 12px 16px */
+  margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  gap: calc(var(--spacing-unit) * 2); /* 16px */
+  align-items: center;
+}
+
+.navLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--spacing-unit) 0; /* 8px 0 */
+}
+
+.navLink:hover,
+.navLinkActive { /* Assuming react-router-dom NavLink activeClassName or similar */
+  color: var(--accent-color);
+  /* text-decoration: underline; Let NavLink style prop handle this for active */
+}
+
+/* Basic responsiveness for NavBar */
+@media (max-width: var(--breakpoint-md)) {
+  .navList {
+    flex-direction: column; /* Stack links vertically */
+    align-items: flex-start;
+    gap: var(--spacing-unit); /* 8px */
+  }
+  .navBar {
+    padding: var(--spacing-unit); /* 8px */
+  }
+}
