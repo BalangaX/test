@@ -1,18 +1,20 @@
 import React from 'react';
 import { useAuth } from '../../../context/AuthContext';
-import useSummaries from '../../../hooks/useSummaries';
+import usePendingSummaries from '../../../hooks/usePendingSummaries';
 import SummaryTable from '../../components/Summaries/SummaryTable';
 import { db } from '../../../firebase/config';
 import { doc, updateDoc } from 'firebase/firestore';
 
-const ADMIN_UIDS = ['admin@example.com', 'superadmin@example.com'];
+import styles from './AdminPage.module.css';
+import useAdminDashboardStats from '../../../hooks/useAdminDashboardStats'; // Import stats hook
+import statsStyles from './AdminStatsDisplay.module.css'; // Import stats CSS module
 
-const adminPageStyle = { padding: '20px' };
-const sectionStyle = { marginBottom: '30px', padding: '15px', border: '1px solid #ddd', borderRadius: '5px' };
+const ADMIN_UIDS = ['admin@example.com', 'superadmin@example.com']; // TODO: Manage centrally
 
 const AdminPage = () => {
   const { currentUser } = useAuth();
-  const { summaries, loading, error, setSummaries: setAdminSummaries } = useSummaries();
+  const { summaries: pendingSummaries, loading: pendingLoading, error: pendingError, setSummaries: setPendingSummaries } = usePendingSummaries();
+  const { stats, loading: statsLoading, error: statsError } = useAdminDashboardStats();
 
   const isUserAdmin = currentUser && ADMIN_UIDS.includes(currentUser.email);
 
@@ -20,9 +22,7 @@ const AdminPage = () => {
     try {
       const summaryRef = doc(db, 'summaries', summaryId);
       await updateDoc(summaryRef, { status: 'approved' });
-      setAdminSummaries(prevSummaries =>
-        prevSummaries.map(s => s.id === summaryId ? { ...s, status: 'approved' } : s)
-      );
+      setPendingSummaries(prevSummaries => prevSummaries.filter(s => s.id !== summaryId));
       alert('Summary approved successfully.');
     } catch (e) {
       console.error("Error approving summary:", e);
@@ -34,9 +34,7 @@ const AdminPage = () => {
      try {
       const summaryRef = doc(db, 'summaries', summaryId);
       await updateDoc(summaryRef, { status: 'rejected' });
-      setAdminSummaries(prevSummaries =>
-        prevSummaries.map(s => s.id === summaryId ? { ...s, status: 'rejected' } : s)
-      );
+      setPendingSummaries(prevSummaries => prevSummaries.filter(s => s.id !== summaryId));
       alert('Summary rejected successfully.');
     } catch (e) {
       console.error("Error rejecting summary:", e);
@@ -45,40 +43,74 @@ const AdminPage = () => {
   };
 
   if (!currentUser) {
-    return <div style={adminPageStyle}><p>Please login to view this page.</p></div>;
+    return <div className={styles.adminPageContainer}><p>Please login to view this page.</p></div>;
   }
 
   if (!isUserAdmin) {
     return (
-      <div style={adminPageStyle}>
-        <h1>Admin Panel</h1>
-        <p style={{ color: 'red' }}>Access Denied. You do not have administrative privileges.</p>
+      <div className={styles.adminPageContainer}>
+        <h1 className={styles.pageTitle}>Admin Panel</h1>
+        <p className={styles.accessDenied}>Access Denied. You do not have administrative privileges.</p>
       </div>
     );
   }
 
   return (
-    <div style={adminPageStyle}>
-      <h1>Admin Panel</h1>
-      <section style={sectionStyle}>
-        <h2>Summary Management</h2>
-        <p>Review and approve or reject user-uploaded summaries.</p>
-        <SummaryTable
-          summaries={summaries}
-          loading={loading}
-          error={error}
-          isAdminView={true}
-          onApprove={handleApproveSummary}
-          onReject={handleRejectSummary}
-        />
+    <div className={styles.adminPageContainer}>
+      <h1 className={styles.pageTitle}>Admin Panel</h1>
+
+      {/* User Activity Data Section - Updated */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>User Activity Data</h2>
+        <div className={styles.sectionContent}>
+          {statsLoading && <p className={statsStyles.loadingText}>Loading stats...</p>}
+          {statsError && <p className={statsStyles.errorText}>Error loading stats: {statsError}</p>}
+          {!statsLoading && !statsError && (
+            <div className={statsStyles.statsContainer}>
+              <div className={statsStyles.statCard}>
+                <p className={statsStyles.statValue}>{stats.totalUsers}</p>
+                <p className={statsStyles.statLabel}>Total Users</p>
+              </div>
+              <div className={statsStyles.statCard}>
+                <p className={statsStyles.statValue}>{stats.totalSummaries}</p>
+                <p className={statsStyles.statLabel}>Total Summaries</p>
+              </div>
+              <div className={statsStyles.statCard}>
+                <p className={statsStyles.statValue}>{stats.pendingSummaries}</p>
+                <p className={statsStyles.statLabel}>Pending Approval</p>
+              </div>
+              <div className={statsStyles.statCard}>
+                <p className={statsStyles.statValue}>{stats.approvedSummaries}</p>
+                <p className={statsStyles.statLabel}>Approved Summaries</p>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
-      <section style={sectionStyle}>
-        <h2>User Management</h2>
-        <p><em>(User management features will be implemented here.)</em></p>
+
+      {/* Pending Summary Approvals Section - Remains as is */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Pending Summary Approvals</h2>
+        <div className={styles.sectionContent}>
+          <SummaryTable
+            summaries={pendingSummaries} // from usePendingSummaries
+            loading={pendingLoading}    // from usePendingSummaries
+            error={pendingError ? pendingError.toString() : null}
+            isAdminView={true}
+            onApprove={handleApproveSummary}
+            onReject={handleRejectSummary}
+          />
+        </div>
       </section>
-      <section style={sectionStyle}>
-        <h2>Application Data Monitoring</h2>
-        <p><em>(Dashboard for monitoring application data will be implemented here.)</em></p>
+
+      {/* User Management Section - Remains as is */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>User Management</h2>
+        <div className={styles.sectionContent}>
+          <p className={styles.placeholderText}>
+            <em>(User management features, like viewing users or changing roles, are planned for future development.)</em>
+          </p>
+        </div>
       </section>
     </div>
   );

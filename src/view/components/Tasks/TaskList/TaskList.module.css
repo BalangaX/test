@@ -1,0 +1,31 @@
+/* src/view/components/Tasks/TaskList/TaskList.module.css */
+.taskList {
+  background-color: var(--surface-color-light, #f4f5f7); /* Light grey for column background */
+  border-radius: var(--border-radius-md, 8px);
+  padding: var(--spacing-unit-md, 16px);
+  margin: 0; /* Removed specific margin, handled by parent gap */
+  min-width: 280px;
+  max-width: 320px;
+  width: 100%; /* Allow it to shrink if parent container is smaller */
+  flex: 0 0 auto; /* Prevent growing, allow shrinking, auto basis */
+  display: flex;
+  flex-direction: column;
+  height: fit-content; /* Adjust height to content */
+  max-height: 70vh; /* Max height before internal scroll for tasks */
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit-md, 16px);
+  padding-bottom: var(--spacing-unit-sm, 8px);
+  border-bottom: 1px solid var(--border-color-light, #e0e0e0);
+}
+
+.tasksContainer {
+  overflow-y: auto; /* Allow vertical scrolling for tasks if list is long */
+  flex-grow: 1;
+  padding-right: var(--spacing-unit-xs, 4px); /* Space for scrollbar */
+}

@@ -1,0 +1,48 @@
+/* src/view/pages/Admin/AdminPage.module.css */
+.adminPageContainer {
+  padding: var(--spacing-unit-lg, 24px);
+}
+
+.pageTitle {
+  font-size: 2rem;
+  color: var(--text-primary, #333);
+  margin-bottom: var(--spacing-unit-xl, 32px);
+  border-bottom: 2px solid var(--border-color, #eee);
+  padding-bottom: var(--spacing-unit-md, 16px);
+}
+
+.accessDenied {
+  color: var(--danger-color, #dc3545);
+  font-size: 1.1rem;
+  padding: var(--spacing-unit-md, 16px);
+  background-color: var(--danger-color-light, #f8d7da);
+  border: 1px solid var(--danger-color, #dc3545);
+  border-radius: var(--border-radius-md, 8px);
+}
+
+.section {
+  margin-bottom: var(--spacing-unit-xl, 32px);
+  padding: var(--spacing-unit-lg, 24px);
+  background-color: var(--surface-color, #fff);
+  border: 1px solid var(--border-color-light, #e0e0e0);
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.05));
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  color: var(--text-primary, #333);
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit-md, 16px);
+}
+
+.sectionContent p {
+  font-size: 1rem;
+  color: var(--text-secondary, #555);
+  line-height: 1.6;
+}
+
+.placeholderText {
+  font-style: italic;
+  color: var(--text-muted, #777);
+}

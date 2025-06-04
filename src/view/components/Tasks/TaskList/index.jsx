@@ -1,31 +1,24 @@
 import React from 'react';
-import TaskItem from '../TaskItem'; // Corrected path
-
-const taskListStyle = {
-  backgroundColor: '#f4f5f7',
-  borderRadius: '3px',
-  padding: '10px',
-  margin: '0 10px',
-  minWidth: '280px',
-  maxWidth: '300px', // Max width for a column
-  flex: '1 1 300px', // Flex properties for responsiveness
-};
+import TaskItem from '../TaskItem';
+import styles from './TaskList.module.css'; // Import CSS module
 
 const TaskList = ({ title, tasks, onEditTask, onDeleteTask, onStatusChange }) => {
   return (
-    <div style={taskListStyle}>
-      <h3>{title} ({tasks.length})</h3>
-      {tasks.map(task => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onEdit={onEditTask}
-          onDelete={onDeleteTask}
-          onStatusChange={onStatusChange}
-        />
-      ))}
+    <div className={styles.taskList}>
+      <h3 className={styles.title}>{title} ({tasks.length})</h3>
+      <div className={styles.tasksContainer}>
+        {tasks.map(task => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            onEdit={onEditTask}
+            onDelete={onDeleteTask}
+            onStatusChange={onStatusChange}
+          />
+        ))}
+        {tasks.length === 0 && <p style={{textAlign: 'center', color: '#777', marginTop: '20px'}}>No tasks here.</p>}
+      </div>
     </div>
   );
 };
-
 export default TaskList;

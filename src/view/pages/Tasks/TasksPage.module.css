@@ -1,0 +1,60 @@
+/* src/view/pages/Tasks/TasksPage.module.css */
+.tasksPageContainer {
+  padding: var(--spacing-unit-lg, 24px);
+}
+
+.pageTitle {
+  font-size: 2rem;
+  color: var(--text-primary, #333);
+  margin-bottom: var(--spacing-unit-lg, 24px);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  color: var(--text-primary, #333);
+  margin-top: var(--spacing-unit-xl, 32px);
+  margin-bottom: var(--spacing-unit-md, 16px);
+  border-bottom: 1px solid var(--border-color-light, #eee);
+  padding-bottom: var(--spacing-unit-sm, 8px);
+}
+
+.taskBoardContainer {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-unit-lg, 24px);
+  overflow-x: auto; /* Allows horizontal scrolling for columns */
+  padding-bottom: var(--spacing-unit-md, 16px); /* Space for scrollbar */
+  margin-bottom: var(--spacing-unit-xl, 32px);
+  min-height: 300px; /* Give some default height */
+}
+
+.placeholderText {
+  font-style: italic;
+  color: var(--text-muted, #777);
+}
+
+.additionalFeaturesContainer {
+  display: flex;
+  gap: var(--spacing-unit-lg, 24px);
+  margin-top: var(--spacing-unit-xl, 32px);
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.featureBox {
+  flex: 1;
+  min-width: 300px; /* Minimum width before wrapping */
+  padding: var(--spacing-unit-lg, 24px);
+  background-color: var(--surface-color, #fff);
+  border: 1px solid var(--border-color-light, #e0e0e0);
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.05));
+}
+
+.loadingText, .errorText {
+  padding: var(--spacing-unit-md, 16px);
+  text-align: center;
+  font-size: 1.1rem;
+}
+.errorText {
+  color: var(--danger-color, #dc3545);
+}

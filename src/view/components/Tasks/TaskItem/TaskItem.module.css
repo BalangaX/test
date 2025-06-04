@@ -1,0 +1,84 @@
+/* src/view/components/Tasks/TaskItem/TaskItem.module.css */
+.taskItem {
+  background-color: var(--surface-color, #fff);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: var(--border-radius-sm, 4px);
+  padding: var(--spacing-unit-md, 16px);
+  margin-bottom: var(--spacing-unit-md, 16px);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05));
+  transition: box-shadow 0.2s ease-in-out;
+}
+.taskItem:hover {
+  box-shadow: var(--shadow-md, 0 3px 6px rgba(0,0,0,0.1));
+}
+
+.taskTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit-sm, 8px);
+}
+
+.taskDescription {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #555);
+  margin-bottom: var(--spacing-unit-sm, 8px);
+  white-space: pre-wrap; /* Preserve line breaks in description */
+}
+
+.taskMeta {
+  font-size: 0.85rem;
+  color: var(--text-muted, #777);
+  margin-bottom: var(--spacing-unit-xs, 4px);
+}
+
+.statusSelectContainer {
+  margin-top: var(--spacing-unit-sm, 8px);
+  margin-bottom: var(--spacing-unit-md, 16px);
+}
+.statusSelectContainer label {
+  margin-right: var(--spacing-unit-xs, 4px);
+  font-size: 0.9rem;
+  color: var(--text-secondary, #555);
+}
+.statusSelect {
+  padding: var(--spacing-unit-xs, 6px) var(--spacing-unit-sm, 8px);
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: var(--border-radius-sm, 4px);
+  font-size: 0.9rem;
+}
+
+.actionsContainer {
+  margin-top: var(--spacing-unit-md, 16px);
+  display: flex;
+  gap: var(--spacing-unit-sm, 8px);
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.actionButton, .deleteButton {
+  padding: var(--spacing-unit-xs, 6px) var(--spacing-unit-sm, 10px);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm, 4px);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.actionButton {
+  background-color: var(--secondary-color-light, #e0e0e0);
+  color: var(--text-primary, #333);
+  border-color: var(--border-color, #ccc);
+}
+.actionButton:hover {
+  background-color: var(--border-color, #ccc);
+}
+
+.deleteButton {
+  background-color: var(--danger-color-extra-light, #ffebee);
+  color: var(--danger-color, #dc3545);
+  border-color: var(--danger-color-light, #f5c6cb);
+}
+.deleteButton:hover {
+  background-color: var(--danger-color-light, #f8d7da);
+}

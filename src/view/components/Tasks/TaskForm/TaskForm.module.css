@@ -1,0 +1,77 @@
+/* src/view/components/Tasks/TaskForm/TaskForm.module.css */
+.taskForm {
+  margin-bottom: var(--spacing-unit-xl, 32px);
+  padding: var(--spacing-unit-lg, 24px);
+  background-color: var(--surface-color, #fff);
+  border: 1px solid var(--border-color-light, #e0e0e0);
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.05));
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  color: var(--text-primary, #333);
+  margin-top: 0;
+  margin-bottom: var(--spacing-unit-lg, 24px);
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-unit-md, 16px);
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: var(--spacing-unit-xs, 6px);
+  color: var(--text-secondary, #555);
+  font-weight: 500;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="date"],
+.formGroup textarea,
+.formGroup select {
+  width: 100%;
+  padding: var(--spacing-unit-sm, 10px) var(--spacing-unit-md, 12px);
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: var(--border-radius-sm, 4px);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.formGroup textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.buttonContainer {
+  margin-top: var(--spacing-unit-lg, 24px);
+  display: flex;
+  gap: var(--spacing-unit-md, 16px);
+}
+
+.submitButton,
+.cancelButton {
+  padding: var(--spacing-unit-sm, 10px) var(--spacing-unit-lg, 20px);
+  border: none;
+  border-radius: var(--border-radius-sm, 4px);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton {
+  background-color: var(--primary-color, #007bff);
+  color: white;
+}
+.submitButton:hover {
+  background-color: var(--primary-color-dark, #0056b3);
+}
+
+.cancelButton {
+  background-color: var(--secondary-color-light, #e0e0e0); /* Lighter cancel */
+  color: var(--text-primary, #333);
+  border: 1px solid var(--border-color, #ccc);
+}
+.cancelButton:hover {
+  background-color: var(--border-color, #ccc);
+}
