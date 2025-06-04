@@ -1,27 +1,20 @@
-import { NavLink } from "react-router-dom";
-import { IconContext } from "react-icons";
-import { MdOutlineEventNote, MdOutlineMenuBook } from "react-icons/md";
-import { PiPenNibStraightDuotone } from "react-icons/pi";
-import { HiOutlineUsers } from "react-icons/hi2";
-import { FiSettings } from "react-icons/fi";
+// src/view/components/Home/HomeCard/index.jsx
+
+import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 
-const icons = {
-  tasks: <MdOutlineEventNote />,
-  summaries: <MdOutlineMenuBook />,
-  writing: <PiPenNibStraightDuotone />,
-  social: <HiOutlineUsers />,
-  settings: <FiSettings />,
-};
-
-export default function HomeCard({ to, type, title, subtitle }) {
+export default function HomeCard({ to, icon, title, subtitle, fullWidth }) {
   return (
-    <IconContext.Provider value={{ size: "3rem" }}>
-      <NavLink to={to} className={styles.card}>
-        {icons[type]}
-        <h3 className={styles.title}>{title}</h3>
-        <p className={styles.subtitle}>{subtitle}</p>
-      </NavLink>
-    </IconContext.Provider>
+    <Link
+      to={to}
+      className={`${styles.card} ${fullWidth ? styles.fullWidth : ""}`}
+    >
+      <span className={styles.icon}>{icon}</span>
+      <div>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.subtitle}>{subtitle}</div>
+      </div>
+    </Link>
   );
 }

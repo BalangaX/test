@@ -1,16 +1,18 @@
+// src/view/layouts/MainLayout.jsx
+
 import React from 'react';
-import NavBar from "../../components/NavBar";
-import styles from "./style.module.css";
+import { Outlet } from 'react-router-dom';
+import NavBar from '../components/Common/NavBar';
+import styles from './style.module.css';
 
-const MainLayout = ({ children }) => {
+export default function MainLayout() {
   return (
-    <> {/* Using React.Fragment as a root element */}
+    <div className={styles.layout}>
       <NavBar />
-      <main className={styles.contentArea}>
-        {children}
+      <main className={styles.content}>
+        {/* כאן נטען כל עמוד בהתאם ל-route */}
+        <Outlet />
       </main>
-    </>
+    </div>
   );
-};
-
-export default MainLayout;
+}

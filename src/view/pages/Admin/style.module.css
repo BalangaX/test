@@ -1,7 +1,168 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    font-size: 2rem;
-  }
+.wrapper {
+  max-width: 1150px;
+  margin: 40px auto 0 auto;
+  padding: 0 16px 32px 16px;
+}
+.heading {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: #28294d;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px #e3e3f3aa;
+  padding: 28px 24px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.searchRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid #dad7f5;
+  border-radius: 7px;
+  font-size: 1rem;
+}
+.filterBtn {
+  background: #7b5cf0;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.filterBtn:hover {
+  background: #674bdc;
+}
+.list {
+  margin-top: 10px;
+}
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 0;
+  font-size: 1.04rem;
+  border-bottom: 1px solid #f3f1fd;
+}
+.iconBtn {
+  background: #eaeaff;
+  color: #6c6f94;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.iconBtn:hover {
+  background: #d2d0ff;
+}
+.approvalItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.btnRow {
+  display: flex;
+  gap: 8px;
+}
+.approve {
+  background: #e5f9e4;
+  color: #32a85b;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.reject {
+  background: #feeaea;
+  color: #c44242;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.comment {
+  background: #eef0ff;
+  color: #5559be;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.approve:hover { background: #d0f7ce; }
+.reject:hover { background: #ffd2d2; }
+.comment:hover { background: #dadcff; }
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+}
+.statCard {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px #e3e3f3aa;
+  padding: 26px 22px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.placeholderChart {
+  width: 100%;
+  height: 96px;
+  background: #f6f6fd;
+  border-radius: 12px;
+  color: #b2b5e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-top: 16px;
+}
+.statsTable {
+  width: 100%;
+  margin-top: 8px;
+  border-collapse: collapse;
+}
+.statsTable td {
+  padding: 6px 0;
+  font-size: 1.02rem;
+}
+.statsTable tr:not(:last-child) td {
+  border-bottom: 1px solid #eaeaff;
+}

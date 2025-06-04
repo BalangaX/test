@@ -1,0 +1,32 @@
+/* src/view/components/WritingAssistant/FeatureCard.module.css */
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(70,50,150,0.06);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+    color: #8f74f8;
+  }
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 1.07rem;
+    font-weight: 600;
+    color: #303048;
+  }
+  
+  .subtitle {
+    font-size: 0.93rem;
+    color: #7d7da7;
+  }

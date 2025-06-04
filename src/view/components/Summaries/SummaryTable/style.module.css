@@ -1,0 +1,37 @@
+/* src/view/components/Summaries/style.module.css */
+
+.table {
+    width: 100%;
+    max-width: 860px;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(70, 50, 150, 0.04);
+  }
+  
+  .table th,
+  .table td {
+    padding: 14px;
+    text-align: left;
+    font-size: 1rem;
+    color: #39395b;
+  }
+  
+  .table th {
+    background: #f7f6fe;
+    font-weight: 600;
+    color: #303048;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background: #faf9fe;
+  }
+  
+  @media (max-width: 600px) {
+    .table th,
+    .table td {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+  }

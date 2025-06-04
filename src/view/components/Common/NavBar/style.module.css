@@ -1,6 +1,6 @@
 /* src/components/common/NavBar/NavBar.module.css */
 
-.navBar {
+.navbar {
   background-color: var(--background-color-navbar, var(--primary-color)); /* Fallback to primary if navbar-specific isn't in theme */
   padding: var(--spacing-unit-md) var(--spacing-unit-lg);
   display: flex;
@@ -9,14 +9,14 @@
   box-shadow: var(--box-shadow-sm);
 }
 
-.navTitle {
+.logo {
   font-size: var(--font-size-lg);
   color: var(--text-color-light); /* Assuming navbar background is dark */
   font-weight: var(--font-weight-bold);
   text-decoration: none;
 }
 
-.navLinks {
+.menu {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -24,11 +24,11 @@
   align-items: center;
 }
 
-.navLinks li {
+.menu li {
   margin-left: var(--spacing-unit-lg);
 }
 
-.navLinks a {
+.link {
   color: var(--text-color-light); /* Assuming navbar background is dark */
   text-decoration: none;
   font-size: var(--font-size-base);
@@ -37,32 +37,32 @@
   transition: var(--transition-base);
 }
 
-.navLinks a:hover,
-.navLinks a.active { /* Assuming 'active' class for active link */
+.link:hover,
+.activeLink { /* Assuming 'active' class for active link */
   background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
   color: #ffffff; /* Ensure text stays white or very light */
 }
 
 /* Basic Responsiveness: Stack links below title on smaller screens */
 @media (max-width: 768px) {
-  .navBar {
+  .navbar {
     flex-direction: column;
     align-items: flex-start; /* Align items to the start */
   }
 
-  .navLinks {
+  .menu {
     margin-top: var(--spacing-unit-md);
     flex-direction: column;
     width: 100%; /* Make links take full width */
   }
 
-  .navLinks li {
+  .menu li {
     margin-left: 0;
     margin-bottom: var(--spacing-unit-sm); /* Space out stacked links */
     width: 100%;
   }
 
-  .navLinks a {
+  .link {
     display: block; /* Make links take full width of li */
     text-align: left;
     padding: var(--spacing-unit-md); /* More touch-friendly padding */

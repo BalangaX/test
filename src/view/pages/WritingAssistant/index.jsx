@@ -1,102 +1,113 @@
-import React, { useState, useEffect } from 'react';
-import { writingTemplates } from "../../../data/writingTemplates";
-import styles from './style.module.css';
+// src/view/pages/WritingAssistant/index.jsx
+
+import React, { useState, useEffect, useMemo } from "react";
+import styles from "./style.module.css";
+
+import writingTemplates from "../../../data/writingTemplates";
+import PaperTypeSelect from "../../components/WritingAssistant/PaperTypeSelect";
+import TemplateSelect from "../../components/WritingAssistant/TemplateSelect";
+import FeedbackTips from "../../components/WritingAssistant/FeedbackTips";
+import FeatureCard from "../../components/WritingAssistant/FeatureCard";
+import SubmitButton from "../../components/WritingAssistant/SubmitButton";
+
+import {
+  FaRegFileAlt,
+  FaCopy,
+  FaSpellCheck
+} from "react-icons/fa";
 
 export default function WritingAssistantPage() {
-  const [templates, setTemplates] = useState(writingTemplates);
-  const [selectedTemplateId, setSelectedTemplateId] = useState('');
-  const [userInputText, setUserInputText] = useState('');
-  const [feedbackMessages, setFeedbackMessages] = useState([]); // To store feedback
+  const [paperType, setPaperType] = useState("");
+  const [templateId, setTemplateId] = useState(0);
+  const [previewContent, setPreviewContent] = useState("");
 
-  // Effect to update textarea when a new template is selected
+  // Keep only templates that match the currently‑selected paper type  
+  const filteredTemplates = useMemo(
+    () => writingTemplates.filter(t => t.type === paperType),
+    [paperType]
+  );
+
+  // Whenever the user chooses a different paper type, reset the selected template  
   useEffect(() => {
-    if (selectedTemplateId) {
-      const selected = templates.find(t => t.id === selectedTemplateId);
-      if (selected) {
-        setUserInputText(selected.templateContent);
-        setFeedbackMessages([]); // Clear previous feedback
-      }
-    } else {
-      setUserInputText(''); // Clear textarea if no template is selected
-      setFeedbackMessages([]);
+    setTemplateId(0);
+  }, [paperType]);
+
+  const tips = [
+    "Structure your paper with clear sections (introduction, body, conclusion).",
+    "Include a strong thesis statement at the end of your introduction.",
+    "Use academic language and avoid contractions or colloquialisms.",
+    "Support your arguments with evidence from credible sources.",
+    "Follow citation guidelines carefully according to your chosen format."
+  ];
+
+  const features = [
+    {
+      icon: <FaRegFileAlt />,
+      title: "Format Guide",
+      subtitle: "Reference examples"
+    },
+    {
+      icon: <FaCopy />,
+      title: "Templates",
+      subtitle: "Pre-formatted documents"
+    },
+    {
+      icon: <FaSpellCheck />,
+      title: "Grammar Check",
+      subtitle: "AI-powered assistance"
     }
-  }, [selectedTemplateId, templates]);
-
-  const handleTemplateChange = (event) => {
-    setSelectedTemplateId(event.target.value);
-  };
-
-  const handleUserInputChange = (event) => {
-    setUserInputText(event.target.value);
-  };
-
-  // Placeholder for feedback logic (Step 4)
-  const handleGetFeedback = () => {
-    if (selectedTemplateId) {
-      const selected = templates.find(t => t.id === selectedTemplateId);
-      if (selected && selected.exampleFeedback) {
-        setFeedbackMessages(selected.exampleFeedback);
-      } else {
-        setFeedbackMessages(["No predefined feedback available for this template."]);
-      }
-    } else {
-      setFeedbackMessages(["Please select a template first."]);
-    }
-  };
+  ];
 
   return (
-    <div className={styles.writingAssistantContainer}>
-      <header className={styles.header}>
-        <h1>Writing Assistant</h1>
-        <p>Select a template, edit the content, and get feedback.</p>
-      </header>
+    <section className={styles.wrapper}>
+      <h1 className={styles.title}>Academic Writing Assistant</h1>
 
-      <section className={styles.mainContent}>
-        <div className={styles.templateSelectorArea}>
-          <label htmlFor="template-select">Choose a template:</label>
-          <select 
-            id="template-select" 
-            value={selectedTemplateId} 
-            onChange={handleTemplateChange}
-            className={styles.templateSelect}
-          >
-            <option value="">-- Select a Template --</option>
-            {templates.map(template => (
-              <option key={template.id} value={template.id}>
-                {template.name} - {template.description}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div className={styles.selects}>
+        <PaperTypeSelect
+          value={paperType}
+          onChange={setPaperType}
+        />
+        <TemplateSelect
+          templates={filteredTemplates}
+          value={templateId}
+          onChange={setTemplateId}
+        />
+      </div>
 
-        <div className={styles.editorArea}>
-          <textarea
-            className={styles.textArea}
-            value={userInputText}
-            onChange={handleUserInputChange}
-            rows="15"
-            placeholder="Select a template or start writing..."
+      <FeedbackTips tips={tips} />
+
+      <div className={styles.featuresGrid}>
+        {features.map((f, i) => (
+          <FeatureCard
+            key={i}
+            icon={f.icon}
+            title={f.title}
+            subtitle={f.subtitle}
           />
-          <button 
-            onClick={handleGetFeedback} 
-            className={styles.feedbackButton}
-            disabled={!selectedTemplateId && !userInputText.trim()} // Disable if no template or text
-          >
-            Get Feedback
-          </button>
-        </div>
+        ))}
+      </div>
 
-        {feedbackMessages.length > 0 && (
-          <aside className={styles.feedbackArea}>
-            <h3>Feedback Suggestions:</h3>
-            <ul>
-              {feedbackMessages.map((msg, index) => (
-                <li key={index}>{msg}</li>
-              ))}
-            </ul>
-          </aside>
-        )}
-      </section>
-    </div>
+      <SubmitButton onClick={() => {
+        if (!paperType) {
+          alert("Please select a paper type.");
+          return;
+        }
+        const selectedTemplate = filteredTemplates.find(t => t.id === templateId);
+        if (!selectedTemplate) {
+          alert("Please select a template.");
+          return;
+        }
+        setPreviewContent(selectedTemplate.content || "");
+      }} />
+
+      {previewContent && (
+        <div className={styles.previewContainer}>
+          <h2>Template Preview</h2>
+          <div className={styles.previewContent}>
+            {previewContent}
+          </div>
+        </div>
+      )}
+    </section>
   );
 }

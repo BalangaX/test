@@ -1,89 +1,73 @@
-import React, { useState, useMemo } from 'react';
-import initialSummaries from '../../../data/summaries';
-import styles from './style.module.css';
-import UploadSummaryForm from '../../components/Summaries/UploadSummaryForm'; // Import form
+// src/view/pages/Summaries/index.jsx
 
-// Helper function to generate unique IDs
-const generateId = () => `summary_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;
+import React, { useState } from "react";
+import styles from "./style.module.css";
+import SummaryFilters from "../../components/Summaries/SummaryFilters/SummaryFilters";
+import SummaryTable from "../../components/Summaries/SummaryTable/SummaryTable";
+import useApprovedSummaries from "../../../hooks/useApprovedSummaries";
+import useSummaries from "../../../hooks/useSummaries";
+import UploadSummaryModal from "../../components/Summaries/UploadSummaryModal";
 
 export default function SummariesPage() {
-  const [summaries, setSummaries] = useState(initialSummaries);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isUploadFormVisible, setIsUploadFormVisible] = useState(false);
+  const [search, setSearch] = useState("");
+  const [authorFilter, setAuthorFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("Popularity");
 
-  const filteredSummaries = useMemo(() => {
-    if (!searchTerm.trim()) {
-      return summaries;
+  const availableSummaries = useApprovedSummaries() || [];
+  const { addSummary } = useSummaries();        // Firestore data
+  const [showModal, setShowModal] = useState(false);
+
+  // בניית רשימת המחברים (authors)
+  const authors = ["All", ...new Set(availableSummaries.map((s) => s.author))];
+
+  // פילטר לפי טקסט ו־author
+  const filtered = availableSummaries.filter((s) => {
+    const text = search.toLowerCase();
+    const matchesText =
+      s.title.toLowerCase().includes(text) ||
+      s.subject.toLowerCase().includes(text) ||
+      s.author.toLowerCase().includes(text);
+    const matchesAuthor =
+      authorFilter === "All" || s.author === authorFilter;
+    return matchesText && matchesAuthor;
+  });
+
+  // מיון לפי פופולריות (rating) או תאריך (uploadDate)
+  const sorted = [...filtered].sort((a, b) => {
+    if (sortBy === "Popularity") {
+      return (b.rating || 0) - (a.rating || 0);
+    } else {
+      return new Date(b.uploadDate) - new Date(a.uploadDate);
     }
-    const lowercasedSearchTerm = searchTerm.toLowerCase();
-    return summaries.filter(summary =>
-      summary.title.toLowerCase().includes(lowercasedSearchTerm) ||
-      summary.subject.toLowerCase().includes(lowercasedSearchTerm) ||
-      summary.author.toLowerCase().includes(lowercasedSearchTerm) ||
-      summary.tags.some(tag => tag.toLowerCase().includes(lowercasedSearchTerm))
-    );
-  }, [summaries, searchTerm]);
+  });
 
   return (
-    <div className={styles.summariesPageContainer}> {/* Main container class */}
-      <header className={styles.header}>
-        <h1>Summaries Library</h1>
-        {!isUploadFormVisible && (
-          <button className={styles.uploadButton} onClick={() => setIsUploadFormVisible(true)}>
-            Upload New Summary
-          </button>
-        )}
-      </header>
+    <section className={styles.wrapper}>
+      <h1 className={styles.title}>Summaries Library</h1>
 
-      {isUploadFormVisible && (
-        <UploadSummaryForm
-          onSubmit={(newSummaryData) => {
-            const newSummary = {
-              ...newSummaryData,
-              id: generateId(),
-              uploadDate: new Date().toISOString().split('T')[0], // Get YYYY-MM-DD
-            };
-            setSummaries(prevSummaries => [newSummary, ...prevSummaries]); // Add to top of the list
-            setIsUploadFormVisible(false);
-          }}
-          onCancel={() => setIsUploadFormVisible(false)}
+      <div className={styles.controls}>
+        <SummaryFilters
+          search={search}
+          onSearch={setSearch}
+          authors={authors}
+          authorFilter={authorFilter}
+          onAuthorChange={setAuthorFilter}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+        />
+
+        <button className={styles.uploadBtn} onClick={() => setShowModal(true)}>
+          Upload New Summary
+        </button>
+      </div>
+
+      <SummaryTable summaries={sorted} />
+      {showModal && (
+        <UploadSummaryModal
+          onClose={() => setShowModal(false)}
+          onSend={addSummary}
         />
       )}
-
-      <div className={styles.searchFilterControls}>
-        <input
-          type="text"
-          placeholder="Search summaries by title, subject, author, or tag..."
-          className={styles.searchInput}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        {/* Placeholder for additional filter dropdowns if needed */}
-      </div>
-
-      <div className={styles.summaryList}>
-        {filteredSummaries.length === 0 && !isUploadFormVisible ? ( // Hide if form is open and list would be empty
-          <p className={styles.noSummariesMessage}>No summaries found matching your criteria.</p>
-        ) : (
-          filteredSummaries.map(summary => (
-            <div key={summary.id} className={styles.summaryItem}>
-              <h3 className={styles.summaryTitle}>{summary.title}</h3>
-              <p className={styles.summaryMeta}>
-                <span className={styles.subject}>Subject: {summary.subject}</span> | 
-                <span className={styles.author}>Author: {summary.author}</span> | 
-                <span className={styles.uploadDate}>Uploaded: {summary.uploadDate}</span>
-              </p>
-              <p className={styles.summaryPreview}>{summary.previewText}</p>
-              {summary.tags && summary.tags.length > 0 && (
-                <div className={styles.summaryTags}>
-                  Tags: {summary.tags.join(', ')}
-                </div>
-              )}
-              {/* Placeholder for View/Download buttons if needed */}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+    </section>
   );
 }

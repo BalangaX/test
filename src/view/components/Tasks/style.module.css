@@ -1,106 +1,111 @@
-/* src/components/features/Tasks/TaskForm.module.css */
+/* src/view/components/Tasks/style.module.css */
 
-.taskForm {
-  background-color: var(--background-color-cards);
-  padding: var(--spacing-unit-lg);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--box-shadow-lg);
+/* TaskItem */
+.taskItem {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-unit-md);
-  margin-bottom: var(--spacing-unit-lg); /* Add some space if shown inline */
+  align-items: center;
+  gap: 8px;
+  background: #f5f4fb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 7px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #39395b;
+  transition: background 0.2s;
+}
+.taskItem input[type="checkbox"] {
+  accent-color: #8f74f8;
+  width: 17px;
+  height: 17px;
+}
+.completed {
+  opacity: 0.7;
+  text-decoration: line-through;
+  color: #bbbbbb;
+}
+.emptyText {
+  color: #c0bfe7;
+  font-size: 0.99rem;
+  margin-bottom: 6px;
+  margin-left: 10px;
 }
 
-.taskForm h2 {
-  margin-top: 0;
-  color: var(--text-color-headings);
-  font-size: var(--font-size-h3);
-  text-align: center;
-}
-
-.formGroup {
+/* TaskForm */
+.addTaskForm {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-unit-xs);
+  gap: 8px;
+  margin-top: 12px;
 }
-
-.formGroup label {
-  font-weight: var(--font-weight-bold);
-  color: var(--text-color-default);
-}
-
-.formGroup input[type="text"],
-.formGroup input[type="date"],
-.formGroup textarea,
-.formGroup select {
-  width: 100%; /* Inputs take full width of their container */
-  padding: var(--spacing-unit-sm);
-  border: 1px solid var(--secondary-color-light);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-base);
-  background-color: var(--background-color-body); /* Light background for inputs */
-  color: var(--text-color-default);
-}
-
-.formGroup input[type="text"]:focus,
-.formGroup input[type="date"]:focus,
-.formGroup textarea:focus,
-.formGroup select:focus {
+.input {
+  border: 1.5px solid #e6e2f9;
+  border-radius: 7px;
+  padding: 7px 11px;
+  font-size: 1rem;
+  background: #f9f8ff;
+  color: #39395b;
+  min-width: 120px;
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 3px var(--primary-color-light);
+  transition: border 0.16s;
 }
-
-.formGroup textarea {
-  min-height: 80px;
-  resize: vertical;
+.input:focus {
+  border-color: #8f74f8;
 }
-
-.formActions {
-  display: flex;
-  gap: var(--spacing-unit-md);
-  justify-content: flex-end; /* Align buttons to the right */
-  margin-top: var(--spacing-unit-sm);
-}
-
-.submitButton,
-.cancelButton {
-  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
+.btnPrimary {
+  background: #8f74f8;
+  color: #fff;
   border: none;
-  border-radius: var(--border-radius-md);
-  font-weight: var(--font-weight-bold);
+  padding: 7px 16px;
+  border-radius: 7px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: var(--transition-base);
+  transition: background 0.14s;
+}
+.btnPrimary:hover,
+.btnPrimary:focus {
+  background: #6f56c5;
+}
+.btnSecondary {
+  background: #f5f4fb;
+  color: #6f56c5;
+  border: 1.2px solid #e6e2f9;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.13s, border 0.12s;
+}
+.btnSecondary:hover,
+.btnSecondary:focus {
+  background: #ecebfc;
+  border-color: #8f74f8;
 }
 
-.submitButton {
-  background-color: var(--success-color);
-  color: var(--text-color-light);
+/* Common */
+.sectionTitle {
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #303048;
+}
+.taskSubsection {
+  font-size: 0.98rem;
+  color: #7c7ca7;
+  margin: 10px 0 5px;
+  font-weight: 600;
 }
 
-.submitButton:hover {
-  background-color: #1e7e34; /* Darker success */
-}
-
-.cancelButton {
-  background-color: var(--secondary-color);
-  color: var(--text-color-light);
-}
-
-.cancelButton:hover {
-  background-color: var(--secondary-color-dark);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .taskForm {
-    padding: var(--spacing-unit-md);
+/* Responsive */
+@media (max-width: 800px) {
+  .addTaskForm {
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
   }
-  .formActions {
-    flex-direction: column; /* Stack buttons on smaller screens */
-  }
-  .submitButton,
-  .cancelButton {
+  .input {
     width: 100%;
+    min-width: 0;
   }
 }

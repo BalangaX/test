@@ -1,0 +1,22 @@
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .heading {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+  }
+  .option {
+    margin-bottom: 12px;
+  }
+  label {
+    font-size: 1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  label input {
+    margin-right: 8px;
+  }

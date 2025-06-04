@@ -1,186 +1,204 @@
-/* src/pages/Tasks/TasksPage.module.css */
+/* src/view/pages/Tasks/style.module.css */
 
-.tasksPageContainer {
-  padding: var(--spacing-unit-lg);
-  max-width: var(--container-max-width-lg); /* Use a smaller max-width for task lists */
-  margin: 0 auto;
-}
-
-.header {
+.tasksWrapper {
+  min-height: 100vh;
+  background: #f5f4fb;
+  padding: 48px 0 32px 0;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: var(--spacing-unit-lg);
 }
 
-.header h1 {
-  margin: 0; /* Remove default heading margin */
-  font-size: var(--font-size-h1);
-  color: var(--text-color-headings);
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #303048;
 }
 
-.addButton {
-  background-color: var(--primary-color);
-  color: var(--text-color-light);
-  border: none;
-  padding: var(--spacing-unit-sm) var(--spacing-unit-lg);
-  border-radius: var(--border-radius-md);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
-  cursor: pointer;
-  transition: var(--transition-base);
+.subtitle {
+  font-size: 1.09rem;
+  color: #666;
+  margin-bottom: 32px;
+  font-weight: 500;
 }
 
-.addButton:hover {
-  background-color: var(--primary-color-dark);
+.chosenDate {
+  font-size: 1rem;
+  color: #5757ad;
+  margin: 4px 0 10px;
+  font-weight: 500;
 }
 
-.taskList {
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+  max-width: 860px;
+  margin-bottom: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(70, 50, 150, 0.06);
+  padding: 24px 22px 18px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-unit-md);
 }
 
-.taskItem {
-  background-color: var(--background-color-cards);
-  padding: var(--spacing-unit-md);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--box-shadow-sm);
+.sectionTitle {
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #303048;
+}
+
+.taskSubsection {
+  font-size: 0.98rem;
+  color: #7c7ca7;
+  margin: 10px 0 5px;
+  font-weight: 600;
+}
+
+.actionsRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chatCard {
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 11px;
+  box-shadow: 0 1.5px 7px rgba(70, 50, 150, 0.06);
+  padding: 14px 22px;
+  width: 100%;
+  max-width: 530px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: #5d50af;
+}
+
+.chatIcon {
+  font-size: 1.33rem;
+}
+
+/* react-calendar overrides */
+:global .react-calendar {
+  width: 100%;
+  border-radius: 12px;
+  background: #f7f6fe;
+  border: none;
+  font-family: inherit;
+  margin-top: 8px;
+}
+
+:global .react-calendar__tile {
+  color: #39395b !important;
+}
+
+:global .react-calendar__tile--neighboringMonth {
+  color: #c0bfe7 !important;
+}
+
+:global .react-calendar__tile--now {
+  background: #8f74f8 !important;
+  color: #fff !important;
+}
+
+:global .react-calendar__tile--hasTask {
+  position: relative;
+  background: #ede9fa !important;
+}
+
+:global .react-calendar__tile--hasTask::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background: #8f74f8;
+  border-radius: 50%;
+}
+
+:global .react-calendar__tile--active {
+  background: #4caf50 !important;
+  color: #ffffff !important;
+  border-radius: 6px;
+}
+
+:global .react-calendar__month-view__weekdays__weekday {
+  color: #5d50af;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+:global .react-calendar__month-view__days__day--weekend {
+  color: #8f74f8 !important;
+}
+
+:global .react-calendar__navigation button {
+  color: #5757ad;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+}
+
+:global .react-calendar__navigation__label {
+  font-size: 1.05rem;
+  color: #5757ad;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+  .card {
+    margin-bottom: 18px;
+  }
+}
+/* --- Added for overview and buttons --- */
+.overview {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Align items to the top for multi-line descriptions */
-  gap: var(--spacing-unit-md);
-  transition: var(--transition-base);
+  background: #f0f0fb;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  color: #303048;
 }
 
-.taskItem.completed .taskTitle {
-  text-decoration: line-through;
-  color: var(--text-color-muted);
-}
-.taskItem.completed .taskDescription {
-  color: var(--text-color-muted);
-}
-
-
-.taskDetails {
-  display: flex;
-  align-items: flex-start; /* Align checkbox with the top of text */
-  gap: var(--spacing-unit-md);
-  flex-grow: 1; /* Allow details to take available space */
-}
-
-.checkbox {
-  margin-top: 5px; /* Adjust for better alignment with text */
-  width: 20px;
-  height: 20px;
+.btnPrimary {
+  background-color: #5757ad;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  accent-color: var(--primary-color); /* Style the checkbox color */
 }
 
-.taskInfo {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-unit-xs);
+.btnPrimary:hover {
+  background-color: #47478f;
 }
 
-.taskTitle {
-  margin: 0;
-  font-size: var(--font-size-h5);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-color-headings);
-}
-
-.taskDescription {
-  margin: 0;
-  font-size: var(--font-size-base);
-  color: var(--text-color-default);
-  white-space: pre-wrap; /* Preserve line breaks in description */
-}
-
-.taskMeta {
-  margin-top: var(--spacing-unit-sm);
-  display: flex;
-  flex-wrap: wrap; /* Allow meta items to wrap on small screens */
-  gap: var(--spacing-unit-md);
-  font-size: var(--font-size-sm);
-  color: var(--text-color-muted);
-}
-
-.dueDate {} /* Specific styling if needed */
-
-.priority {
-  font-weight: var(--font-weight-bold);
-  padding: 2px var(--spacing-unit-xs);
-  border-radius: var(--border-radius-sm);
-  color: var(--text-color-light); /* Default for light text on colored bg */
-  text-transform: capitalize;
-}
-
-.priority.high { background-color: var(--error-color); }
-.priority.medium { background-color: var(--warning-color); color: var(--text-color-default); } /* Warning often needs dark text */
-.priority.low { background-color: var(--info-color); }
-
-
-.taskActions {
-  display: flex;
-  gap: var(--spacing-unit-sm);
-  align-items: center; /* Align buttons vertically if they wrap */
-  flex-shrink: 0; /* Prevent actions from shrinking */
-}
-
-.editButton,
-.deleteButton {
-  background-color: transparent;
-  border: 1px solid var(--secondary-color-light);
-  color: var(--text-color-default);
-  padding: var(--spacing-unit-xs) var(--spacing-unit-sm);
-  border-radius: var(--border-radius-sm);
+.btnSecondary {
+  background-color: #e0e0e8;
+  color: #303048;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: var(--transition-base);
-  font-size: var(--font-size-sm);
 }
 
-.editButton:hover {
-  background-color: var(--primary-color-light);
-  border-color: var(--primary-color);
-  color: var(--text-color-light);
-}
-
-.deleteButton:hover {
-  background-color: var(--error-color);
-  border-color: var(--error-color);
-  color: var(--text-color-light);
-}
-
-.noTasksMessage {
-  text-align: center;
-  font-size: var(--font-size-lg);
-  color: var(--text-color-muted);
-  padding: var(--spacing-unit-xl) 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: var(--spacing-unit-md);
-    align-items: stretch; /* Make button full width */
-  }
-  .header h1 {
-    text-align: center;
-  }
-
-  .taskItem {
-    flex-direction: column;
-    align-items: stretch; /* Stretch details and actions */
-  }
-
-  .taskDetails {
-    width: 100%;
-  }
-  
-  .taskActions {
-    justify-content: flex-end; /* Align buttons to the right on stacked view */
-    margin-top: var(--spacing-unit-md);
-  }
+.btnSecondary:hover {
+  background-color: #cfcfcf;
 }

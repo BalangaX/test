@@ -1,0 +1,40 @@
+/* src/view/components/Summaries/style.module.css */
+
+.filters {
+  display: flex;
+  gap: 12px;
+}
+
+.searchInput {
+  flex: 2;
+  padding: 10px 14px;
+  border: 1.5px solid #e6e2f9;
+  border-radius: 7px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.searchInput:focus {
+  border-color: #8f74f8;
+}
+
+.select {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid #e6e2f9;
+  border-radius: 7px;
+  font-size: 1rem;
+  background: #fff;
+  outline: none;
+  transition: border 0.2s;
+}
+.select:focus {
+  border-color: #8f74f8;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -1,31 +1,52 @@
+/* src/view/components/Home/HomeCard/style.module.css */
+
 .card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-unit-sm); /* Approx 0.65rem -> 8px */
-  padding: var(--spacing-unit-xl) var(--spacing-unit-lg); /* Approx 2.2rem -> 32px, 1.4rem -> 24px */
-  background-color: var(--background-color-cards);
-  border-radius: var(--border-radius-lg); /* Use theme variable */
-  box-shadow: var(--box-shadow-md); /* Use theme variable */
+  gap: 12px;
+  background: #fff;
+  border: 2px solid #e6e2f9;
+  border-radius: 12px;
+  padding: 18px;
+  font-size: 1.07rem;
+  font-weight: 600;
+  color: #363657;
   text-decoration: none;
-  color: var(--text-color-default); /* Ensure text color is from theme */
-  transition: var(--transition-base); /* Use theme variable */
+  box-shadow: 0 2px 16px rgba(70,50,150,0.04);
+  transition: border-color 0.16s, box-shadow 0.14s, color 0.12s;
 }
-.card:hover {
-  transform: translateY(-4px); /* Subtle lift */
-  box-shadow: var(--box-shadow-lg); /* Larger shadow on hover */
+
+.card:hover,
+.card:focus {
+  border-color: #8f74f8;
+  color: #6f56c5;
+  box-shadow: 0 4px 18px rgba(120,120,200,0.09);
 }
+
+.icon {
+  font-size: 1.2em;
+  color: #8f74f8;
+}
+
 .title {
-  margin: 0;
-  font-size: var(--font-size-h5); /* Approx 1.15rem -> 1.25rem (20px) */
-  font-weight: var(--font-weight-bold);
-  text-align: center;
-  color: var(--text-color-headings);
+  font-size: 1.07rem;
 }
+
 .subtitle {
-  margin: 0;
-  font-size: var(--font-size-sm); /* Approx 0.9rem -> 0.875rem (14px) */
-  text-align: center;
-  color: var(--text-color-muted);
-  opacity: 1; /* Remove direct opacity, rely on muted color */
+  font-size: 0.93rem;
+  color: #7d7da7;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  .fullWidth {
+    grid-column: span 1;
+  }
 }

@@ -1,36 +1,73 @@
+/* src/view/pages/Home/style.module.css */
+
 .wrapper {
+  min-height: 100vh;
+  background: #f5f4fb;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-unit-xxl); /* 3.5rem -> 48px */
-  padding: var(--spacing-unit-xxl) var(--spacing-unit-md) var(--spacing-unit-xl); /* 5rem, 1rem, 4rem -> 48px, 16px, 32px */
-  width: 100%; /* Ensure wrapper takes full width */
+  padding: 64px 16px;
 }
-@media (max-width: 768px) { /* Adjusted breakpoint for better responsiveness */
-  .wrapper {
-    padding-top: var(--spacing-unit-xl); /* 3rem -> 32px */
-    gap: var(--spacing-unit-xl);
-  }
-}
-.header {
+
+.hero {
   text-align: center;
+  margin-bottom: 32px;
 }
+
 .heading {
-  margin: 0;
-  font-size: var(--font-size-h1); /* clamp(2.2rem, 4.5vw, 3.5rem) -> h1 (2.5rem / 40px) */
-  color: var(--primary-color); /* Use theme variable */
-  font-weight: var(--font-weight-bold);
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #303048;
+  letter-spacing: -1px;
 }
+
 .tagline {
-  margin: var(--spacing-unit-sm) 0 0; /* 0.75rem -> 8px */
-  font-size: var(--font-size-lg); /* 1.05rem -> 1.25rem (20px) */
-  color: var(--text-color-muted);
-  opacity: 1; /* Rely on text-color-muted for emphasis */
+  font-size: 1.08rem;
+  color: #666;
+  margin-bottom: 16px;
+  font-weight: 500;
 }
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.featureList li {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #5a5a6a;
+  font-weight: 500;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #8f74f8;
+  border-radius: 50%;
+  margin-right: 8px;
+  background: #f5f4fb;
+}
+
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Increased minmax for better content fit */
-  gap: var(--spacing-unit-lg); /* 1.7rem -> 24px */
   width: 100%;
-  max-width: var(--container-max-width-xl); /* Use theme variable for max width */
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }

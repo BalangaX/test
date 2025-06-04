@@ -1,0 +1,37 @@
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .heading {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+  }
+  .item + .item {
+    margin-top: 8px;
+  }
+  .question {
+    width: 100%;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-primary);
+  }
+  .toggle {
+    font-weight: bold;
+  }
+  .answer {
+    margin: 4px 8px 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
