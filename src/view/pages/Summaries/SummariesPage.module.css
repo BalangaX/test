@@ -1,0 +1,26 @@
+/* src/view/pages/Summaries/SummariesPage.module.css */
+.pageContainer {
+  padding: var(--spacing-unit-lg, 24px);
+}
+
+.pageTitle {
+  font-size: 2rem;
+  color: var(--text-primary, #333);
+  margin-bottom: var(--spacing-unit-lg, 24px);
+}
+
+.uploadButton {
+  background-color: var(--primary-color, #007bff);
+  color: white;
+  padding: var(--spacing-unit-md, 12px) var(--spacing-unit-lg, 24px);
+  border: none;
+  border-radius: var(--border-radius-sm, 4px);
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-unit-lg, 24px);
+  transition: background-color 0.3s ease;
+}
+
+.uploadButton:hover {
+  background-color: var(--primary-color-dark, #0056b3);
+}

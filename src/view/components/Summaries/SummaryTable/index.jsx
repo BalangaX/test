@@ -1,77 +1,66 @@
 import React from 'react';
-
-const tableStyle = {
-  width: '100%',
-  borderCollapse: 'collapse',
-  marginTop: '20px',
-};
-
-const thTdStyle = {
-  border: '1px solid #ddd',
-  padding: '8px',
-  textAlign: 'left',
-};
-
-const buttonStyle = {
-  marginRight: '5px',
-  padding: '3px 8px',
-  fontSize: '0.9em'
-};
+import styles from './SummaryTable.module.css'; // Import
 
 const SummaryTable = ({ summaries, loading, error, isAdminView, onApprove, onReject }) => {
-  if (loading) return <p>Loading summaries...</p>;
-  if (error) return <p style={{ color: 'red' }}>Error loading summaries: {error}</p>;
-  if (!summaries || summaries.length === 0) return <p>No summaries found.</p>;
+  if (loading) return <p className={styles.loading}>Loading summaries...</p>;
+  if (error) return <p className={styles.error}>Error loading summaries: {error}</p>;
+  if (!summaries || summaries.length === 0) return <p className={styles.noSummaries}>No summaries found.</p>;
+
+  const getStatusClass = (status) => {
+    if (status === 'pending') return styles.statusPending;
+    if (status === 'approved') return styles.statusApproved;
+    if (status === 'rejected') return styles.statusRejected;
+    return '';
+  };
 
   return (
-    <table style={tableStyle}>
-      <thead>
-        <tr>
-          <th style={thTdStyle}>Title</th>
-          <th style={thTdStyle}>Course</th>
-          <th style={thTdStyle}>Author</th>
-          <th style={thTdStyle}>Uploaded At</th>
-          <th style={thTdStyle}>Status</th>
-          <th style={thTdStyle}>Description</th>
-          <th style={thTdStyle}>Download/Link</th>
-          {isAdminView && <th style={thTdStyle}>Admin Actions</th>}
-        </tr>
-      </thead>
-      <tbody>
-        {summaries.map(summary => (
-          <tr key={summary.id}>
-            <td style={thTdStyle}>{summary.title}</td>
-            <td style={thTdStyle}>{summary.course}</td>
-            <td style={thTdStyle}>{summary.author}</td>
-            <td style={thTdStyle}>{new Date(summary.uploadedAt).toLocaleDateString()}</td>
-            <td style={thTdStyle}>{summary.status}</td>
-            <td style={thTdStyle}>{summary.description}</td>
-            <td style={thTdStyle}>
-              {summary.status === 'approved' || isAdminView ? ( // Admins can see link even if pending
-                <a href={summary.fileUrl || '#'} download target="_blank" rel="noopener noreferrer">
-                  {summary.fileUrl && summary.fileUrl !== '#' ? 'Download' : 'View (No File)'}
-                </a>
-              ) : (
-                'N/A'
-              )}
-            </td>
-            {isAdminView && (
-              <td style={thTdStyle}>
-                {summary.status === 'pending' && onApprove && onReject && (
-                  <>
-                    <button onClick={() => onApprove(summary.id)} style={buttonStyle}>Approve</button>
-                    <button onClick={() => onReject(summary.id)} style={buttonStyle}>Reject</button>
-                  </>
-                )}
-                {summary.status === 'approved' && <span style={{color: 'green'}}>Approved</span>}
-                {summary.status === 'rejected' && <span style={{color: 'red'}}>Rejected</span>}
-              </td>
-            )}
+    <div className={styles.tableContainer}>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Course</th>
+            <th>Author</th>
+            <th>Uploaded At</th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Download/Link</th>
+            {isAdminView && <th>Admin Actions</th>}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {summaries.map(summary => (
+            <tr key={summary.id}>
+              <td>{summary.title}</td>
+              <td>{summary.course}</td>
+              <td>{summary.authorEmail ? summary.authorEmail.split('@')[0] : 'N/A'}</td>
+              <td>{summary.uploadedAt?.toDate ? new Date(summary.uploadedAt.toDate()).toLocaleDateString() : new Date(summary.uploadedAt).toLocaleDateString()}</td>
+              <td className={getStatusClass(summary.status)}>{summary.status}</td>
+              <td>{summary.description || 'N/A'}</td>
+              <td>
+                {(summary.status === 'approved' || isAdminView) && summary.fileUrl && summary.fileUrl !== '#' ? (
+                  <a href={summary.fileUrl} download target="_blank" rel="noopener noreferrer" className={styles.downloadLink}>
+                    Download
+                  </a>
+                ) : (summary.status === 'approved' || isAdminView) ? 'View (No File)' : 'N/A'}
+              </td>
+              {isAdminView && (
+                <td>
+                  {summary.status === 'pending' && onApprove && onReject && (
+                    <>
+                      <button onClick={() => onApprove(summary.id)} className={`${styles.actionButton} ${styles.approveButton}`}>Approve</button>
+                      <button onClick={() => onReject(summary.id)} className={`${styles.actionButton} ${styles.rejectButton}`}>Reject</button>
+                    </>
+                  )}
+                  {summary.status === 'approved' && <span className={styles.statusApproved}>Approved</span>}
+                  {summary.status === 'rejected' && <span className={styles.statusRejected}>Rejected</span>}
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
-
 export default SummaryTable;

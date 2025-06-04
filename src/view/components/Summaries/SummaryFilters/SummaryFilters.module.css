@@ -1,0 +1,26 @@
+/* src/view/components/Summaries/SummaryFilters/SummaryFilters.module.css */
+.filtersContainer {
+  margin-bottom: var(--spacing-unit-lg, 24px);
+  display: flex;
+  gap: var(--spacing-unit-md, 16px);
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.searchInput {
+  padding: var(--spacing-unit-sm, 10px) var(--spacing-unit-md, 12px);
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: var(--border-radius-sm, 4px);
+  font-size: 1rem;
+  flex-grow: 1; /* Takes available space */
+  min-width: 200px; /* Minimum width before wrapping */
+}
+
+.courseSelect {
+  padding: var(--spacing-unit-sm, 10px) var(--spacing-unit-md, 12px);
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: var(--border-radius-sm, 4px);
+  font-size: 1rem;
+  min-width: 180px; /* Minimum width */
+  background-color: white; /* Ensure select is not transparent */
+}

@@ -1,0 +1,50 @@
+/* src/view/pages/Home/HomePage.module.css */
+.homeContainer {
+  text-align: center;
+  padding: var(--spacing-unit-lg, 24px) var(--spacing-unit-md, 16px);
+}
+
+.welcomeMessage {
+  margin-bottom: var(--spacing-unit-sm, 8px);
+  font-size: 1.5rem; /* Responsive font size */
+  color: var(--text-primary, #333);
+}
+
+.pageTitle {
+  margin-bottom: var(--spacing-unit-xs, 4px);
+  font-size: 2rem; /* Responsive font size */
+  color: var(--text-primary, #333);
+}
+
+.pageSubtitle {
+  margin-bottom: var(--spacing-unit-xl, 32px);
+  font-size: 1.1rem;
+  color: var(--text-secondary, #555);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-unit-lg, 24px);
+  max-width: 1200px;
+  margin: 0 auto; /* Center the grid */
+}
+
+@media (max-width: var(--breakpoint-sm, 576px)) {
+  .welcomeMessage {
+    font-size: 1.25rem;
+  }
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+  .pageSubtitle {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-unit-lg, 24px);
+  }
+  .featuresGrid {
+    gap: var(--spacing-unit-md, 16px);
+  }
+}

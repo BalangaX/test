@@ -1,31 +1,49 @@
 /* src/view/components/Home/HomeCard/HomeCard.module.css */
-.homeCard {
-  border: 1px solid #ddd; /* Use var(--border-color) or similar from theme if defined */
-  border-radius: var(--border-radius);
-  padding: calc(var(--spacing-unit) * 2.5); /* 20px */
-  margin: var(--spacing-unit); /* 8px */
-  text-align: center;
-  width: 220px; /* Slightly wider */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  text-decoration: none;
-  color: var(--text-color);
-  background-color: var(--surface-color);
+.card {
+  background-color: var(--surface-color, #fff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: var(--border-radius-md, 8px);
+  padding: var(--spacing-unit-lg, 24px);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,0.05));
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  text-align: left; /* Align text to left within card */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure cards in a row have same height if needed by design */
 }
 
-.homeCard:hover {
+.card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-md, 0 4px 8px rgba(0,0,0,0.1));
 }
 
-.homeCard h3 { /* Changed from .title to direct h3 for simplicity if no other h3 needed */
-  color: var(--primary-color);
-  margin-top: 0;
-  margin-bottom: var(--spacing-unit); /* 8px */
+.cardTitle {
+  font-size: 1.5rem;
+  color: var(--primary-color, #007bff);
+  margin-bottom: var(--spacing-unit-md, 16px);
+  font-weight: 600;
 }
 
-.homeCard p { /* Changed from .description to direct p */
-  font-size: 0.9em;
-  color: var(--secondary-color);
-  margin-bottom: 0;
+.cardDescription {
+  font-size: 1rem;
+  color: var(--text-secondary, #555);
+  margin-bottom: var(--spacing-unit-lg, 24px); /* Ensure space before link if link is at bottom */
+  flex-grow: 1; /* Allow description to take available space */
+}
+
+.cardLink {
+  display: inline-block; /* Or block if it should take full width */
+  text-decoration: none;
+  color: var(--accent-color, #0056b3);
+  font-weight: 500;
+  padding: var(--spacing-unit-sm, 8px) var(--spacing-unit-md, 16px);
+  border: 1px solid var(--accent-color, #0056b3);
+  border-radius: var(--border-radius-sm, 4px);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  align-self: flex-start; /* Align link to the start of the card's cross axis */
+}
+
+.cardLink:hover {
+  background-color: var(--accent-color, #0056b3);
+  color: var(--surface-color, #fff);
 }

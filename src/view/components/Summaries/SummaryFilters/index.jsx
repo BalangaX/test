@@ -1,26 +1,27 @@
 import React from 'react';
+import styles from './SummaryFilters.module.css'; // Import
 
 const SummaryFilters = ({ onFilterChange, onSearchChange }) => {
-  // Actual filtering logic will be implemented later
   return (
-    <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', alignItems: 'center' }}>
+    <div className={styles.filtersContainer}>
       <input
         type="text"
         placeholder="Search summaries by title or course..."
         onChange={(e) => onSearchChange(e.target.value)}
-        style={{ padding: '8px', flexGrow: 1 }}
+        className={styles.searchInput}
       />
-      {/* Example filter - can be expanded */}
-      <select onChange={(e) => onFilterChange({ course: e.target.value })} style={{ padding: '8px' }}>
+      <select
+        onChange={(e) => onFilterChange({ course: e.target.value })}
+        className={styles.courseSelect}
+      >
         <option value="">All Courses</option>
+        {/* These should ideally be dynamic */}
         <option value="CS101">CS101</option>
         <option value="CS303">CS303</option>
         <option value="HIST202">HIST202</option>
         <option value="MATH201">MATH201</option>
-        {/* Add more courses dynamically or from a list */}
       </select>
     </div>
   );
 };
-
 export default SummaryFilters;

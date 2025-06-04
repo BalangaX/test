@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './HomeCard.module.css'; // Import CSS Module
+import styles from './HomeCard.module.css';
 
 const HomeCard = ({ title, description, linkTo }) => {
   return (
-    <Link to={linkTo} className={styles.homeCard}>
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </Link>
+    <div className={styles.card}>
+      <h3 className={styles.cardTitle}>{title}</h3>
+      <p className={styles.cardDescription}>{description}</p>
+      <Link to={linkTo} className={styles.cardLink}>Go to {title}</Link>
+    </div>
   );
 };
 

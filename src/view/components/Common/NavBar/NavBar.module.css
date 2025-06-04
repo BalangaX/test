@@ -1,9 +1,10 @@
 /* src/view/components/Common/NavBar/NavBar.module.css */
 .navBar {
-  background-color: var(--surface-color);
-  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2); /* 12px 16px */
-  margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface-color, #fff); /* Added fallback */
+  padding: calc(var(--spacing-unit, 8px) * 1.5) calc(var(--spacing-unit, 8px) * 3);
+  margin-bottom: calc(var(--spacing-unit, 8px) * 2.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
 }
 
 .navList {
@@ -11,32 +12,75 @@
   margin: 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
-  gap: calc(var(--spacing-unit) * 2); /* 16px */
+  flex-wrap: wrap;
+  gap: calc(var(--spacing-unit, 8px) * 2.5);
   align-items: center;
 }
 
+.navItem { /* Added for potential future use or more complex item styling */
+  display: flex;
+}
+
 .navLink {
-  color: var(--primary-color);
+  color: var(--text-primary, #333);
   text-decoration: none;
   font-weight: 500;
-  padding: var(--spacing-unit) 0; /* 8px 0 */
+  padding: calc(var(--spacing-unit, 8px) * 0.75) calc(var(--spacing-unit, 8px) * 1.5);
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.navLink:hover,
-.navLinkActive { /* Assuming react-router-dom NavLink activeClassName or similar */
-  color: var(--accent-color);
-  /* text-decoration: underline; Let NavLink style prop handle this for active */
+.navLink:hover {
+  background-color: var(--hover-background-color, #f0f0f0);
+  color: var(--accent-color, #007bff);
 }
 
-/* Basic responsiveness for NavBar */
-@media (max-width: var(--breakpoint-md)) {
+.activeLink {
+  color: var(--accent-color, #007bff);
+  font-weight: bold;
+  background-color: var(--active-background-color, #e9f5ff); /* Subtle background for active link */
+}
+
+.logoutButton {
+  background: none;
+  border: none;
+  color: var(--primary-color, #333);
+  cursor: pointer;
+  padding: calc(var(--spacing-unit, 8px) * 0.75) calc(var(--spacing-unit, 8px) * 1.5);
+  font-weight: 500;
+  font-family: inherit; /* Ensure font consistency */
+  font-size: inherit; /* Ensure font size consistency */
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.logoutButton:hover {
+  background-color: var(--hover-background-color, #f0f0f0);
+  color: var(--accent-color, #d9534f); /* Different accent for logout hover if desired */
+}
+
+.userEmail {
+  font-size: 0.9em;
+  color: var(--text-secondary, #555);
+  margin-left: 5px;
+}
+
+
+/* Responsiveness */
+@media (max-width: var(--breakpoint-md, 768px)) {
   .navList {
-    flex-direction: column; /* Stack links vertically */
-    align-items: flex-start;
-    gap: var(--spacing-unit); /* 8px */
+    flex-direction: column;
+    align-items: stretch; /* Stretch items to fill width */
+    gap: var(--spacing-unit, 8px);
   }
   .navBar {
-    padding: var(--spacing-unit); /* 8px */
+    padding: var(--spacing-unit, 8px) calc(var(--spacing-unit, 8px) * 2);
+  }
+  .navLink, .logoutButton {
+    padding: calc(var(--spacing-unit, 8px) * 1.25); /* Slightly larger tap targets */
+    text-align: left; /* Align text to the left when stacked */
+  }
+  .logoutButton {
+    width: 100%; /* Make logout button full width on mobile */
   }
 }
