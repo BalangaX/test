@@ -4,11 +4,11 @@ import styles from "./style.module.css"; // Updated import
 export default function NavBar() {
   return (
     <nav className={styles.navBar}>
-      <NavLink to="/" className={styles.navTitle}>
+      <NavLink to="/home" className={styles.navTitle}>
         MyApp
       </NavLink>
       <ul className={styles.navLinks}>
-        <li><NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""} end>Home</NavLink></li>
+        <li><NavLink to="/home" className={({ isActive }) => isActive ? styles.active : ""} end>Home</NavLink></li>
         <li><NavLink to="/tasks" className={({ isActive }) => isActive ? styles.active : ""}>Tasks</NavLink></li>
         <li><NavLink to="/summaries" className={({ isActive }) => isActive ? styles.active : ""}>Summaries</NavLink></li>
         <li><NavLink to="/writing-assistant" className={({ isActive }) => isActive ? styles.active : ""}>Writing Assistant</NavLink></li>

@@ -1,0 +1,62 @@
+.authContainer {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: var(--spacing-unit-lg);
+  background-color: var(--background-color-cards);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.toggleButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-unit-md);
+}
+
+.toggleButtons button {
+  padding: var(--spacing-unit-sm) var(--spacing-unit-md);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toggleButtons .active {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit-xs);
+}
+
+.formGroup input {
+  padding: var(--spacing-unit-sm);
+  border: 1px solid var(--border-color-default);
+  border-radius: var(--border-radius-sm);
+}
+
+.submitButton {
+  padding: var(--spacing-unit-sm);
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+

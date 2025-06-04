@@ -3,7 +3,7 @@ import { writingTemplates } from "../../../data/writingTemplates";
 import styles from './style.module.css';
 
 export default function WritingAssistantPage() {
-  const [templates, setTemplates] = useState(writingTemplates);
+  const [templates] = useState(writingTemplates);
   const [selectedTemplateId, setSelectedTemplateId] = useState('');
   const [userInputText, setUserInputText] = useState('');
   const [feedbackMessages, setFeedbackMessages] = useState([]); // To store feedback

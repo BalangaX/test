@@ -5,7 +5,7 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // For accordion ic
 
 export default function HelpSettingsPage() {
   // FAQ State
-  const [faqs, setFaqs] = useState(faqData);
+  const [faqs] = useState(faqData);
   const [openFaqId, setOpenFaqId] = useState(null); // ID of the currently open FAQ item
 
   // Profile Form State

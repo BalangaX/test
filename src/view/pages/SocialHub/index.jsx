@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaUserCircle, FaHeart, FaRegHeart, FaCommentDots } from 'react-icons/fa';
 import initialSocialPosts from '../../../data/socialPosts';
 import NewPostForm from '../../components/SocialHub/NewPostForm';
