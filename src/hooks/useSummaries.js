@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { collection, query, where, orderBy, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
+import logger from "../utils/logger.js";
 
 /**
  * Hook לשחזור סיכומים שממתינים לאישור.
@@ -24,7 +25,7 @@ export default function useSummaries() {
         setSummaries(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
       },
       (err) => {
-        console.error("Error fetching pending summaries:", err);
+        logger.error("Error fetching pending summaries:", err);
       }
     );
     return unsubscribe;
@@ -35,7 +36,7 @@ export default function useSummaries() {
     try {
       await addDoc(collection(db, "summaries"), summaryData);
     } catch (err) {
-      console.error("Error adding summary:", err);
+      logger.error("Error adding summary:", err);
       throw err;
     }
   };

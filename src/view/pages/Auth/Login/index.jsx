@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext";
+import logger from "../../../../utils/logger.js";
 
 export default function Login() {
   const { login } = useAuth();
@@ -19,12 +20,12 @@ export default function Login() {
     /* ---- ADMIN BYPASS ---- */
     if (identifier === "1111" && password === "1111") {
       try {
-        console.log("Attempting admin login");
+        logger.log("Attempting admin login");
         await login(identifier, password); // עדכן את currentUser ל-admin
-        console.log("Admin login successful");
+        logger.log("Admin login successful");
         navigate("/", { replace: true });
       } catch (err) {
-        console.error("Admin login failed:", err);
+        logger.error("Admin login failed:", err);
         setError(err.message || "Admin login failed");
       }
       return;
@@ -37,12 +38,12 @@ export default function Login() {
     }
 
     try {
-      console.log("Attempting login for", identifier, "remember:", remember);
+      logger.log("Attempting login for", identifier, "remember:", remember);
       await login(identifier, password);
-      console.log("Login successful, navigating to home");
+      logger.log("Login successful, navigating to home");
       navigate("/", { replace: true });
     } catch (err) {
-      console.error("Login failed:", err);
+      logger.error("Login failed:", err);
       setError(err.message || "Login failed");
     }
   };
