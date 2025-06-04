@@ -4,7 +4,7 @@ import styles from './style.module.css';
 import { useAuth } from '../../../../context/AuthContext'; // ייבוא ה־AuthContext
 
 export default function NavBar() {
-  const { currentUser, isAdmin } = useAuth(); // שלוף את המשתמש
+  const { isAdmin } = useAuth(); // שלוף את המשתמש
 
   // הלינקים של כולם
   const links = [

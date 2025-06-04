@@ -3,6 +3,7 @@ import styles from "./style.module.css"; // תיצור קובץ style.module.css
 import { FaEdit, FaTrash, FaThumbsUp, FaTimes, FaComment } from "react-icons/fa";
 import { collection, query, where, orderBy, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import logger from "../../../utils/logger.js";
 
 export default function AdminDashboard() {
   const [pendingSummaries, setPendingSummaries] = useState([]);
@@ -21,7 +22,7 @@ export default function AdminDashboard() {
           snapshot.docs.map((d) => ({ id: d.id, ...d.data() }))
         );
       },
-      (error) => console.error("Admin onSnapshot error:", error)
+      (error) => logger.error("Admin onSnapshot error:", error)
     );
     return unsub;
   }, []);

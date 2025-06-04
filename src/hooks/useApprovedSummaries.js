@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/config";
+import logger from "../utils/logger.js";
 
 export default function useApprovedSummaries() {
   const [summaries, setSummaries] = useState([]);
@@ -18,7 +19,7 @@ export default function useApprovedSummaries() {
       (snapshot) => {
         setSummaries(snapshot.docs.map((d) => ({ id: d.id, ...d.data() })));
       },
-      (err) => console.error("useApprovedSummaries onSnapshot error:", err)
+      (err) => logger.error("useApprovedSummaries onSnapshot error:", err)
     );
     return unsub;
   }, []);

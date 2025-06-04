@@ -1,1 +1,3 @@
-console.log('StudyBuddy נטען בהצלחה!');
+import logger from './logger.cjs';
+
+logger.log('StudyBuddy נטען בהצלחה!');

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './style.module.css';
 import { FaStar, FaRegStar } from 'react-icons/fa';
+import logger from '../../../../utils/logger.js';
 
 export default function RatingsList({ comments }) {
   return (
@@ -21,7 +22,7 @@ export default function RatingsList({ comments }) {
       </ul>
       <button
         className={styles.button}
-        onClick={() => console.log('Send message clicked')}
+        onClick={() => logger.log('Send message clicked')}
       >
         📩 Send Message
       </button>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./style.module.css";
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../firebase/config";
+import logger from "../../../../utils/logger.js";
 import { useAuth } from "../../../../context/AuthContext";
 
 export default function UploadSummaryModal({ onClose, onSend }) {
@@ -19,7 +20,7 @@ export default function UploadSummaryModal({ onClose, onSend }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('UploadSummaryModal: handleSubmit called, file=', file, 'form=', form);
+    logger.log('UploadSummaryModal: handleSubmit called, file=', file, 'form=', form);
     try {
       let fileURL = "";
       if (file) {
@@ -28,7 +29,7 @@ export default function UploadSummaryModal({ onClose, onSend }) {
         await uploadBytes(ref, file);
         fileURL = await getDownloadURL(ref);
       }
-      console.log('UploadSummaryModal: calling onSend with', {
+      logger.log('UploadSummaryModal: calling onSend with', {
         ...form,
         pdfURL: fileURL,
         author: currentUser?.email || "Anonymous",
@@ -44,10 +45,10 @@ export default function UploadSummaryModal({ onClose, onSend }) {
         rating: 0,
         status: "pending",
       });
-      console.log('UploadSummaryModal: onSend succeeded');
+      logger.log('UploadSummaryModal: onSend succeeded');
       onClose();
     } catch (err) {
-      console.error('UploadSummaryModal: handleSubmit error', err);
+      logger.error('UploadSummaryModal: handleSubmit error', err);
       alert('Error uploading summary: ' + err.message);
     }
   };
