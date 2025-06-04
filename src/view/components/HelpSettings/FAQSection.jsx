@@ -1,4 +1,4 @@
-import { faqs } from '../../data/faq';
+import { faqs } from '../../../data/faq';
 
 const FAQSection = () => (
   <div>

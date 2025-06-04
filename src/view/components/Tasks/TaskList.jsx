@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { tasks as initialTasks } from '../../data/tasks';
+import { tasks as initialTasks } from '../../../data/tasks';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
 

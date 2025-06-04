@@ -1,4 +1,4 @@
-import { templates } from '../../data/writingTemplates';
+import { templates } from '../../../data/writingTemplates';
 
 const TemplateSelect = ({ value, onChange }) => (
   <select value={value} onChange={(e) => onChange(e.target.value)}>

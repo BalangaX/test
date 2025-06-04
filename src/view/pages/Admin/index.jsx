@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { summaries as initial } from '../../data/summaries';
+import { summaries as initial } from '../../../data/summaries';
 
 const Admin = () => {
   const [summaries, setSummaries] = useState(initial);

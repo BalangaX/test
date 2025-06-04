@@ -1,4 +1,4 @@
-import { tasks } from '../../data/tasks';
+import { tasks } from '../../../data/tasks';
 
 const Dashboard = () => (
   <div>
