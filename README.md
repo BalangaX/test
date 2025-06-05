@@ -48,5 +48,10 @@ StudyBuddy is a web-based platform designed for university students and faculty 
    - **Summaries Approval**: Table of all “pending” summaries, showing uploader and course name, with “Approve” / “Reject” buttons.  
    - **Support Ticket Management**: Table of all support tickets with user information and ticket content, plus a field to add an Admin response. Once submitted, the response will be visible in the user’s Settings page.
 
+## Admin Credentials
+Use the following credentials to log in as an administrator:
+- **Username:** `admin`
+- **Password:** `admin123`
+
 ## Live Site Link
-[Visit StudyBuddy (Hosted on Firebase)](https://studybuddy-556fa.web.app))
+[Visit StudyBuddy (Hosted on Firebase)](https://studybuddy-556fa.web.app)
