@@ -36,15 +36,14 @@ StudyBuddy is a web-based platform designed for university students and faculty 
    - Group Details page with a simple real-time chat: shows current members and chat messages.
 
 7. **Help & Settings**  
-   - **Help Page**: Categorized FAQ section and links to written or video tutorials.  
-   - **Settings Page**:  
-     - Edit Profile (username, short bio, profile picture).  
+   - **Help Page**: Categorized FAQ section.  
+   - **Settings Page**:    
      - Change Password form.  
      - Contact Support form to submit a support ticket.  
      - Below the form, a list of the user’s previous tickets and any Admin responses.
 
 8. **Admin Dashboard**  
-   - **User Management**: List of all registered users (username, email) with options to grant/revoke Admin rights or delete accounts.  
+   - **User Management**: List of all registered users.
    - **Summaries Approval**: Table of all “pending” summaries, showing uploader and course name, with “Approve” / “Reject” buttons.  
    - **Support Ticket Management**: Table of all support tickets with user information and ticket content, plus a field to add an Admin response. Once submitted, the response will be visible in the user’s Settings page.
 
