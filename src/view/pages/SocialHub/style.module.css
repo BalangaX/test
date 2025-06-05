@@ -1,15 +1,13 @@
 .page {
   padding: 24px;
-  background: #f5f6fa;
+  background: var(--bg-light);
 }
 .title {
   margin: 0 0 16px;
   font-size: 1.5rem;
-  color: #1e2028;
+  color: var(--text-primary);
 }
 .searchContainer {
-  display: flex;
-  justify-content: flex-end;
   margin-bottom: 16px;
 }
 .search {
@@ -25,9 +23,8 @@
   gap: 24px;
 }
 .profiles {
-  flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 16px;
 }
 .comments {
@@ -40,4 +37,33 @@
   .content {
     flex-direction: column;
   }
+}
+.section {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.feed {
+  padding: 16px;
+  background: var(--sb-surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.groupList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.groupItem {
+  padding: 8px 0;
+  border-bottom: 1px solid #dfe4ea;
+  font-size: 1rem;
+  color: var(--text-primary);
 }

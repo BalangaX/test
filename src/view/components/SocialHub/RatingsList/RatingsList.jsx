@@ -1,30 +1,28 @@
 import React from 'react';
 import styles from './style.module.css';
-import { FaStar, FaRegStar } from 'react-icons/fa';
 
-export default function RatingsList({ comments }) {
+export default function RatingsList({ posts }) {
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Summary Ratings and Comments</h2>
+      <h2 className={styles.heading}>Community Feed</h2>
       <ul className={styles.list}>
-        {comments.map((c, idx) => (
-          <li key={idx} className={styles.item}>
-            <div className={styles.stars}>
-              {[...Array(5)].map((_, i) =>
-                i < c.rating ? <FaStar key={i} /> : <FaRegStar key={i} />
-              )}
-            </div>
-            <p className={styles.comment}>"{c.comment}"</p>
-            {idx < comments.length - 1 && <hr className={styles.divider} />}
-          </li>
-        ))}
+        {posts.map((p, idx) => {
+          // Convert Firestore timestamp to readable string if necessary
+          const dateStr = p.createdAt
+            ? new Date(p.createdAt.seconds * 1000).toLocaleString()
+            : '';
+          return (
+            <li key={p.id} className={styles.item}>
+              <div className={styles.postHeader}>
+                <strong>{p.authorName}</strong>{' '}
+                <span className={styles.timestamp}>{dateStr}</span>
+              </div>
+              <p className={styles.postContent}>{p.content}</p>
+              {idx < posts.length - 1 && <hr className={styles.divider} />}
+            </li>
+          );
+        })}
       </ul>
-      <button
-        className={styles.button}
-        onClick={() => console.log('Send message clicked')}
-      >
-        📩 Send Message
-      </button>
     </div>
   );
 }

@@ -1,3 +1,6 @@
+import { db } from "../../../firebase/config";
+import { collection, addDoc, onSnapshot, doc, updateDoc, query, orderBy } from "firebase/firestore";
+import { useAuth } from "../../../context/AuthContext";
 // src/view/pages/Tasks/index.jsx
 import React, { useState } from "react";
 import styles from "./style.module.css";
@@ -39,33 +42,55 @@ const isFutureDate = (taskDate) => {
 };
 
 export default function TasksPage() {
+  const { currentUser } = useAuth();
+  if (!currentUser) {
+    return <div className={styles.tasksWrapper}>...טוען נתוני משתמש</div>;
+  }
   // state של כל המשימות
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
   // האם הטופס ליצירת משימה פתוח?
   const [showForm, setShowForm] = useState(false);
   // התאריך הנבחר בלוח השנה
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // מתרחש כשמסמנים/מסירים וי על משימה
-  const handleToggle = (id) => {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
-    );
-  };
-
   // מתרחש כשמוסיפים משימה חדשה מהטופס
-  const handleAdd = ({ title }) => {
+  const handleAdd = async ({ title }) => {
     const dateStr = selectedDate.toISOString().slice(0, 10);
-    const newTask = {
-      id: Date.now().toString(),
+    await addDoc(collection(db, "users", currentUser.uid, "tasks"), {
       title,
       date: dateStr,
       completed: false,
-      type: "standard", // ניתן לשנות ל"deadline" אם תרצו
-    };
-    setTasks((prev) => [...prev, newTask]);
+      type: "standard",
+    });
     setShowForm(false);
   };
+
+  // מתרחש כשמסמנים/מסירים וי על משימה
+  const handleToggle = async (id) => {
+    const t = tasks.find((t) => t.id === id);
+    if (!t) return;
+    await updateDoc(doc(db, "users", currentUser.uid, "tasks", id), {
+      completed: !t.completed,
+    });
+  };
+  React.useEffect(() => {
+    if (!currentUser) return;
+    const q = query(
+      collection(db, "users", currentUser.uid, "tasks"),
+      orderBy("date", "asc")
+    );
+    const unsub = onSnapshot(q, (snap) => {
+      setTasks(
+        snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
+      setLoading(false);
+    });
+    return () => unsub();
+  }, [currentUser]);
 
   // מסנן משימות עבור התאריך הנבחר
   const dateStr = selectedDate.toISOString().slice(0, 10);
@@ -84,6 +109,7 @@ export default function TasksPage() {
     <div className={styles.tasksWrapper}>
       <h1 className={styles.title}>Learning & Tasks Management</h1>
       <p className={styles.subtitle}>Personalized Learning Dashboard</p>
+      {loading && <div>...טוען משימות</div>}
 
       {/* אם showForm=true, מציגים את הטופס למעלה */}
       {showForm && (

@@ -31,7 +31,7 @@ export default function UploadSummaryModal({ onClose, onSend }) {
       console.log('UploadSummaryModal: calling onSend with', {
         ...form,
         pdfURL: fileURL,
-        author: currentUser?.email || "Anonymous",
+        author: currentUser?.username || currentUser?.email || "Anonymous",
         uploadDate: Date.now(),
         rating: 0,
         status: "pending",
@@ -39,7 +39,7 @@ export default function UploadSummaryModal({ onClose, onSend }) {
       await onSend({
         ...form,
         pdfURL: fileURL,
-        author: currentUser?.email || "Anonymous",
+        author: currentUser?.username || currentUser?.email || "Anonymous",
         uploadDate: Date.now(),
         rating: 0,
         status: "pending",

@@ -1,12 +1,9 @@
 // src/context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase/config";
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebase/config";
+import { doc as firestoreDoc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -21,20 +18,21 @@ export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // בדוק האם יש משתמש אדמין ב-localStorage
-    const storedAdmin = localStorage.getItem("sb_admin");
-    if (storedAdmin) {
-      const adminUser = JSON.parse(storedAdmin);
-      setCurrentUser({ ...adminUser, isAdmin: true });
-      setLoading(false);
-      return;
-    }
-
     // מאזין לשינויי התחברות רגילים ב־Firebase
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // הכן המשתמש עם flag זמני
-        setCurrentUser(user);
+        // Fetch username from Firestore
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            setCurrentUser({ ...user, username: userDoc.data().username });
+          } else {
+            setCurrentUser(user);
+          }
+        } catch (err) {
+          console.error("Error fetching user document:", err);
+          setCurrentUser(user);
+        }
         // בדוק custom claim admin
         user.getIdTokenResult().then(token => {
           setIsAdmin(!!token.claims.admin);
@@ -48,31 +46,29 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  // כניסת admin
-  const loginAsAdmin = () => {
-    const fakeUser = { email: "admin@local", displayName: "Administrator" };
-    localStorage.setItem("sb_admin", JSON.stringify(fakeUser));
-    setCurrentUser(fakeUser);
-    setIsAdmin(true);
-  };
-
   // פונקציית login משולבת
   const login = async (email, password) => {
-    // אם admin
-    if (email === "1111" && password === "1111") {
-      loginAsAdmin();
-      return;
-    }
-    // משתמש רגיל
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const register = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const register = async (email, password, username) => {
+    // Create user in Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const { user } = userCredential;
+    // Save username to Firestore
+    try {
+      await setDoc(firestoreDoc(db, "users", user.uid), {
+        username: username,
+        email: email,
+        createdAt: Date.now()
+      });
+    } catch (err) {
+      console.error("Error saving username to Firestore:", err);
+    }
+    return userCredential;
   };
 
   const logout = async () => {
-    localStorage.removeItem("sb_admin");
     await signOut(auth);
     setCurrentUser(null);
     setIsAdmin(false);
@@ -85,7 +81,6 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
-    loginAsAdmin,
   };
 
   return (

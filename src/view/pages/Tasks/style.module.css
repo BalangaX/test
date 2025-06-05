@@ -2,7 +2,7 @@
 
 .tasksWrapper {
   min-height: 100vh;
-  background: #f5f4fb;
+  background: var(--bg-light);
   padding: 48px 0 32px 0;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 4px;
-  color: #303048;
+  color: var(--text-primary);
 }
 
 .subtitle {
@@ -40,19 +40,20 @@
 }
 
 .card {
-  background: #fff;
+  background: var(--sb-surface);
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(70, 50, 150, 0.06);
   padding: 24px 22px 18px;
   display: flex;
   flex-direction: column;
+  color: var(--text-primary);
 }
 
 .sectionTitle {
   font-size: 1.13rem;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #303048;
+  color: var(--text-primary);
 }
 
 .taskSubsection {
@@ -70,7 +71,7 @@
 
 .chatCard {
   margin-top: 12px;
-  background: #fff;
+  background: var(--sb-surface);
   border-radius: 11px;
   box-shadow: 0 1.5px 7px rgba(70, 50, 150, 0.06);
   padding: 14px 22px;
@@ -80,7 +81,7 @@
   align-items: center;
   gap: 8px;
   font-size: 1.1rem;
-  color: #5d50af;
+  color: var(--text-primary);
 }
 
 .chatIcon {
@@ -91,7 +92,7 @@
 :global .react-calendar {
   width: 100%;
   border-radius: 12px;
-  background: #f7f6fe;
+  background: var(--bg-light);
   border: none;
   font-family: inherit;
   margin-top: 8px;
@@ -167,16 +168,16 @@
 .overview {
   display: flex;
   justify-content: space-between;
-  background: #f0f0fb;
+  background: var(--sb-surface);
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 16px;
   font-weight: 500;
-  color: #303048;
+  color: var(--text-primary);
 }
 
 .btnPrimary {
-  background-color: #5757ad;
+  background: var(--accent);
   color: #fff;
   border: none;
   padding: 10px 16px;
@@ -186,12 +187,12 @@
 }
 
 .btnPrimary:hover {
-  background-color: #47478f;
+  background: #47478f;
 }
 
 .btnSecondary {
-  background-color: #e0e0e8;
-  color: #303048;
+  background: var(--sb-surface);
+  color: var(--text-primary);
   border: none;
   padding: 10px 16px;
   border-radius: 6px;
@@ -200,5 +201,5 @@
 }
 
 .btnSecondary:hover {
-  background-color: #cfcfcf;
+  background: #cfcfcf;
 }

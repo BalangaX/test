@@ -6,6 +6,7 @@
     box-shadow: 0 2px 12px rgba(70,50,150,0.06);
     padding: 20px;
     display: flex;
+    cursor: pointer;
     align-items: center;
     gap: 16px;
   }
@@ -30,3 +31,8 @@
     font-size: 0.93rem;
     color: #7d7da7;
   }
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(70, 50, 150, 0.10);
+}

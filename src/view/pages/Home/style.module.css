@@ -2,7 +2,7 @@
 
 .wrapper {
   min-height: 100vh;
-  background: #f5f4fb;
+  background: var(--bg-light);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,13 +18,13 @@
   font-size: 2.7rem;
   font-weight: bold;
   margin-bottom: 8px;
-  color: #303048;
+  color: var(--text-primary);
   letter-spacing: -1px;
 }
 
 .tagline {
   font-size: 1.08rem;
-  color: #666;
+  color: var(--text-primary);
   margin-bottom: 16px;
   font-weight: 500;
 }
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   font-size: 1rem;
-  color: #5a5a6a;
+  color: var(--text-primary);
   font-weight: 500;
 }
 
@@ -54,7 +54,7 @@
   border: 2px solid #8f74f8;
   border-radius: 50%;
   margin-right: 8px;
-  background: #f5f4fb;
+  background: var(--bg-light);
 }
 
 .grid {

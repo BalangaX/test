@@ -1,28 +1,49 @@
+/* ---------- Page Wrapper ---------- */
 .page {
-    padding: 24px;
-    background-color: var(--bg-light);
-  }
-  .title {
-    font-size: 1.8rem;
-    margin-bottom: 16px;
-    color: var(--text-primary);
-  }
+  padding: 32px 24px;
+  background: var(--bg-light);
+}
+
+/* ---------- Main Heading ---------- */
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+/* ---------- 2‑Column Grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+/* generic column wrapper (used twice) */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ---------- Section Card ---------- */
+.section {
+  background: var(--sb-surface, #ffffff);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--text-primary);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
   .grid {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+    grid-template-columns: 1fr;
   }
-  .left {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .right {
-    flex: 1;
-  }
-  @media (max-width: 768px) {
-    .grid {
-      flex-direction: column;
-    }
-  }
+}

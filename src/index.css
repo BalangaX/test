@@ -19,10 +19,11 @@ html {
 
 body {
   font-family: var(--font-family-sans-serif);
-  background-color: var(--background-color-body);
-  color: var(--text-color-default);
+  background: var(--bg-light);      /* Supports dark mode */
+  color: var(--text-primary);       /* Supports dark mode */
   margin: 0; /* Redundant due to reset, but good for clarity */
   padding: 0; /* Redundant due to reset */
+  transition: background 0.2s, color 0.2s;
 }
 
 /* Headings */

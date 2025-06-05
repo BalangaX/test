@@ -1,6 +1,6 @@
 // src/view/pages/WritingAssistant/index.jsx
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from "./style.module.css";
 
 import writingTemplates from "../../../data/writingTemplates";
@@ -9,6 +9,7 @@ import TemplateSelect from "../../components/WritingAssistant/TemplateSelect";
 import FeedbackTips from "../../components/WritingAssistant/FeedbackTips";
 import FeatureCard from "../../components/WritingAssistant/FeatureCard";
 import SubmitButton from "../../components/WritingAssistant/SubmitButton";
+import TemplateCanvas from "../../components/WritingAssistant/TemplateCanvas";
 
 import {
   FaRegFileAlt,
@@ -19,7 +20,11 @@ import {
 export default function WritingAssistantPage() {
   const [paperType, setPaperType] = useState("");
   const [templateId, setTemplateId] = useState(0);
-  const [previewContent, setPreviewContent] = useState("");
+  // Holds the full template object when user selects a template
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+  // ref to scroll into the template selectors
+  const selectsRef = useRef(null);
 
   // Keep only templates that match the currently‑selected paper type  
   const filteredTemplates = useMemo(
@@ -40,29 +45,53 @@ export default function WritingAssistantPage() {
     "Follow citation guidelines carefully according to your chosen format."
   ];
 
+  // Hard‑coded example guide; can be moved to data file later
+  const formatGuide = {
+    id: -1,
+    name: "APA Format Guide",
+    content:
+      "APA Reference List Example:\n\nAuthor, A. A. (Year). Title of work. Publisher.\n\nFor in‑text citation: (Author, Year)."
+  };
+
+  /** Actions for feature cards */
+  const openFormatGuide = () => setSelectedTemplate(formatGuide);
+  const scrollToTemplates = () => {
+    const el = selectsRef.current;
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Temporary highlight so the user notices
+    el.classList.add(styles.flash);
+    setTimeout(() => el.classList.remove(styles.flash), 1000);
+  };
+  const showGrammarAlert = () => alert("Grammar Check – coming soon!");
+
   const features = [
     {
       icon: <FaRegFileAlt />,
       title: "Format Guide",
-      subtitle: "Reference examples"
+      subtitle: "Reference examples",
+      onClick: openFormatGuide
     },
     {
       icon: <FaCopy />,
       title: "Templates",
-      subtitle: "Pre-formatted documents"
+      subtitle: "Pre-formatted documents",
+      onClick: scrollToTemplates
     },
     {
       icon: <FaSpellCheck />,
       title: "Grammar Check",
-      subtitle: "AI-powered assistance"
+      subtitle: "AI-powered assistance",
+      onClick: showGrammarAlert
     }
   ];
 
   return (
+    <>
     <section className={styles.wrapper}>
       <h1 className={styles.title}>Academic Writing Assistant</h1>
 
-      <div className={styles.selects}>
+      <div className={styles.selects} ref={selectsRef}>
         <PaperTypeSelect
           value={paperType}
           onChange={setPaperType}
@@ -71,6 +100,7 @@ export default function WritingAssistantPage() {
           templates={filteredTemplates}
           value={templateId}
           onChange={setTemplateId}
+          onSelect={setSelectedTemplate}  // open canvas immediately
         />
       </div>
 
@@ -83,6 +113,7 @@ export default function WritingAssistantPage() {
             icon={f.icon}
             title={f.title}
             subtitle={f.subtitle}
+            onClick={f.onClick}
           />
         ))}
       </div>
@@ -92,22 +123,20 @@ export default function WritingAssistantPage() {
           alert("Please select a paper type.");
           return;
         }
-        const selectedTemplate = filteredTemplates.find(t => t.id === templateId);
-        if (!selectedTemplate) {
+        const tmpl = filteredTemplates.find(t => t.id === templateId);
+        if (!tmpl) {
           alert("Please select a template.");
           return;
         }
-        setPreviewContent(selectedTemplate.content || "");
+        setSelectedTemplate(tmpl); // open canvas manually
       }} />
-
-      {previewContent && (
-        <div className={styles.previewContainer}>
-          <h2>Template Preview</h2>
-          <div className={styles.previewContent}>
-            {previewContent}
-          </div>
-        </div>
-      )}
     </section>
+
+      {/* Full‑screen canvas */}
+      <TemplateCanvas
+        template={selectedTemplate}
+        onClose={() => setSelectedTemplate(null)}
+      />
+    </>
   );
 }

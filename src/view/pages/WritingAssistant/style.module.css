@@ -2,7 +2,7 @@
 
 .wrapper {
   min-height: 100vh;
-  background: #f5f4fb;
+  background: var(--bg-light);
   padding: 48px 16px 32px;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 24px;
-  color: #303048;
+  color: var(--text-primary);
   text-align: center;
   max-width: 860px;
 }
@@ -48,4 +48,10 @@
   .featuresGrid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Temporary flash outline for template selector area */
+.flash {
+  outline: 3px solid #a78bfa;
+  transition: outline 0.3s ease;
 }

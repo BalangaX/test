@@ -87,4 +87,27 @@
   --container-max-width-md: 720px;
   --container-max-width-lg: 960px;
   --container-max-width-xl: 1140px;
+
+  /* Aliases used by new components */
+  --text-primary: var(--text-color-default);     /* primary text */
+  --sb-surface: var(--background-color-cards);   /* card surface bg */
+  --bg-light: var(--background-color-body);      /* page light bg */
+  --accent: var(--primary-color);                /* accent used in controls */
+}
+
+/* ---------- Dark‑Mode Overrides ---------- */
+.dark-mode {
+  /* Override palette */
+  --background-color-body: #1e1e2f;
+  --background-color-cards: #2b2b3f;
+  --text-color-default: #e6e6e6;
+  --text-color-headings: #ffffff;
+
+  /* Keep accent colour but adjust link hover if needed */
+  --text-color-links-hover: #70b0ff;
+
+  /* Alias updates */
+  --text-primary: var(--text-color-default);
+  --sb-surface: var(--background-color-cards);
+  --bg-light: var(--background-color-body);
 }

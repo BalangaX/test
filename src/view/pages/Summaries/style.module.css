@@ -2,7 +2,7 @@
 
 .wrapper {
   min-height: 100vh;
-  background: #f5f4fb;
+  background: var(--bg-light);
   padding: 48px 16px 32px;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
 .title {
   font-size: 2rem;
   font-weight: bold;
-  color: #303048;
+  color: var(--text-primary);
   margin-bottom: 24px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .uploadBtn {
-  background: #8f74f8;
+  background: var(--accent, #8f74f8);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -39,7 +39,7 @@
 }
 .uploadBtn:hover,
 .uploadBtn:focus {
-  background: #6f56c5;
+  background: #6f56c5; /* optional: define --accent-hover if you want full theme control */
 }
 
 @media (max-width: 600px) {
