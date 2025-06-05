@@ -1,7 +1,6 @@
 import { db } from "../../../firebase/config";
 import { collection, addDoc, onSnapshot, doc, updateDoc, query, orderBy } from "firebase/firestore";
 import { useAuth } from "../../../context/AuthContext";
-// src/view/pages/Tasks/index.jsx
 import React, { useState } from "react";
 import styles from "./style.module.css";
 
@@ -35,7 +34,6 @@ const initialTasks = [
   },
 ];
 
-// עזר לבדיקת תאריך עתידי
 const isFutureDate = (taskDate) => {
   const today = new Date().toISOString().slice(0, 10);
   return taskDate > today;
@@ -46,15 +44,11 @@ export default function TasksPage() {
   if (!currentUser) {
     return <div className={styles.tasksWrapper}>...טוען נתוני משתמש</div>;
   }
-  // state של כל המשימות
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  // האם הטופס ליצירת משימה פתוח?
   const [showForm, setShowForm] = useState(false);
-  // התאריך הנבחר בלוח השנה
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // מתרחש כשמוסיפים משימה חדשה מהטופס
   const handleAdd = async ({ title }) => {
     const dateStr = selectedDate.toISOString().slice(0, 10);
     await addDoc(collection(db, "users", currentUser.uid, "tasks"), {
@@ -66,7 +60,6 @@ export default function TasksPage() {
     setShowForm(false);
   };
 
-  // מתרחש כשמסמנים/מסירים וי על משימה
   const handleToggle = async (id) => {
     const t = tasks.find((t) => t.id === id);
     if (!t) return;
@@ -92,16 +85,13 @@ export default function TasksPage() {
     return () => unsub();
   }, [currentUser]);
 
-  // מסנן משימות עבור התאריך הנבחר
   const dateStr = selectedDate.toISOString().slice(0, 10);
   const tasksForDate = tasks.filter((t) => t.date === dateStr);
 
-  // מסנן משימות מסוג "deadline" שעדיין לא עברו תאריך
   const upcomingDeadlines = tasks.filter(
     (t) => t.type === "deadline" && isFutureDate(t.date)
   );
 
-  // חישוב סיכום משימות פתוחות וסגורות
   const completedCount = tasks.filter((t) => t.completed).length;
   const openCount = tasks.length - completedCount;
 
@@ -111,7 +101,6 @@ export default function TasksPage() {
       <p className={styles.subtitle}>Personalized Learning Dashboard</p>
       {loading && <div>...טוען משימות</div>}
 
-      {/* אם showForm=true, מציגים את הטופס למעלה */}
       {showForm && (
         <TaskForm
           onAdd={handleAdd}
@@ -120,7 +109,6 @@ export default function TasksPage() {
       )}
 
       <div className={styles.grid}>
-        {/* ״Tasks Section״ */}
         <div className={styles.card}>
           <div className={styles.sectionTitle}>
             Today’s Tasks for <b>{selectedDate.toLocaleDateString()}</b>
@@ -144,7 +132,6 @@ export default function TasksPage() {
           </div>
         </div>
 
-        {/* ״Calendar + Quick Actions״ */}
         <div className={styles.card}>
           <div className={styles.sectionTitle}>Your Calendar</div>
           <MyCalendar

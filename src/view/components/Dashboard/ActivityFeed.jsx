@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./ActivityFeed.module.css";
 
-/**
- * Displays a chronological feed of the user's recent actions (task completions, summary uploads, comments).
- * Now accepts `data` and `loading` props from the parent.
- */
 export default function ActivityFeed({ className = "", data = [], loading = false }) {
   const timeAgo = (date) => {
     if (!date) return "";

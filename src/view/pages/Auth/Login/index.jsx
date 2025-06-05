@@ -1,7 +1,8 @@
-// src/view/pages/Auth/Login/index.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { db } from "../../../../firebase/config";
 
 export default function Login() {
   const { login } = useAuth();
@@ -9,36 +10,35 @@ export default function Login() {
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword]     = useState("");
-  const [remember, setRemember]     = useState(false);
   const [error, setError]           = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    /* ---- ADMIN BYPASS ---- */
-    if (identifier === "1111" && password === "1111") {
-      try {
-        console.log("Attempting admin login");
-        await login(identifier, password); // עדכן את currentUser ל-admin
-        console.log("Admin login successful");
-        navigate("/", { replace: true });
-      } catch (err) {
-        console.error("Admin login failed:", err);
-        setError(err.message || "Admin login failed");
-      }
-      return;
-    }
-
-    /* ---- NORMAL FLOW ---- */
-    if (!/@/.test(identifier)) {
-      setError("Use your university email address");
-      return;
-    }
-
     try {
-      console.log("Attempting login for", identifier, "remember:", remember);
-      await login(identifier, password);
+      const isEmail = identifier.includes("@");
+      const uname = identifier.trim().toLowerCase();
+
+      let emailToUse = identifier;
+      if (!isEmail) {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("username", "==", uname));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+          setError("No user found with that username");
+          return;
+        }
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+        if (!userData.email) {
+          setError("Error: user has no email associated");
+          return;
+        }
+        emailToUse = userData.email;
+      }
+      console.log("Attempting login for", emailToUse);
+      await login(emailToUse, password);
       console.log("Login successful, navigating to home");
       navigate("/", { replace: true });
     } catch (err) {
@@ -75,14 +75,6 @@ export default function Login() {
           />
         </label>
 
-        <label className="remember-me">
-          <input
-            type="checkbox"
-            checked={remember}
-            onChange={(e) => setRemember(e.target.checked)}
-          />{" "}
-          Remember Me
-        </label>
 
         <button className="btn-primary" type="submit">
           Login

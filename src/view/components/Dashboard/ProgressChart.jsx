@@ -1,5 +1,3 @@
-
-
 import PropTypes from "prop-types";
 import {
   ResponsiveContainer,
@@ -11,10 +9,6 @@ import {
   Tooltip,
 } from "recharts";
 
-/**
- * Renders a 7-day progress line chart (“Tasks Completed”).
- * Data is now received from parent (via hook).
- */
 export default function ProgressChart({ className = "", data = [], loading = false }) {
   return (
     <div className={className} style={{ width: "100%", height: "100%" }}>

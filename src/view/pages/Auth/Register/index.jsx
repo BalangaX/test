@@ -1,4 +1,3 @@
-// src/view/pages/Auth/Register/index.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext";
@@ -14,16 +13,10 @@ export default function RegisterPage() {
   const [error, setError]       = useState("");
   const { register }            = useAuth();
   const navigate                = useNavigate();
-  const allowedDomain           = "365.ono.ac.il";
 
   const handleSubmit = async e => {
     e.preventDefault();
     setError("");
-    const parts = email.split("@");
-    if (parts.length !== 2 || parts[1].toLowerCase() !== allowedDomain) {
-      setError(`Use your university email (@${allowedDomain})`);
-      return;
-    }
     if (password !== confirm) {
       setError("Passwords do not match");
       return;
@@ -38,12 +31,10 @@ export default function RegisterPage() {
           createdAt: Date.now()
         });
       } catch (firestoreError) {
-        // Warn only in console if saving to Firestore fails, but let the user continue
-        console.error("Warning: user created, but failed to save username to Firestore.", firestoreError);
       }
       navigate("/", { replace: true });
     } catch (authError) {
-      setError(authError.message); // Only show error if user creation failed
+      setError(authError.message);
     }
   };
 

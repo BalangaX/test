@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styles from "./FAQSection.module.css";
 
 const faqs = [
-  { question: "איך משתמשים באפליקציה?", answer: "ניווט דרך התפריט העליון או הצדדי." },
-  { question: "איך מוסיפים משימה חדשה?", answer: "לחצו על '+ Add Task' במסך Tasks ושמרו." },
-  { question: "איך מייצאים סיכומים?", answer: "לחצו על 'Export PDF' במסך Summaries." },
-  { question: "כיצד לקבל תמיכה?", answer: "מלאו את הטופס למטה או פנו ל-support@example.com." }
+  { question: "How do I use the app?", answer: "Navigate using the top or side menu." },
+  { question: "How do I add a new task?", answer: "Click '+ Add Task' on the Tasks screen and save." },
+  { question: "How do I export summaries?", answer: "Click 'Export PDF' on the Summaries screen." },
+  { question: "How can I get support?", answer: "Fill out the form below." }
 ];
 
 export default function FAQSection() {
@@ -13,7 +13,7 @@ export default function FAQSection() {
 
   return (
     <div className={styles.card}>
-      <h2 className={styles.heading}>שאלות נפוצות (FAQ)</h2>
+      <h2 className={styles.heading}>Frequently Asked Questions (FAQ)</h2>
       <ul className={styles.list}>
         {faqs.map((faq, i) => (
           <li key={i} className={styles.item}>

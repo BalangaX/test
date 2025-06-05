@@ -1,9 +1,9 @@
-import { getDocs } from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 import React, { useState, useEffect } from "react";
 import styles from "./style.module.css"; // תיצור קובץ style.module.css באותה תיקייה
 import { FaEdit, FaTrash, FaThumbsUp, FaTimes, FaComment } from "react-icons/fa";
-import { collection, query, where, orderBy, onSnapshot, updateDoc, doc } from "firebase/firestore";
+import { collection as collectionRef, query as queryRef, where as whereRef, orderBy, onSnapshot, updateDoc, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 export default function AdminDashboard() {
@@ -15,6 +15,12 @@ export default function AdminDashboard() {
   const [userStats, setUserStats] = useState({ total: 0, growth: [], newSignups: 0 });
   const [contentStats, setContentStats] = useState({ summaries: 0, posts: 0, tasks: 0, comments: 0 });
   const [loadingStats, setLoadingStats] = useState(true);
+
+  const [userList, setUserList] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(true);
+
+  const [supportList, setSupportList] = useState([]);
+  const [loadingSupport, setLoadingSupport] = useState(true);
 
   useEffect(() => {
     const summariesRef = collection(db, "summaries");
@@ -39,9 +45,35 @@ export default function AdminDashboard() {
     async function loadStats() {
       setLoadingStats(true);
 
-      // Load users
       const usersSnap = await getDocs(collection(db, "users"));
-      const users = usersSnap.docs.map(doc => doc.data());
+      const users = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      const usersWithCounts = await Promise.all(
+        users.map(async (u) => {
+          // Count posts by this user
+          const postsRef = collection(db, "posts");
+          const postsQuery = query(postsRef, where("authorUid", "==", u.id));
+          const postsSnap = await getDocs(postsQuery);
+          const postCount = postsSnap.size;
+
+          // Count summaries by this user
+          const summariesRef = collection(db, "summaries");
+          const summariesQuery = query(summariesRef, where("uploaderUid", "==", u.id));
+          const summariesSnap = await getDocs(summariesQuery);
+          const summaryCount = summariesSnap.size;
+
+          return {
+            id: u.id,
+            username: u.username || u.email,
+            email: u.email,
+            postCount,
+            summaryCount,
+          };
+        })
+      );
+      setUserList(usersWithCounts);
+      setLoadingUsers(false);
+
       const now = Date.now();
       const dayMs = 24 * 60 * 60 * 1000;
       let growthMap = {};
@@ -65,11 +97,9 @@ export default function AdminDashboard() {
         newSignups,
       });
 
-      // Summaries
       const summariesSnap = await getDocs(collection(db, "summaries"));
       const summaries = summariesSnap.docs.length;
 
-      // Posts
       const postsSnap = await getDocs(collection(db, "posts"));
       const posts = postsSnap.docs.length;
 
@@ -85,6 +115,47 @@ export default function AdminDashboard() {
     }
     loadStats();
   }, []);
+
+  useEffect(() => {
+    async function loadSupport() {
+      setLoadingSupport(true);
+      try {
+        const ticketsSnap = await getDocs(collection(db, "supportTickets"));
+        const rawTickets = ticketsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        const uniqueUids = Array.from(new Set(rawTickets.map(t => t.userId).filter(uid => uid)));
+
+        const uidToUsername = {};
+        await Promise.all(uniqueUids.map(async (uid) => {
+          try {
+            const userDoc = await getDoc(doc(db, "users", uid));
+            if (userDoc.exists()) {
+              const data = userDoc.data();
+              uidToUsername[uid] = data.username || data.email || "Unknown";
+            } else {
+              uidToUsername[uid] = "Unknown";
+            }
+          } catch (error) {
+            console.error("Failed to fetch username for UID:", uid, error);
+            uidToUsername[uid] = "Unknown";
+          }
+        }));
+
+        const ticketsWithUsernames = rawTickets.map(t => ({
+          id: t.id,
+          username: uidToUsername[t.userId] || "Unknown",
+          message: t.message,
+          createdAt: t.createdAt,
+          adminResponse: t.adminResponse || ""
+        }));
+        setSupportList(ticketsWithUsernames);
+      } catch (err) {
+        console.error("Error loading support tickets:", err);
+      }
+      setLoadingSupport(false);
+    }
+    loadSupport();
+  }, []);
   
   const handleSearch = async () => {
     const term = searchTerm.trim().toLowerCase();
@@ -92,7 +163,6 @@ export default function AdminDashboard() {
     setSearchLoading(true);
     let results = [];
 
-    // Users search (by username or email)
     try {
       const usersRef = collection(db, "users");
       const q1 = query(usersRef, where("username", ">=", term), where("username", "<=", term + "\uf8ff"));
@@ -105,7 +175,6 @@ export default function AdminDashboard() {
         results.push({ type: "user", id: doc.id, ...doc.data() });
       });
       usersSnap2.forEach(doc => {
-        // avoid duplicates
         if (!results.find(u => u.id === doc.id))
           results.push({ type: "user", id: doc.id, ...doc.data() });
       });
@@ -113,7 +182,6 @@ export default function AdminDashboard() {
       console.error("Error searching users:", err);
     }
 
-    // Summaries search (by title or author)
     try {
       const summariesRef = collection(db, "summaries");
       const q3 = query(summariesRef, where("title", ">=", term), where("title", "<=", term + "\uf8ff"));
@@ -222,6 +290,88 @@ export default function AdminDashboard() {
                 </div>
               </div>
             ))
+          )}
+        </div>
+
+        {/* All Users Table */}
+        <div className={styles.card} style={{ width: "100%", overflowX: "auto" }}>
+          <h2>All Users</h2>
+          {loadingUsers ? (
+            <div>Loading users...</div>
+          ) : (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Posts</th>
+                  <th>Summaries</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userList.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>{user.postCount}</td>
+                    <td>{user.summaryCount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        {/* Support Tickets */}
+        <div className={styles.card} style={{ width: "100%", overflowX: "auto" }}>
+          <h2>Support Tickets</h2>
+          {loadingSupport ? (
+            <div>Loading tickets...</div>
+          ) : supportList.length === 0 ? (
+            <div>No support requests.</div>
+          ) : (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Message</th>
+                  <th>Submitted At</th>
+                  <th>Admin Response</th>
+                </tr>
+              </thead>
+              <tbody>
+                {supportList.map(ticket => (
+                  <tr key={ticket.id}>
+                    <td>{ticket.username || 'Guest'}</td>
+                    <td>{ticket.message}</td>
+                    <td>{ticket.createdAt ? new Date(ticket.createdAt.seconds * 1000).toLocaleString() : ''}</td>
+                    <td>
+                      <input
+                        type="text"
+                        defaultValue={ticket.adminResponse || ""}
+                        id={`resp-${ticket.id}`}
+                        className={styles.responseInput}
+                      />
+                      <button
+                        className={styles.responseBtn}
+                        onClick={async () => {
+                          const val = document.getElementById(`resp-${ticket.id}`).value;
+                          try {
+                            const ticketRef = doc(db, "supportTickets", ticket.id);
+                            await updateDoc(ticketRef, { adminResponse: val });
+                            window.location.reload();
+                          } catch (err) {
+                            console.error("Error sending admin response:", err);
+                          }
+                        }}
+                      >
+                        Send
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
       </div>

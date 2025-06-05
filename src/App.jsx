@@ -9,6 +9,7 @@ import Tasks from "./view/pages/Tasks";
 import Summaries from "./view/pages/Summaries";
 import WritingAssistant from "./view/pages/WritingAssistant";
 import SocialHub from "./view/pages/SocialHub";
+import GroupDetail from "./view/pages/SocialHub/GroupDetail";
 import HelpSettings from "./view/pages/HelpSettings";
 import Dashboard from "./view/pages/Dashboard";
 import Admin from "./view/pages/Admin";
@@ -19,11 +20,9 @@ import Register from "./view/pages/Auth/Register";
 export default function App() {
   return (
     <Routes>
-      {/* Public */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected */}
       <Route
         path="/"
         element={
@@ -36,13 +35,14 @@ export default function App() {
         <Route path="tasks" element={<Tasks />} />
         <Route path="summaries" element={<Summaries />} />
         <Route path="writing-assistant" element={<WritingAssistant />} />
-        <Route path="social-hub" element={<SocialHub />} />
+        <Route path="social-hub" element={<SocialHub />}>
+          <Route path="groups/:groupId" element={<GroupDetail />} />
+        </Route>
         <Route path="help-settings" element={<HelpSettings />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="admin" element={<Admin />} />
       </Route>
 
-      {/* כל שאר הדרכים → Login */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

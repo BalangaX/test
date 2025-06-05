@@ -1,5 +1,3 @@
-// src/view/pages/WritingAssistant/index.jsx
-
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import styles from "./style.module.css";
 
@@ -20,19 +18,15 @@ import {
 export default function WritingAssistantPage() {
   const [paperType, setPaperType] = useState("");
   const [templateId, setTemplateId] = useState(0);
-  // Holds the full template object when user selects a template
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
-  // ref to scroll into the template selectors
   const selectsRef = useRef(null);
 
-  // Keep only templates that match the currently‑selected paper type  
   const filteredTemplates = useMemo(
     () => writingTemplates.filter(t => t.type === paperType),
     [paperType]
   );
 
-  // Whenever the user chooses a different paper type, reset the selected template  
   useEffect(() => {
     setTemplateId(0);
   }, [paperType]);
@@ -45,7 +39,6 @@ export default function WritingAssistantPage() {
     "Follow citation guidelines carefully according to your chosen format."
   ];
 
-  // Hard‑coded example guide; can be moved to data file later
   const formatGuide = {
     id: -1,
     name: "APA Format Guide",
@@ -53,13 +46,11 @@ export default function WritingAssistantPage() {
       "APA Reference List Example:\n\nAuthor, A. A. (Year). Title of work. Publisher.\n\nFor in‑text citation: (Author, Year)."
   };
 
-  /** Actions for feature cards */
   const openFormatGuide = () => setSelectedTemplate(formatGuide);
   const scrollToTemplates = () => {
     const el = selectsRef.current;
     if (!el) return;
     el.scrollIntoView({ behavior: "smooth", block: "center" });
-    // Temporary highlight so the user notices
     el.classList.add(styles.flash);
     setTimeout(() => el.classList.remove(styles.flash), 1000);
   };
@@ -100,7 +91,7 @@ export default function WritingAssistantPage() {
           templates={filteredTemplates}
           value={templateId}
           onChange={setTemplateId}
-          onSelect={setSelectedTemplate}  // open canvas immediately
+          onSelect={setSelectedTemplate}
         />
       </div>
 
@@ -128,11 +119,10 @@ export default function WritingAssistantPage() {
           alert("Please select a template.");
           return;
         }
-        setSelectedTemplate(tmpl); // open canvas manually
+        setSelectedTemplate(tmpl);
       }} />
     </section>
 
-      {/* Full‑screen canvas */}
       <TemplateCanvas
         template={selectedTemplate}
         onClose={() => setSelectedTemplate(null)}

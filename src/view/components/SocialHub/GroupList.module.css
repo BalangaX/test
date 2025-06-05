@@ -1,0 +1,16 @@
+
+
+/* GroupList.module.css */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.loading,
+.noGroups {
+  color: var(--text-color-muted);
+  font-size: var(--font-size-base);
+  text-align: center;
+  margin: 1rem 0;
+}

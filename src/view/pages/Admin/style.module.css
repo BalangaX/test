@@ -166,3 +166,69 @@
 .statsTable tr:not(:last-child) td {
   border-bottom: 1px solid #eaeaff;
 }
+/* ---------- Improved table styling ---------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  padding: 0.55rem 0.8rem;
+  text-align: left;
+}
+
+.table thead th {
+  border-bottom: 2px solid var(--secondary-color-light, #e5e7eb);
+  font-weight: 600;
+  color: var(--text-color-headings, #374151);
+}
+
+.table tbody tr:nth-child(odd) {
+  background: var(--background-color-body, #f9fafb);
+}
+
+.table tbody tr:hover {
+  background: var(--secondary-color-light, #f1f5f9);
+}
+
+/* Inputs & button inside Support Tickets table */
+.responseInput {
+  width: 160px;
+  max-width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--secondary-color-light, #d1d5db);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.responseBtn {
+  margin-left: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--primary-color, #6366f1);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.responseBtn:hover {
+  background: var(--primary-color-dark, #4f46e5);
+}
+
+/* Grid – two columns on ≥768 px */
+@media (min-width: 768px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* keep tables scrollable if they overflow */
+  .card {
+    overflow-x: auto;
+  }
+}

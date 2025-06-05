@@ -1,14 +1,6 @@
-
-
 import PropTypes from "prop-types";
 import styles from "./StatsCard.module.css";
 
-/**
- * Displays a single KPI value with its label.
- *
- * @example
- * <StatsCard label="Active Tasks" value={4} />
- */
 export default function StatsCard({ label, value, icon = null }) {
   return (
     <div className={styles.card}>

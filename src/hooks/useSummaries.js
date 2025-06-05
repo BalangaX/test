@@ -1,12 +1,6 @@
-// src/hooks/useSummaries.js
 import { useEffect, useState } from "react";
 import { collection, query, where, orderBy, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
-
-/**
- * Hook לשחזור סיכומים שממתינים לאישור.
- * שימוש: const { summaries, addSummary } = useSummaries();
- */
 export default function useSummaries() {
   const [summaries, setSummaries] = useState([]);
 
@@ -30,7 +24,6 @@ export default function useSummaries() {
     return unsubscribe;
   }, []);
 
-  // פונקציה להוספת סיכום חדש לתור האישור
   const addSummary = async (summaryData) => {
     try {
       await addDoc(collection(db, "summaries"), summaryData);

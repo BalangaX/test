@@ -7,7 +7,6 @@ import { doc as firestoreDoc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
-// Hook לגישה לקונטקסט
 export function useAuth() {
   return useContext(AuthContext);
 }
@@ -18,10 +17,8 @@ export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // מאזין לשינויי התחברות רגילים ב־Firebase
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Fetch username from Firestore
         try {
           const userDoc = await getDoc(doc(db, "users", user.uid));
           if (userDoc.exists()) {
@@ -33,7 +30,6 @@ export function AuthProvider({ children }) {
           console.error("Error fetching user document:", err);
           setCurrentUser(user);
         }
-        // בדוק custom claim admin
         user.getIdTokenResult().then(token => {
           setIsAdmin(!!token.claims.admin);
         });
@@ -46,16 +42,36 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
-  // פונקציית login משולבת
   const login = async (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    setLoading(true);
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
+
+    try {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        setCurrentUser({ ...user, username: userDoc.data().username });
+      } else {
+        setCurrentUser(user);
+      }
+    } catch {
+      setCurrentUser(user);
+    }
+
+    try {
+      const token = await user.getIdTokenResult();
+      setIsAdmin(!!token.claims.admin);
+    } catch {
+      setIsAdmin(false);
+    }
+
+    setLoading(false);
+    return cred;
   };
 
   const register = async (email, password, username) => {
-    // Create user in Firebase Auth
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const { user } = userCredential;
-    // Save username to Firestore
     try {
       await setDoc(firestoreDoc(db, "users", user.uid), {
         username: username,
@@ -85,7 +101,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }

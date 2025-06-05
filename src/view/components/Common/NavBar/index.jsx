@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './style.module.css';
-import { useAuth } from '../../../../context/AuthContext'; // ייבוא ה־AuthContext
+import { useAuth } from '../../../../context/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../../../firebase/config';
 
 export default function NavBar() {
-  const { currentUser, isAdmin } = useAuth(); // שלוף את המשתמש
+  const { currentUser, isAdmin } = useAuth();
+  const [username, setUsername] = useState("");
 
-  // הלינקים של כולם
+  useEffect(() => {
+    async function fetchUsername() {
+      if (!currentUser) {
+        setUsername("");
+        return;
+      }
+      try {
+        const userDocRef = doc(db, 'users', currentUser.uid);
+        const userSnap = await getDoc(userDocRef);
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          setUsername(data.username || currentUser.email);
+        } else {
+          setUsername(currentUser.email);
+        }
+      } catch (err) {
+        console.error('Error fetching username:', err);
+        setUsername(currentUser.email);
+      }
+    }
+    fetchUsername();
+  }, [currentUser]);
+
   const links = [
     { to: '/',       label: 'Home' },
     { to: '/tasks',  label: 'Tasks' },
@@ -17,14 +42,13 @@ export default function NavBar() {
     { to: '/dashboard', label: 'Dashboard' },
   ];
 
-  // אם המשתמש הוא אדמין, תוסיף גם לינק אדמין (בסוף)
   if (isAdmin) {
     links.push({ to: '/admin', label: 'Admin' });
   }
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>MyApp</div>
+      <div className={styles.logo}>StudyBuddy</div>
       <ul className={styles.menu}>
         {links.map(({ to, label }) => (
           <li key={to}>
@@ -33,13 +57,20 @@ export default function NavBar() {
               className={({ isActive }) =>
                 isActive ? styles.activeLink : styles.link
               }
-              end={to === '/'} // Home יהיה פעיל רק בדיוק ב־/
+              end={to === '/'}
             >
               {label}
             </NavLink>
           </li>
         ))}
       </ul>
+      <div className={styles.userInfo}>
+        {currentUser ? (
+          <span className={styles.username}>Hello, {username}</span>
+        ) : (
+          <NavLink to="/login" className={styles.loginLink}>Login</NavLink>
+        )}
+      </div>
     </nav>
   );
 }

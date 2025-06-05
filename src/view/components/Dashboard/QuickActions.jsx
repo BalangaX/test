@@ -2,12 +2,6 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./QuickActions.module.css";
 
-/**
- * Renders three primary shortcuts so users can jump straight
- * to common flows: create task, upload summary, open writing assistant.
- *
- * You can pass a custom className to control external layout.
- */
 export default function QuickActions({ className = "" }) {
   const actions = [
     {

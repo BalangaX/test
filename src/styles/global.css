@@ -1,35 +1,307 @@
-/* ----------  CSS reset  ---------- */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      background:#f3f5fb;color:#111;line-height:1.5}
+/* ---------- Theme Variables (from theme.css) ---------- */
+:root {
+  /* Color Palette */
+  --primary-color: #007bff; /* Blue */
+  --primary-color-dark: #0056b3;
+  --primary-color-light: #3395ff;
 
-/* ----------  Utility  ---------- */
-.btn-primary{
-  background:#7b5cf0;color:#fff;border:none;padding:.75rem 2.5rem;
-  border-radius:6px;font-weight:600;cursor:pointer;transition:.2s;
-}
-.btn-primary:hover{filter:brightness(1.07)}
-.input{
-  width:100%;padding:.65rem 1rem;border:1px solid #cfd3dc;
-  border-radius:5px;outline:none;font-size:.95rem;
-}
-.input:focus{border-color:#7b5cf0}
+  --secondary-color: #6c757d; /* Gray */
+  --secondary-color-dark: #545b62;
+  --secondary-color-light: #adb5bd;
 
-/* ----------  Auth container  ---------- */
-.auth-page{
-  min-height:100dvh;display:flex;align-items:center;justify-content:center;
+  --accent-color: #17a2b8; /* Teal/Cyan */
+  --accent-color-dark: #117a8b;
+  --accent-color-light: #4dd2e7;
+
+  --success-color: #28a745; /* Green */
+  --warning-color: #ffc107; /* Yellow */
+  --error-color: #dc3545;   /* Red */
+  --info-color: #17a2b8;    /* Cyan (same as accent for now) */
+
+  /* Text Colors */
+  --text-color-default: #212529; /* Dark Gray */
+  --text-color-headings: #343a40;
+  --text-color-links: var(--primary-color);
+  --text-color-links-hover: var(--primary-color-dark);
+  --text-color-light: #f8f9fa; /* Light Gray / White */
+  --text-color-muted: var(--secondary-color);
+
+  /* Background Colors */
+  --background-color-body: #f8f9fa; /* Light Gray */
+  --background-color-cards: #ffffff; /* White */
+  --background-color-navbar: var(--primary-color);
+  --background-color-footer: #343a40;
+  --background-color-dark: #343a40;
+  --background-color-light: #f8f9fa;
+
+  /* Font Families */
+  --font-family-sans-serif: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-headings: var(--font-family-sans-serif); /* Same as body for simplicity */
+
+  /* Font Sizes */
+  --font-size-base: 1rem; /* Typically 16px */
+  --font-size-sm: calc(var(--font-size-base) * 0.875); /* 14px */
+  --font-size-lg: calc(var(--font-size-base) * 1.25);  /* 20px */
+
+  --font-size-h1: calc(var(--font-size-base) * 2.5);   /* 40px */
+  --font-size-h2: calc(var(--font-size-base) * 2);     /* 32px */
+  --font-size-h3: calc(var(--font-size-base) * 1.75);  /* 28px */
+  --font-size-h4: calc(var(--font-size-base) * 1.5);   /* 24px */
+  --font-size-h5: calc(var(--font-size-base) * 1.25);  /* 20px */
+  --font-size-h6: var(--font-size-base);             /* 16px */
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --font-weight-headings: var(--font-weight-bold);
+
+  /* Line Heights */
+  --line-height-base: 1.5;
+  --line-height-headings: 1.2;
+
+  /* Spacing Units */
+  --spacing-unit-xs: 4px;
+  --spacing-unit-sm: 8px;
+  --spacing-unit-md: 16px;
+  --spacing-unit-lg: 24px;
+  --spacing-unit-xl: 32px;
+  --spacing-unit-xxl: 48px;
+
+  /* Border Radius */
+  --border-radius-sm: 0.2rem;  /* Approx 3.2px */
+  --border-radius-md: 0.375rem; /* Approx 6px */
+  --border-radius-lg: 0.5rem;  /* Approx 8px */
+  --border-radius-pill: 50rem;
+
+  /* Box Shadows */
+  --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --box-shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+
+  /* Transitions */
+  --transition-base: all 0.2s ease-in-out;
+
+  /* Container Max Widths */
+  --container-max-width-sm: 540px;
+  --container-max-width-md: 720px;
+  --container-max-width-lg: 960px;
+  --container-max-width-xl: 1140px;
+
+  /* Aliases used by new components */
+  --text-primary: var(--text-color-default);     /* primary text */
+  --sb-surface: var(--background-color-cards);   /* card surface bg */
+  --bg-light: var(--background-color-body);      /* page light bg */
+  --accent: var(--primary-color);                /* accent used in controls */
 }
-.login-form{
-  width:100%;max-width:420px;background:#fff;padding:2.2rem 2.6rem;
-  border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
-  display:flex;flex-direction:column;gap:1.3rem;
+
+/* ----------  CSS Reset (from index.css)  ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.login-form h2{font-size:1.75rem;font-weight:700;text-align:center}
-.login-form label{display:flex;flex-direction:column;gap:.35rem;font-size:.9rem}
-.remember-me{flex-direction:row;align-items:center;gap:.5rem}
-.error-message{
-  background:#ffe9e9;color:#b91212;border:1px solid #f5b5b5;
-  padding:.7rem 1rem;border-radius:6px;font-size:.85rem
+
+html {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
-.switch-auth{font-size:.85rem;text-align:center}
-.switch-auth a{color:#7b5cf0;font-weight:600;text-decoration:none}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  background: var(--bg-light);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-headings);
+  line-height: var(--line-height-headings);
+  color: var(--text-color-headings);
+  margin-top: var(--spacing-unit-lg);
+  margin-bottom: var(--spacing-unit-md);
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-h4); }
+h5 { font-size: var(--font-size-h5); }
+h6 { font-size: var(--font-size-h6); }
+
+/* Paragraphs */
+p {
+  margin-bottom: var(--spacing-unit-md);
+  line-height: var(--line-height-base);
+}
+
+/* Links */
+a {
+  color: var(--text-color-links);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+a:hover {
+  color: var(--text-color-links-hover);
+  text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+  margin-bottom: var(--spacing-unit-md);
+  padding-left: var(--spacing-unit-lg);
+}
+li {
+  margin-bottom: var(--spacing-unit-sm);
+}
+
+/* Media */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Forms */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+button {
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  padding: var(--spacing-unit-sm) var(--spacing-unit-md);
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-base);
+}
+button:hover {
+  background-color: var(--primary-color-dark);
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+textarea,
+select {
+  padding: var(--spacing-unit-sm);
+  border: 1px solid var(--secondary-color-light);
+  border-radius: var(--border-radius-md);
+  width: 100%;
+  margin-bottom: var(--spacing-unit-md);
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 3px var(--primary-color-light);
+}
+
+/* ---------- Utility Classes (from original global.css) ---------- */
+.btn-primary {
+  background: #7b5cf0;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-primary:hover {
+  filter: brightness(1.07);
+}
+.input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1px solid #cfd3dc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 0.95rem;
+}
+.input:focus {
+  border-color: #7b5cf0;
+}
+
+/* Auth container */
+.auth-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-form {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 2.2rem 2.6rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+.login-form h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+.remember-me {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+.error-message {
+  background: #ffe9e9;
+  color: #b91212;
+  border: 1px solid #f5b5b5;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+.switch-auth {
+  font-size: 0.85rem;
+  text-align: center;
+}
+.switch-auth a {
+  color: #7b5cf0;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- Dark‑Mode Overrides ---------- */
+.dark-mode {
+  --background-color-body: #1e1e2f;
+  --background-color-cards: #2b2b3f;
+  --text-color-default: #e6e6e6;
+  --text-color-headings: #ffffff;
+  --text-color-links-hover: #70b0ff;
+  --text-primary: var(--text-color-default);
+  --sb-surface: var(--background-color-cards);
+  --bg-light: var(--background-color-body);
+}

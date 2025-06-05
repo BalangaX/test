@@ -2,12 +2,6 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
-/**
- * useUserStats – Fetches dashboard stats for a specific user from Firestore
- * Returns { kpis, progressData, activityFeed, loading, error }
- * 
- * @param {string} userId - The logged-in user's id
- */
 export default function useUserStats(userId) {
   const [loading, setLoading] = useState(true);
   const [kpis, setKpis] = useState([]);
@@ -19,7 +13,6 @@ export default function useUserStats(userId) {
     if (!userId) return;
     setLoading(true);
 
-    // Listen to all tasks for this user, ordered by date
     const q = query(
       collection(db, "users", userId, "tasks"),
       orderBy("date", "asc")
@@ -33,22 +26,17 @@ export default function useUserStats(userId) {
           ...doc.data(),
         }));
 
-        // KPIs
         const now = new Date();
         const todayStr = now.toISOString().slice(0, 10);
 
-        // Active (not completed) tasks
         const activeTasks = tasks.filter((t) => !t.completed);
 
-        // Completion Rate: completed/total
         const total = tasks.length;
         const completed = tasks.filter((t) => t.completed).length;
         const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-        // New tasks created today
         const newToday = tasks.filter((t) => t.date === todayStr).length;
 
-        // "Daily Engagement": מספר משימות שסומנו כהושלמו היום
         const completedToday = tasks.filter(
           (t) => t.completed && t.date === todayStr
         ).length;
@@ -60,7 +48,6 @@ export default function useUserStats(userId) {
           { label: "Daily Engagement", value: `${completedToday}` },
         ]);
 
-        // Progress Chart (7 ימים אחורה)
         const progressArr = [];
         for (let i = 6; i >= 0; i--) {
           const d = new Date(now);
@@ -75,7 +62,6 @@ export default function useUserStats(userId) {
         }
         setProgressData(progressArr);
 
-        // Activity Feed (שלושת השינויים האחרונים)
         const feed = tasks
           .map((t) => ({
             id: t.id,

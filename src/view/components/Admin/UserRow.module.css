@@ -1,0 +1,6 @@
+.row {
+  border-bottom: 1px solid #ddd;
+}
+.row td {
+  padding: 0.5rem 0.75rem;
+}

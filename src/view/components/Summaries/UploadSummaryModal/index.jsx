@@ -1,4 +1,3 @@
-// src/view/components/Summaries/UploadSummaryModal/index.jsx
 import React, { useState } from "react";
 import styles from "./style.module.css";
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";

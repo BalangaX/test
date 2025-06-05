@@ -1,5 +1,3 @@
-// src/view/layouts/MainLayout.jsx
-
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBar from '../components/Common/NavBar';

@@ -1,0 +1,47 @@
+/* GroupCard.module.css */
+.card {
+  background: var(--sb-surface);
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: var(--box-shadow-sm);
+}
+.name {
+  margin: 0;
+  font-size: var(--font-size-h5);
+}
+.topic {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-muted);
+  margin: 0;
+}
+.description {
+  font-size: var(--font-size-base);
+  margin: 0;
+  color: var(--text-color-default);
+}
+.membersCount {
+  margin-top: auto; /* Push buttons to bottom */
+  font-weight: 500;
+}
+.ownerTag {
+  font-size: var(--font-size-sm);
+  color: var(--accent);
+}
+.joinBtn,
+.leaveBtn {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: #fff;
+  cursor: pointer;
+}
+.joinBtn {
+  background: var(--success-color);
+}
+.leaveBtn {
+  background: var(--error-color);
+}

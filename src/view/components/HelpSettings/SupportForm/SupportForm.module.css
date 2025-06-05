@@ -19,12 +19,12 @@
     color: var(--text-primary);
   }
   .textarea {
-    border: 1px solid var(--border);
+    border: 1px solid var(--secondary-color-light);
     border-radius: 6px;
     padding: 8px;
     min-height: 80px;
     resize: vertical;
-    background: var(--bg-light);
+    background: var(--background-color-cards);
     color: var(--text-primary);
   }
   .button {
@@ -41,4 +41,21 @@
   .status {
     margin-top: 8px;
     color: #047857;
+  }
+  /* Styles for admin response section */
+  .adminResponseSection {
+    margin-top: 16px;
+    background: var(--secondary-color-light);
+    padding: 12px;
+    border-radius: 6px;
+  }
+  .adminResponseHeading {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+  .adminResponse {
+    font-size: 0.9rem;
+    color: var(--text-primary);
   }

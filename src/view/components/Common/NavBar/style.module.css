@@ -1,7 +1,7 @@
 /* src/components/common/NavBar/NavBar.module.css */
 
 .navbar {
-  background-color: var(--background-color-navbar, var(--primary-color)); /* Fallback to primary if navbar-specific isn't in theme */
+  background-color: #6e4ac8; /* Purple background */
   padding: var(--spacing-unit-md) var(--spacing-unit-lg);
   display: flex;
   justify-content: space-between; /* Pushes logo/title and links to opposite ends */

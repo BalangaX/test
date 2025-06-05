@@ -1,5 +1,3 @@
-// src/view/pages/Home/index.jsx
-
 import React from "react";
 import { FaChartBar, FaBookOpen, FaPenNib, FaUsers, FaCog } from "react-icons/fa";
 import { useAuth } from "../../../context/AuthContext";
@@ -25,7 +23,6 @@ export default function Home() {
 
   return (
     <section className={styles.wrapper}>
-      {/* HERO */}
       <header className={styles.hero}>
         <h1 className={styles.heading}>StudyBuddy</h1>
         <p className={styles.tagline}>
@@ -39,7 +36,6 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        {/* כפתור התנתקות */}
         <button
           onClick={handleLogout}
           style={{
@@ -54,11 +50,10 @@ export default function Home() {
             fontSize: "1rem"
           }}
         >
-          התנתקות
+          Logout
         </button>
       </header>
 
-      {/* GRID OF CARDS */}
       <div className={styles.grid}>
         <HomeCard
           to="/tasks"

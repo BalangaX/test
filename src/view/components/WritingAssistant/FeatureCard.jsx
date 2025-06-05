@@ -2,10 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./FeatureCard.module.css";
 
-/**
- * Generic clickable card that can trigger a custom action.
- * Supports keyboard activation (Enter / Space) for accessibility.
- */
 export default function FeatureCard({ icon, title, subtitle, onClick }) {
   return (
     <div

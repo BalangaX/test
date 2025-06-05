@@ -7,7 +7,6 @@ export default function PrivateRoute({ children }) {
   const { currentUser, loading } = useAuth();
 
   if (loading) {
-    // You can replace this with a spinner if desired
     return <div>Loading...</div>;
   }
 

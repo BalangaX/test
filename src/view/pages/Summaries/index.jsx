@@ -1,5 +1,3 @@
-// src/view/pages/Summaries/index.jsx
-
 import React, { useState } from "react";
 import styles from "./style.module.css";
 import SummaryFilters from "../../components/Summaries/SummaryFilters/SummaryFilters";
@@ -14,13 +12,11 @@ export default function SummariesPage() {
   const [sortBy, setSortBy] = useState("Popularity");
 
   const availableSummaries = useApprovedSummaries() || [];
-  const { addSummary } = useSummaries();        // Firestore data
+  const { addSummary } = useSummaries();
   const [showModal, setShowModal] = useState(false);
 
-  // בניית רשימת המחברים (authors)
   const authors = ["All", ...new Set(availableSummaries.map((s) => s.author))];
 
-  // פילטר לפי טקסט ו־author
   const filtered = availableSummaries.filter((s) => {
     const text = search.toLowerCase();
     const matchesText =
@@ -32,7 +28,6 @@ export default function SummariesPage() {
     return matchesText && matchesAuthor;
   });
 
-  // מיון לפי פופולריות (rating) או תאריך (uploadDate)
   const sorted = [...filtered].sort((a, b) => {
     if (sortBy === "Popularity") {
       return (b.rating || 0) - (a.rating || 0);

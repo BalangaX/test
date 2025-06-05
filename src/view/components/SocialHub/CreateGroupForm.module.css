@@ -1,0 +1,66 @@
+/* CreateGroupForm.module.css */
+
+.form {
+    background: var(--sb-surface);
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--box-shadow-sm);
+  }
+  
+  .form h2 {
+    margin-bottom: 0.75rem;
+    font-size: var(--font-size-h4);
+  }
+  
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+  }
+  
+  .field label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    font-size: var(--font-size-base);
+  }
+  
+  .field input,
+  .field textarea {
+    padding: 0.5rem;
+    border: 1px solid var(--secondary-color-light);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+  }
+  
+  .field textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  
+  button {
+    background: var(--primary-color);
+    color: var(--text-color-light);
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    transition: background 0.2s ease-in-out;
+  }
+  
+  button:disabled {
+    background: var(--secondary-color-light);
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background: var(--primary-color-dark);
+  }
+  
+  .error {
+    color: var(--error-color);
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-sm);
+  }

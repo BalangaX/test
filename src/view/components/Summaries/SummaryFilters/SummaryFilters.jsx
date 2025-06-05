@@ -1,5 +1,3 @@
-// src/view/components/Summaries/SummaryFilters.jsx
-
 import React from "react";
 import styles from "./style.module.css";
 

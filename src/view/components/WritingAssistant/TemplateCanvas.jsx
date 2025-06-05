@@ -3,10 +3,6 @@ import PropTypes from "prop-types";
 import styles from "./TemplateCanvas.module.css";
 import jsPDF from "jspdf";
 
-/**
- * Editable full-screen canvas for writing a document from template.
- * Allows user to type, edit, and download as PDF.
- */
 export default function TemplateCanvas({ template, onClose }) {
   const [text, setText] = useState(template?.content || "");
 
@@ -17,7 +13,6 @@ export default function TemplateCanvas({ template, onClose }) {
 
   if (!template) return null;
 
-  // Export text as PDF using jsPDF
   const handleExportPDF = () => {
     const doc = new jsPDF();
     const lines = doc.splitTextToSize(text, 180);
@@ -29,7 +24,7 @@ export default function TemplateCanvas({ template, onClose }) {
     <div className={styles.backdrop} onClick={onClose}>
       <div
         className={styles.canvas}
-        onClick={(e) => e.stopPropagation()} // prevent backdrop click
+        onClick={(e) => e.stopPropagation()}
       >
         <header className={styles.header}>
           <h2 className={styles.title}>{template.name}</h2>
@@ -49,7 +44,7 @@ export default function TemplateCanvas({ template, onClose }) {
 
         <div className={styles.actions}>
           <button className={styles.downloadBtn} onClick={handleExportPDF}>
-            הורד כ‑PDF
+            Download PDF
           </button>
         </div>
       </div>

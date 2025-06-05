@@ -12,7 +12,6 @@ export default function Dashboard() {
   const { currentUser } = useAuth();
   const userId = currentUser?.uid;
 
-  // Fetch live stats with our custom hook
   const { kpis, progressData, activityFeed, loading, error } = useUserStats(userId);
 
   const today = useMemo(
@@ -22,10 +21,9 @@ export default function Dashboard() {
 
   return (
     <div className={styles.container}>
-      {/* ---- Header ---- */}
       <header className={styles.header}>
         <div>
-          <h2 className={styles.greeting}>Hi, {/* username here */}</h2>
+          <h2 className={styles.greeting}>Hi, </h2>
           <span className={styles.date}>{today}</span>
         </div>
         <button className={styles.refreshBtn} title="Refresh">
@@ -33,7 +31,6 @@ export default function Dashboard() {
         </button>
       </header>
 
-      {/* ---- KPI Cards ---- */}
       <section className={styles.statsGrid}>
         {loading ? (
           <span>טוען נתונים...</span>
@@ -46,13 +43,11 @@ export default function Dashboard() {
         )}
       </section>
 
-      {/* ---- Main content: chart + feed ---- */}
       <main className={styles.mainGrid}>
         <ProgressChart className={styles.chart} data={progressData} loading={loading} />
         <ActivityFeed className={styles.feed} data={activityFeed} loading={loading} />
       </main>
 
-      {/* ---- Quick actions ---- */}
       <aside className={styles.actions}>
         <QuickActions />
       </aside>

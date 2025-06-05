@@ -58,3 +58,39 @@
     border-color: #444;
     color: #e5e5e5;
   }
+
+.changePasswordSection {
+  margin-top: 2rem;
+}
+.changePasswordSection h4 {
+  margin-bottom: 0.5rem;
+}
+.changePasswordSection form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.changePasswordSection label {
+  font-weight: 500;
+}
+.changePasswordSection input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.changePasswordSection button {
+  padding: 0.6rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.error {
+  color: var(--error-color);
+  margin-bottom: 0.5rem;
+}
+.success {
+  color: var(--success-color);
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,83 @@
+/* GroupChat.module.css */
+
+.chatContainer {
+    border: 1px solid var(--secondary-color-light);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* אפשר לשנות לגובה מותאם */
+    overflow: hidden;
+  }
+  
+  .messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: var(--sb-surface);
+  }
+  
+  .noMessages {
+    text-align: center;
+    color: var(--text-color-muted);
+  }
+  
+  .message {
+    margin-bottom: 0.75rem;
+    max-width: 70%;
+    padding: 0.5rem;
+    border-radius: var(--border-radius-md);
+  }
+  
+  .ownMessage {
+    background: var(--primary-color-light);
+    align-self: flex-end;
+    color: var(--text-color-light);
+  }
+  
+  .otherMessage {
+    background: var(--secondary-color-light);
+    align-self: flex-start;
+    color: var(--text-color-default);
+  }
+  
+  .author {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+  
+  .text {
+    margin: 0.25rem 0 0 0;
+    font-size: var(--font-size-base);
+  }
+  
+  .inputContainer {
+    display: flex;
+    border-top: 1px solid var(--secondary-color-light);
+    padding: 0.5rem;
+    background: var(--bg-light);
+  }
+  
+  .input {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: var(--font-size-base);
+    resize: none;
+    border: 1px solid var(--secondary-color-light);
+    border-radius: var(--border-radius-sm);
+    margin-right: 0.5rem;
+  }
+  
+  .sendBtn {
+    background: var(--primary-color);
+    color: var(--text-color-light);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+  }
+  
+  .sendBtn:disabled {
+    background: var(--secondary-color-light);
+    cursor: not-allowed;
+  }

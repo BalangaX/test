@@ -1,12 +1,10 @@
-// src/view/components/WritingAssistant/FeedbackTips.jsx
-
 import React, { useState } from "react";
 import styles from "./FeedbackTips.module.css";
 
 export default function FeedbackTips({ tips = [] }) {
   const [collapsed, setCollapsed] = useState(true);
 
-  if (!tips.length) return null; // nothing to show
+  if (!tips.length) return null;
 
   return (
     <div className={styles.card}>
