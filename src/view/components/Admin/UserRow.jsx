@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UserRow.module.css";
+import { useAuth } from "../../../context/AuthContext";
 import { db } from "../../../firebase/config";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
@@ -8,8 +9,10 @@ export default function UserRow({ user }) {
   const [completedTasks, setCompletedTasks] = useState(0);
   const [summaryCount, setSummaryCount] = useState(0);
 
+  const { currentUser } = useAuth();
   useEffect(() => {
-    if (!uid) return;
+    // רק אדמין יבצע את השאילתה
+    if (!uid || !currentUser?.isAdmin) return;
 
     const fetchCounts = async () => {
       try {
@@ -35,7 +38,7 @@ export default function UserRow({ user }) {
     };
 
     fetchCounts();
-  }, [uid]);
+  }, [uid, currentUser]);
 
   return (
     <tr className={styles.row}>

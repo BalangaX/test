@@ -5,7 +5,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 
-const uid = "J7oQeN6EZjPGZHcYhJZ0j6RnY3v1";
+const uid = "8zfmpeiXzeOL1GsJhOATOir1Bvn2";
 
 admin.auth().setCustomUserClaims(uid, { admin: true })
   .then(() => {

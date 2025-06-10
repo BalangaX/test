@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext";
-import { getDocs, collection, query, where } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase/config";
 
 export default function Login() {
@@ -15,8 +15,8 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      const isEmail = identifier.includes("@");
       const uname = identifier.trim().toLowerCase();
+      const isEmail = uname.includes("@");
       let emailToUse = isEmail ? uname : "";
 
       if (!isEmail) {
@@ -31,7 +31,7 @@ export default function Login() {
       await login(emailToUse, password);
       navigate("/", { replace: true });
     } catch (err) {
-      setError("Login failed. Please check your credentials.");
+      setError(err.message);
     }
   };
 
