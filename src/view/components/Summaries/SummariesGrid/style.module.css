@@ -1,0 +1,16 @@
+/* src/view/components/Summaries/SummariesGrid/style.module.css */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 960px;
+}
+
+.noResults {
+  color: var(--text-color-muted);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 3rem;
+}

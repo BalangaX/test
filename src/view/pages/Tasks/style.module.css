@@ -3,7 +3,7 @@
 .tasksWrapper {
   min-height: 100vh;
   background: var(--bg-light);
-  padding: 48px 0 32px 0;
+  padding: 48px 16px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,81 +14,208 @@
   font-weight: bold;
   margin-bottom: 4px;
   color: var(--text-primary);
+  text-align: center;
 }
 
 .subtitle {
-  font-size: 1.09rem;
-  color: #666;
+  font-size: 1.1rem;
+  color: var(--text-color-muted, #666);
   margin-bottom: 32px;
   font-weight: 500;
-}
-
-.chosenDate {
-  font-size: 1rem;
-  color: #5757ad;
-  margin: 4px 0 10px;
-  font-weight: 500;
+  text-align: center;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
   width: 100%;
-  max-width: 860px;
-  margin-bottom: 28px;
+  max-width: 960px;
 }
 
 .card {
   background: var(--sb-surface);
   border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(70, 50, 150, 0.06);
-  padding: 24px 22px 18px;
+  box-shadow: var(--box-shadow-sm, 0 2px 12px rgba(70, 50, 150, 0.06));
+  padding: 24px;
   display: flex;
   flex-direction: column;
   color: var(--text-primary);
 }
 
 .sectionTitle {
-  font-size: 1.13rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   color: var(--text-primary);
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
 }
 
-.taskSubsection {
-  font-size: 0.98rem;
-  color: #7c7ca7;
-  margin: 10px 0 5px;
+/* === TaskList Styles === */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItem input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.taskTitle {
+  flex-grow: 1;
+}
+
+.taskTitle.completed {
+  text-decoration: line-through;
+  color: var(--text-color-muted, #888);
+}
+
+.deadlineTag {
+  font-size: 0.8rem;
+  margin-left: 8px;
+  color: var(--error-color, #dc3545);
+  font-weight: bold;
+}
+
+.noTasks {
+  color: var(--text-color-muted);
+  padding: 16px 8px;
+  text-align: center;
+}
+
+.taskActions {
+  display: flex;
+  gap: 8px;
+}
+
+.groupTaskTag {
+  font-size: 0.75rem; /* Smaller font size */
+  margin-left: 5px; /* Little spacing from task title */
+  padding: 2px 6px; /* Some padding */
+  background-color: var(--primary-color-light); /* Light purple background */
+  color: white; /* White text */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-weight: normal; /* Normal font weight */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+/* === TaskForm Styles === */
+.taskForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.formInput {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  background: #fff;
+  outline: none;
+}
+
+.formInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(123, 92, 240, 0.2);
+}
+
+.formActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* === Unified Button Styles (No 'composes') === */
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--primary-color-light);
+  outline-offset: 2px;
+}
+
+.btnPrimary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.btnPrimary:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.btnSecondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.btnSecondary:hover {
+  background-color: #e0e0e0;
+}
+
+.btnDanger {
+  background-color: transparent;
+  color: var(--error-color, #dc3545);
+  padding: 4px 8px;
+}
+.btnDanger:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.btnEdit {
+  background-color: transparent;
+  color: var(--primary-color);
+  padding: 4px 8px;
+}
+.btnEdit:hover {
+  background-color: rgba(123, 92, 240, 0.1);
+}
+
+/* === Other Sections === */
+.overview {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-weight: 500;
 }
 
 .actionsRow {
   display: flex;
-  gap: 8px;
-  margin-top: 12px;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-.chatCard {
-  margin-top: 12px;
-  background: var(--sb-surface);
-  border-radius: 11px;
-  box-shadow: 0 1.5px 7px rgba(70, 50, 150, 0.06);
-  padding: 14px 22px;
-  width: 100%;
-  max-width: 530px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-}
-
-.chatIcon {
-  font-size: 1.33rem;
-}
-
-/* react-calendar overrides */
+/* Calendar Styles */
 :global .react-calendar {
   width: 100%;
   border-radius: 12px;
@@ -97,109 +224,113 @@
   font-family: inherit;
   margin-top: 8px;
 }
+:global .react-calendar__tile { color: #39395b !important; }
+:global .react-calendar__tile--neighboringMonth { color: #c0bfe7 !important; }
+:global .react-calendar__tile--now { background: var(--primary-color) !important; color: #fff !important; }
+:global .react-calendar__tile--hasTask { position: relative; background: #ede9fa !important; }
+:global .react-calendar__tile--hasTask::after { content: ""; position: absolute; bottom: 4px; right: 4px; width: 6px; height: 6px; background: var(--primary-color); border-radius: 50%; }
+:global .react-calendar__tile--active { background: #4caf50 !important; color: #ffffff !important; border-radius: 6px; }
+:global .react-calendar__month-view__weekdays__weekday { color: #5d50af; font-weight: 600; text-decoration: none; }
+:global .react-calendar__month-view__days__day--weekend { color: var(--primary-color) !important; }
+:global .react-calendar__navigation button { color: #5757ad; background: transparent; border: none; font-weight: 600; }
+:global .react-calendar__navigation__label { font-size: 1.05rem; color: #5757ad; }
 
-:global .react-calendar__tile {
-  color: #39395b !important;
+/* ====================================================== */
+/* IMPROVED CALENDAR STYLES
+/* ====================================================== */
+
+/* Base calendar container */
+:global(.react-calendar) {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  background: var(--background-color-body, #f9fafb);
+  padding: 10px;
 }
 
-:global .react-calendar__tile--neighboringMonth {
-  color: #c0bfe7 !important;
+/* Navigation buttons (<, >) */
+:global(.react-calendar__navigation button) {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+:global(.react-calendar__navigation button:hover) {
+  background-color: rgba(123, 92, 240, 0.1);
 }
 
-:global .react-calendar__tile--now {
-  background: #8f74f8 !important;
+/* Month and year label */
+:global(.react-calendar__navigation__label) {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color-headings, #343a40);
+}
+
+/* Weekday names (SUN, MON...) */
+:global(.react-calendar__month-view__weekdays__weekday) {
+  color: var(--text-color-muted, #6c757d);
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* === Day Tiles === */
+
+/* General tile styling */
+:global(.react-calendar__tile) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border-radius: 8px;
+  color: var(--text-color-default);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Remove default background on hover/focus */
+:global(.react-calendar__tile:enabled:hover),
+:global(.react-calendar__tile:enabled:focus) {
+  background-color: rgba(123, 92, 240, 0.15);
+}
+
+/* Styling for days of previous/next month */
+:global(.react-calendar__tile--neighboringMonth) {
+  color: var(--secondary-color-light, #adb5bd);
+}
+
+/* === Special Day States === */
+
+/* The selected day (the one you clicked) */
+:global(.react-calendar__tile--active) {
+  background: var(--primary-color) !important;
   color: #fff !important;
 }
 
-:global .react-calendar__tile--hasTask {
-  position: relative;
-  background: #ede9fa !important;
+/* Today's date */
+:global(.react-calendar__tile--now) {
+  background: transparent !important;
+  color: var(--primary-color) !important;
+  font-weight: 700;
+  border: 2px solid var(--primary-color);
 }
 
-:global .react-calendar__tile--hasTask::after {
+/* The dot for days that have tasks - this uses the class you already created! */
+:global(.react-calendar__tile--hasTask)::after {
   content: "";
-  position: absolute;
-  bottom: 4px;
-  right: 4px;
+  display: block;
+  margin-top: 4px;
   width: 6px;
   height: 6px;
-  background: #8f74f8;
+  background-color: var(--primary-color-light, #8f74f8);
   border-radius: 50%;
-}
-
-:global .react-calendar__tile--active {
-  background: #4caf50 !important;
-  color: #ffffff !important;
-  border-radius: 6px;
-}
-
-:global .react-calendar__month-view__weekdays__weekday {
-  color: #5d50af;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-:global .react-calendar__month-view__days__day--weekend {
-  color: #8f74f8 !important;
-}
-
-:global .react-calendar__navigation button {
-  color: #5757ad;
-  background: transparent;
-  border: none;
-  font-weight: 600;
-}
-
-:global .react-calendar__navigation__label {
-  font-size: 1.05rem;
-  color: #5757ad;
 }
 
 @media (max-width: 800px) {
   .grid {
     grid-template-columns: 1fr;
-    max-width: 520px;
   }
-  .card {
-    margin-bottom: 18px;
-  }
-}
-/* --- Added for overview and buttons --- */
-.overview {
-  display: flex;
-  justify-content: space-between;
-  background: var(--sb-surface);
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.btnPrimary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.btnPrimary:hover {
-  background: #47478f;
-}
-
-.btnSecondary {
-  background: var(--sb-surface);
-  color: var(--text-primary);
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.btnSecondary:hover {
-  background: #cfcfcf;
 }

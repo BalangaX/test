@@ -1,40 +1,42 @@
-/* src/view/components/Summaries/style.module.css */
+/* src/view/components/Summaries/SummaryFilters/style.module.css */
 
 .filters {
   display: flex;
-  gap: 12px;
+  gap: 16px;
+  flex-grow: 1;
+}
+
+.searchInput,
+.select {
+  padding: 12px 14px;
+  border: 1.5px solid var(--secondary-color-light, #ced4da);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--sb-surface, #fff);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput:focus,
+.select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(123, 92, 240, 0.2);
 }
 
 .searchInput {
   flex: 2;
-  padding: 10px 14px;
-  border: 1.5px solid #e6e2f9;
-  border-radius: 7px;
-  font-size: 1rem;
-  outline: none;
-  transition: border 0.2s;
-}
-.searchInput:focus {
-  border-color: #8f74f8;
+  min-width: 200px;
 }
 
 .select {
   flex: 1;
-  padding: 10px 14px;
-  border: 1.5px solid #e6e2f9;
-  border-radius: 7px;
-  font-size: 1rem;
-  background: #fff;
-  outline: none;
-  transition: border 0.2s;
-}
-.select:focus {
-  border-color: #8f74f8;
+  min-width: 150px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .filters {
     flex-direction: column;
-    gap: 8px;
+    width: 100%;
   }
 }

@@ -1,9 +1,10 @@
+// src/view/components/Tasks/Tasklist.jsx
 import React from "react";
-import styles from "./style.module.css";
+import styles from "../../pages/Tasks/style.module.css"; // Using unified styles
 
-export default function TaskList({ tasks, onToggle, type = "standard" }) {
-  if (!tasks.length) {
-    return <p className={styles.noTasks}>No tasks to show.</p>;
+export default function Tasklist({ tasks, onToggle, onEdit, onDelete }) {
+  if (!tasks || tasks.length === 0) {
+    return <p className={styles.noTasks}>No tasks to show for this section.</p>;
   }
 
   return (
@@ -13,14 +14,35 @@ export default function TaskList({ tasks, onToggle, type = "standard" }) {
           <input
             type="checkbox"
             checked={t.completed}
-            onChange={() => onToggle(t.id)}
+            // Pass isGroupTask and groupId to onToggle
+            onChange={() => onToggle(t.id, t.isGroupTask, t.groupId)}
           />
-          <span className={t.completed ? styles.completed : ""}>
+          <span className={`${styles.taskTitle} ${t.completed ? styles.completed : ""}`}>
             {t.title}
-            {type === "deadline" && (
-              <span className={styles.deadlineTag}> 🔴 </span>
+            {t.type === "deadline" && (
+              <span className={styles.deadlineTag}>DEADLINE</span>
+            )}
+            {/* Display group name if it's a group task */}
+            {t.isGroupTask && t.groupName && (
+              <span className={styles.groupTaskTag}> ({t.groupName})</span>
             )}
           </span>
+          <div className={styles.taskActions}>
+            <button
+              // Pass isGroupTask and groupId to onEdit
+              onClick={() => onEdit(t)}
+              className={`${styles.btn} ${styles.btnEdit}`}
+            >
+              Edit
+            </button>
+            <button
+              // Pass isGroupTask and groupId to onDelete
+              onClick={() => onDelete(t.id, t.isGroupTask, t.groupId)}
+              className={`${styles.btn} ${styles.btnDanger}`}
+            >
+              Delete
+            </button>
+          </div>
         </li>
       ))}
     </ul>

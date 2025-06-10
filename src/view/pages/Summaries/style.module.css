@@ -2,53 +2,53 @@
 
 .wrapper {
   min-height: 100vh;
-  background: var(--bg-light);
-  padding: 48px 16px 32px;
+  background: var(--background-color-body);
+  padding: 0 16px 32px; /* Remove top padding, handled by header */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--text-primary);
-  margin-bottom: 24px;
-}
-
-.controls {
+.controlsCard {
   width: 100%;
-  max-width: 860px;
+  max-width: 960px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
   gap: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: var(--sb-surface, #fff);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-sm, 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075));
 }
 
 .uploadBtn {
-  background: var(--accent, #8f74f8);
+  background-color: var(--accent, #7b5cf0);
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 7px;
+  padding: 12px 24px;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
-}
-.uploadBtn:hover,
-.uploadBtn:focus {
-  background: #6f56c5; /* optional: define --accent-hover if you want full theme control */
+  transition: background-color 0.2s, box-shadow 0.2s;
+  white-space: nowrap; /* Prevents text from wrapping */
 }
 
-@media (max-width: 600px) {
-  .controls {
+.uploadBtn:hover {
+  background-color: var(--primary-color-dark, #6f56c5);
+}
+
+.uploadBtn:focus-visible {
+  outline: 2px solid var(--primary-color-light, #8f74f8);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(123, 92, 240, 0.25);
+}
+
+@media (max-width: 768px) {
+  .controlsCard {
     flex-direction: column;
     align-items: stretch;
-  }
-  .uploadBtn {
-    width: 100%;
-    margin-top: 12px;
   }
 }

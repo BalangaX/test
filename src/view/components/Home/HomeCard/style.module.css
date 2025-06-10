@@ -18,14 +18,14 @@
 
 .card:hover,
 .card:focus {
-  border-color: #8f74f8;
-  color: #6f56c5;
+  border-color: var(--primary-purple);
+  color: var(--primary-purple-dark);
   box-shadow: 0 4px 18px rgba(120,120,200,0.09);
 }
 
 .icon {
   font-size: 1.2em;
-  color: #8f74f8;
+  color: var(--primary-purple);
 }
 
 .title {

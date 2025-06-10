@@ -1,69 +1,47 @@
+/* src/view/pages/SocialHub/style.module.css */
+
 .page {
   padding: 24px;
-  background: var(--bg-light);
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
 .title {
-  margin: 0 0 16px;
-  font-size: 1.5rem;
+  margin: 0 0 8px;
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--text-primary);
 }
-.searchContainer {
-  margin-bottom: 16px;
+
+.subtitle {
+  margin: 0 0 32px;
+  font-size: 1.1rem;
+  color: var(--text-color-muted);
 }
-.search {
-  width: 100%;
-  max-width: 300px;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 0.95rem;
+
+.hubLayout {
+  display: grid;
+  /* Adjust grid to be more flexible */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 32px;
 }
-.content {
-  display: flex;
-  gap: 24px;
-}
-.profiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.comments {
-  flex: 1;
-}
-@media (max-width: 768px) {
-  .searchContainer {
-    justify-content: center;
-  }
-  .content {
-    flex-direction: column;
-  }
-}
-.section {
-  margin-bottom: 32px;
+
+/* When the sidebar is hidden, the main content should take up the full width */
+.mainContent:only-child {
+  grid-column: 1 / -1; /* This makes the item span all columns */
 }
 
 .sectionTitle {
   font-size: 1.25rem;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
   color: var(--text-primary);
 }
 
-.feed {
-  padding: 16px;
-  background: var(--sb-surface);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.groupList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.groupItem {
-  padding: 8px 0;
-  border-bottom: 1px solid #dfe4ea;
-  font-size: 1rem;
-  color: var(--text-primary);
+/* Responsive layout for smaller screens */
+@media (max-width: 900px) {
+  .hubLayout {
+    grid-template-columns: 1fr; /* Stack columns on top of each other */
+  }
 }

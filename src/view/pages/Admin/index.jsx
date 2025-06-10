@@ -359,7 +359,7 @@ export default function AdminDashboard() {
                           try {
                             const ticketRef = doc(db, "supportTickets", ticket.id);
                             await updateDoc(ticketRef, { adminResponse: val });
-                            window.location.reload();
+                            setSupportList(prevList => prevList.filter(item => item.id !== ticket.id));
                           } catch (err) {
                             console.error("Error sending admin response:", err);
                           }

@@ -1,12 +1,10 @@
 import React from "react";
-import styles from "./FeatureCard.module.css";
+import styles from "./SubmitButton.module.css";
 
-export default function FeatureCard({ icon, title, subtitle }) {
+export default function SubmitButton({ onClick }) {
   return (
-    <div className={styles.card} onClick={() => alert(`${title} clicked`)}>
-      {icon}
-      <h3>{title}</h3>
-      <p>{subtitle}</p>
-    </div>
+    <button className={styles.btn} onClick={onClick}>
+      Submit
+    </button>
   );
 }

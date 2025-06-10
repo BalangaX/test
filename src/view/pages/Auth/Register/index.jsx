@@ -1,37 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext";
-import styles from "./style.module.css";
 import { db } from "../../../../firebase/config";
 import { doc, setDoc } from "firebase/firestore";
 
 export default function RegisterPage() {
-  const [email, setEmail]       = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirm, setConfirm]   = useState("");
+  const [confirm, setConfirm] = useState("");
   const [username, setUsername] = useState("");
-  const [error, setError]       = useState("");
-  const { register }            = useAuth();
-  const navigate                = useNavigate();
+  const [error, setError] = useState("");
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (password !== confirm) {
-      setError("Passwords do not match");
-      return;
+      return setError("Passwords do not match");
     }
     try {
-      const userCredential = await register(email, password, username);
-      const { user } = userCredential;
-      try {
-        await setDoc(doc(db, "users", user.uid), {
-          username: username,
-          email: email,
-          createdAt: Date.now()
-        });
-      } catch (firestoreError) {
-      }
+      const { user } = await register(email, password, username);
+      await setDoc(doc(db, "users", user.uid), {
+        username: username.toLowerCase(),
+        email: email,
+        createdAt: Date.now(),
+      });
       navigate("/", { replace: true });
     } catch (authError) {
       setError(authError.message);
@@ -39,40 +33,64 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <h1 className={styles.title}>Sign Up</h1>
-        {error && <div className={styles.error}>{error}</div>}
+    <div className="auth-page">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h1>Create Account</h1>
+        {error && <div className="error-message">{error}</div>}
 
-        <label htmlFor="email" className={styles.label}>Email</label>
-        <input
-          id="email" type="email" required className={styles.input}
-          value={email} onChange={e => setEmail(e.target.value)}
-        />
+        <div className="form-group">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            id="email"
+            type="email"
+            required
+            className="form-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="username" className={styles.label}>Username</label>
-        <input
-          id="username" type="text" required className={styles.input}
-          value={username} onChange={e => setUsername(e.target.value)}
-        />
+        <div className="form-group">
+          <label htmlFor="username" className="form-label">Username</label>
+          <input
+            id="username"
+            type="text"
+            required
+            className="form-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="password" className={styles.label}>Password</label>
-        <input
-          id="password" type="password" required className={styles.input}
-          value={password} onChange={e => setPassword(e.target.value)}
-        />
+        <div className="form-group">
+          <label htmlFor="password" className="form-label">Password</label>
+          <input
+            id="password"
+            type="password"
+            required
+            className="form-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-        <label htmlFor="confirm" className={styles.label}>Confirm Password</label>
-        <input
-          id="confirm" type="password" required className={styles.input}
-          value={confirm} onChange={e => setConfirm(e.target.value)}
-        />
+        <div className="form-group">
+          <label htmlFor="confirm" className="form-label">Confirm Password</label>
+          <input
+            id="confirm"
+            type="password"
+            required
+            className="form-input"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+          />
+        </div>
 
-        <button type="submit" className={styles.btn}>Register</button>
+        <button type="submit" className="submit-btn">Register</button>
 
-        <div className={styles.footer}>
-          <span>Already have an account?</span>
-          <a href="/login" className={styles.link}>Login</a>
+        <div className="switch-auth">
+          <span>Already have an account? </span>
+          <a href="/login">Login</a>
         </div>
       </form>
     </div>

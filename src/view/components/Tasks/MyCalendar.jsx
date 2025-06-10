@@ -1,22 +1,26 @@
-import React from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// src/view/components/Tasks/MyCalendar.jsx
+import React from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css'; // Default react-calendar styles (can be overridden)
+import styles from '../../pages/Tasks/style.module.css'; // Using unified styles
 
 export default function MyCalendar({ selectedDate, onSelectDate, tasks }) {
-  const taskDates = tasks.map((t) => t.date);
+  // Function to determine if a tile should have a task indicator
+  const tileClassName = ({ date, view }) => {
+    if (view === 'month') {
+      const dateString = date.toISOString().slice(0, 10);
+      const hasTasks = tasks.some(task => task.date === dateString);
+      return hasTasks ? styles['react-calendar__tile--hasTask'] : null;
+    }
+    return null;
+  };
 
   return (
     <Calendar
-      locale="en-US"
       onChange={onSelectDate}
       value={selectedDate}
-      tileClassName={({ date, view }) => {
-        const dateStr = date.toISOString().slice(0, 10);
-        if (view === "month" && taskDates.includes(dateStr)) {
-          return "react-calendar__tile--hasTask";
-        }
-        return null;
-      }}
+      className={styles['react-calendar']} // Apply custom styles via global class
+      tileClassName={tileClassName}
     />
   );
 }

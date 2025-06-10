@@ -1,0 +1,69 @@
+/* src/view/components/Summaries/SummaryCard/style.module.css */
+
+.card {
+    background-color: var(--sb-surface, #fff);
+    border-radius: 12px;
+    box-shadow: var(--box-shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-md);
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color-headings);
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .author,
+  .date {
+    font-size: 0.9rem;
+    color: var(--text-color-muted);
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .actions {
+    display: flex;
+    border-top: 1px solid #e0e0e0; /* Or use a variable like --border-color */
+  }
+  
+  .button {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+  
+  .viewBtn {
+    color: var(--text-primary);
+    background-color: transparent;
+    border-right: 1px solid #e0e0e0;
+    border-radius: 0 0 0 12px;
+  }
+  
+  .viewBtn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .downloadBtn {
+    color: var(--text-color-light);
+    background-color: var(--accent);
+    border-radius: 0 0 12px 0;
+  }
+  
+  .downloadBtn:hover {
+    background-color: var(--primary-color-dark);
+  }

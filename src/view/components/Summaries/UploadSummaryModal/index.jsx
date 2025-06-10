@@ -18,7 +18,6 @@ export default function UploadSummaryModal({ onClose, onSend }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('UploadSummaryModal: handleSubmit called, file=', file, 'form=', form);
     try {
       let fileURL = "";
       if (file) {
@@ -27,7 +26,7 @@ export default function UploadSummaryModal({ onClose, onSend }) {
         await uploadBytes(ref, file);
         fileURL = await getDownloadURL(ref);
       }
-      console.log('UploadSummaryModal: calling onSend with', {
+      await onSend({
         ...form,
         pdfURL: fileURL,
         author: currentUser?.username || currentUser?.email || "Anonymous",
@@ -43,7 +42,6 @@ export default function UploadSummaryModal({ onClose, onSend }) {
         rating: 0,
         status: "pending",
       });
-      console.log('UploadSummaryModal: onSend succeeded');
       onClose();
     } catch (err) {
       console.error('UploadSummaryModal: handleSubmit error', err);

@@ -13,7 +13,7 @@ import GroupDetail from "./view/pages/SocialHub/GroupDetail";
 import HelpSettings from "./view/pages/HelpSettings";
 import Dashboard from "./view/pages/Dashboard";
 import Admin from "./view/pages/Admin";
-
+import AdminRoute from "./view/components/Auth/AdminRoute";
 import Login from "./view/pages/Auth/Login";
 import Register from "./view/pages/Auth/Register";
 
@@ -40,7 +40,7 @@ export default function App() {
         </Route>
         <Route path="help-settings" element={<HelpSettings />} />
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="admin" element={<Admin />} />
+        <Route path="admin" element={<AdminRoute><Admin /></AdminRoute>} />
       </Route>
 
       <Route path="*" element={<Navigate to="/login" replace />} />

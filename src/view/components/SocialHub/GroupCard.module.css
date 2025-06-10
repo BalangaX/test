@@ -1,47 +1,94 @@
-/* GroupCard.module.css */
+/* src/view/components/SocialHub/GroupCard.module.css */
+
 .card {
-  background: var(--sb-surface);
-  border-radius: var(--border-radius-md);
+  background: var(--sb-surface, #fff);
+  border-radius: 12px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   box-shadow: var(--box-shadow-sm);
+  transition: transform 0.2s;
 }
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .name {
   margin: 0;
-  font-size: var(--font-size-h5);
+  font-size: 1.25rem;
+  font-weight: 600;
 }
+
+.tasksBadge {
+  background-color: var(--primary-color-light);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
 .topic {
-  font-size: var(--font-size-sm);
+  font-size: 0.9rem;
   color: var(--text-color-muted);
   margin: 0;
 }
+
 .description {
-  font-size: var(--font-size-base);
+  font-size: 1rem;
   margin: 0;
-  color: var(--text-color-default);
 }
+
 .membersCount {
-  margin-top: auto; /* Push buttons to bottom */
+  margin-top: auto;
   font-weight: 500;
+  color: #555;
+  padding-top: 1rem;
 }
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
 .ownerTag {
-  font-size: var(--font-size-sm);
+  font-size: 0.9rem;
   color: var(--accent);
+  font-weight: 600;
 }
+
 .joinBtn,
 .leaveBtn {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
+  padding: 8px 16px;
   border: none;
-  border-radius: var(--border-radius-md);
+  border-radius: 8px;
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
 }
+
 .joinBtn {
-  background: var(--success-color);
+  background: var(--success-color, #28a745);
 }
+
 .leaveBtn {
-  background: var(--error-color);
+  background: var(--error-color, #dc3545);
+}
+
+.detailsLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
 }

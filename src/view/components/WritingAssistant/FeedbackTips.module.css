@@ -36,7 +36,7 @@
     width: 24px;
     height: 24px;
     background: #ede9fa;
-    color: #8f74f8;
+    color: var(--primary-purple);
     border-radius: 50%;
     text-align: center;
     line-height: 24px;

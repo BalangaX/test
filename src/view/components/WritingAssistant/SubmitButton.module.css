@@ -1,7 +1,7 @@
 /* src/view/components/WritingAssistant/SubmitButton.module.css */
 
 .btn {
-    background: #8f74f8;
+    background: var(--primary-purple);
     color: #fff;
     border: none;
     padding: 14px 28px;
@@ -15,6 +15,6 @@
   
   .btn:hover,
   .btn:focus {
-    background: #6f56c5;
+    background: var(--primary-purple-dark);
     transform: translateY(-1px);
   }
