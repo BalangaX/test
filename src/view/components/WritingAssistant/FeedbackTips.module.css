@@ -1,44 +1,53 @@
-/* src/view/components/WritingAssistant/FeedbackTips.module.css */
-
 .card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(70,50,150,0.06);
-    padding: 24px;
-    width: 100%;
-    max-width: 860px;
-  }
-  
-  .heading {
-    font-size: 1.13rem;
-    font-weight: 600;
-    color: #303048;
-    margin-bottom: 12px;
-  }
-  
-  .list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .list li {
-    display: flex;
-    align-items: start;
-    gap: 12px;
-    margin-bottom: 8px;
-    font-size: 1rem;
-    color: #39395b;
-  }
-  
-  .number {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: #ede9fa;
-    color: var(--primary-purple);
-    border-radius: 50%;
-    text-align: center;
-    line-height: 24px;
-    font-weight: 600;
-  }
+  background: var(--sb-surface);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-sm);
+  width: 100%;
+  max-width: 860px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.icon {
+  color: var(--warning-color, #ffc107);
+  font-size: 1.25rem;
+}
+
+.heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color-headings);
+  flex-grow: 1;
+}
+
+.chevron {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease-in-out;
+}
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+.list {
+  padding: 0 1.5rem 1.5rem 3.5rem;
+  list-style-type: decimal;
+  margin: 0;
+  animation: fadeIn 0.3s;
+}
+
+.list li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: var(--text-color-muted);
+}

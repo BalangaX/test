@@ -1,23 +1,13 @@
 /* src/view/pages/SocialHub/style.module.css */
 
 .page {
-  padding: 24px;
+  /* Removed top padding, as the PageHeader handles it */
+  padding: 0 24px 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.title {
-  margin: 0 0 8px;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.subtitle {
-  margin: 0 0 32px;
-  font-size: 1.1rem;
-  color: var(--text-color-muted);
-}
+/* .title and .subtitle classes are no longer needed and have been removed. */
 
 .hubLayout {
   display: grid;
@@ -26,9 +16,8 @@
   gap: 32px;
 }
 
-/* When the sidebar is hidden, the main content should take up the full width */
 .mainContent:only-child {
-  grid-column: 1 / -1; /* This makes the item span all columns */
+  grid-column: 1 / -1;
 }
 
 .sectionTitle {
@@ -39,9 +28,8 @@
   color: var(--text-primary);
 }
 
-/* Responsive layout for smaller screens */
 @media (max-width: 900px) {
   .hubLayout {
-    grid-template-columns: 1fr; /* Stack columns on top of each other */
+    grid-template-columns: 1fr;
   }
 }

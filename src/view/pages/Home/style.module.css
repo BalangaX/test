@@ -6,56 +6,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 16px;
+  /* Removed top padding, PageHeader handles it */
+  padding: 32px 16px; 
 }
 
-.hero {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.heading {
-  font-size: 2.7rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: var(--text-primary);
-  letter-spacing: -1px;
-}
-
-.tagline {
-  font-size: 1.08rem;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-  font-weight: 500;
-}
-
-.featureList {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-}
-
-.featureList li {
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--primary-purple);
-  border-radius: 50%;
-  margin-right: 8px;
-  background: var(--bg-light);
-}
+/* The old .hero, .heading, .tagline, .featureList, and .dot classes 
+  have been removed as they are replaced by the PageHeader component.
+*/
 
 .grid {
   width: 100%;
@@ -63,6 +20,26 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+.logoutContainer {
+    margin-top: 48px;
+}
+
+.logoutBtn {
+    background: var(--error-color, #dc3545);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.logoutBtn:hover {
+    background: #c82333; /* A darker red */
 }
 
 @media (max-width: 600px) {

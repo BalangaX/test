@@ -1,28 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./TemplateSelect.module.css";
+import pageStyles from "../../pages/WritingAssistant/style.module.css"; // Import page styles
 
-export default function TemplateSelect({ templates, value, onChange, onSelect }) {
+export default function TemplateSelect({ templates, value, onChange }) {
   const isDisabled = templates.length === 0;
-
-  const handleChange = (e) => {
-    const id = Number(e.target.value);
-    if (onChange) onChange(id);
-    if (onSelect) {
-      const selected = templates.find((t) => t.id === id);
-      if (selected) onSelect(selected);
-    }
-  };
 
   return (
     <select
       value={value}
-      onChange={handleChange}
-      className={styles.select}
+      onChange={(e) => onChange(Number(e.target.value))}
+      className={pageStyles.select}
       disabled={isDisabled}
     >
       <option value={0} disabled>
-        {isDisabled ? "Choose paper type first" : "Select template"}
+        {isDisabled ? "Choose paper type first" : "Select a template"}
       </option>
       {templates.map((tmpl) => (
         <option key={tmpl.id} value={tmpl.id}>
@@ -37,5 +28,4 @@ TemplateSelect.propTypes = {
   templates: PropTypes.array.isRequired,
   value: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  onSelect: PropTypes.func,
 };

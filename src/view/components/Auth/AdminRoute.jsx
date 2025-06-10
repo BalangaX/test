@@ -4,7 +4,8 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 
 export default function AdminRoute({ children }) {
-  const { currentUser, isAdmin, loading } = useAuth();
+  const { currentUser, loading } = useAuth();
+  const isAdmin = currentUser?.isAdmin;
 
   if (loading) {
     return <div>Loading...</div>; // Or a proper spinner component

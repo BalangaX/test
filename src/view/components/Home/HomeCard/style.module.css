@@ -1,40 +1,39 @@
-/* src/view/components/Home/HomeCard/style.module.css */
-
 .card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #fff;
-  border: 2px solid #e6e2f9;
+  background: var(--sb-surface);
   border-radius: 12px;
-  padding: 18px;
-  font-size: 1.07rem;
-  font-weight: 600;
-  color: #363657;
-  text-decoration: none;
-  box-shadow: 0 2px 16px rgba(70,50,150,0.04);
-  transition: border-color 0.16s, box-shadow 0.14s, color 0.12s;
+  box-shadow: var(--box-shadow-sm);
+  padding: 20px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card:hover,
-.card:focus {
-  border-color: var(--primary-purple);
-  color: var(--primary-purple-dark);
-  box-shadow: 0 4px 18px rgba(120,120,200,0.09);
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-md);
 }
 
 .icon {
-  font-size: 1.2em;
-  color: var(--primary-purple);
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
   font-size: 1.07rem;
+  font-weight: 600;
+  color: var(--text-color-headings);
 }
 
 .subtitle {
   font-size: 0.93rem;
-  color: #7d7da7;
+  color: var(--text-color-muted);
 }
 
 .fullWidth {
@@ -44,7 +43,6 @@
 @media (max-width: 600px) {
   .card {
     padding: 16px;
-    font-size: 1rem;
   }
   .fullWidth {
     grid-column: span 1;

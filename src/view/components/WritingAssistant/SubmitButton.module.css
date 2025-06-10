@@ -1,20 +1,18 @@
-/* src/view/components/WritingAssistant/SubmitButton.module.css */
-
 .btn {
-    background: var(--primary-purple);
-    color: #fff;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    margin-bottom: 32px;
-  }
-  
-  .btn:hover,
-  .btn:focus {
-    background: var(--primary-purple-dark);
-    transform: translateY(-1px);
-  }
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--primary-color-dark);
+  transform: translateY(-2px);
+  outline: none;
+}

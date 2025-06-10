@@ -1,13 +1,13 @@
 import React from "react";
 import { paperTypes } from "../../../data/writingTemplates";
-import styles from "./PaperTypeSelect.module.css";
+import pageStyles from "../../pages/WritingAssistant/style.module.css"; // Import page styles
 
 export default function PaperTypeSelect({ value, onChange }) {
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className={styles.select}
+      className={pageStyles.select}
     >
       <option value="">Select paper type</option>
       {paperTypes.map((type) => (

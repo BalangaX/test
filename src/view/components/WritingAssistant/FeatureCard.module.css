@@ -1,38 +1,37 @@
-/* src/view/components/WritingAssistant/FeatureCard.module.css */
-
 .card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(70,50,150,0.06);
-    padding: 20px;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .icon {
-    font-size: 1.5rem;
-    color: var(--primary-purple);
-  }
-  
-  .info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .title {
-    font-size: 1.07rem;
-    font-weight: 600;
-    color: #303048;
-  }
-  
-  .subtitle {
-    font-size: 0.93rem;
-    color: #7d7da7;
-  }
+  background: var(--sb-surface);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-sm);
+  padding: 20px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(70, 50, 150, 0.10);
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-md);
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.07rem;
+  font-weight: 600;
+  color: var(--text-color-headings);
+}
+
+.subtitle {
+  font-size: 0.93rem;
+  color: var(--text-color-muted);
 }

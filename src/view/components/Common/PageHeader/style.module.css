@@ -1,0 +1,42 @@
+/* src/view/components/Common/PageHeader/style.module.css */
+
+.hero {
+    background: linear-gradient(135deg, #8f74f8, #7b5cf0);
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .heroContent {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    letter-spacing: -1px;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 600px) {
+    .hero {
+      padding: 2.5rem 1rem;
+    }
+    .title {
+      font-size: 2.25rem;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+    }
+  }

@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 import useApprovedSummaries from "../../../hooks/useApprovedSummaries";
 import useSummaries from "../../../hooks/useSummaries";
 
-import SummariesHeader from "../../components/Summaries/SummariesHeader";
+import PageHeader from "../../components/Common/PageHeader"; // Import the new, unified header
 import SummaryFilters from "../../components/Summaries/SummaryFilters/SummaryFilters";
 import SummariesGrid from "../../components/Summaries/SummariesGrid";
 import UploadSummaryModal from "../../components/Summaries/UploadSummaryModal";
@@ -33,41 +33,44 @@ export default function SummariesPage() {
 
   const sorted = [...filtered].sort((a, b) => {
     if (sortBy === "Popularity") {
-      // Assuming 'downloads' or a similar metric for popularity
       return (b.downloads || 0) - (a.downloads || 0);
     } else {
-      // Sorting by date, newest first
       return new Date(b.uploadDate) - new Date(a.uploadDate);
     }
   });
 
   return (
-    <section className={styles.wrapper}>
-      <SummariesHeader />
+    <>
+      <PageHeader
+        title="Summaries Library"
+        subtitle="Search and filter academic summaries shared by the community."
+      />
 
-      <div className={styles.controlsCard}>
-        <SummaryFilters
-          search={search}
-          onSearch={setSearch}
-          authors={authors}
-          authorFilter={authorFilter}
-          onAuthorChange={setAuthorFilter}
-          sortBy={sortBy}
-          onSortChange={setSortBy}
-        />
-        <button className={styles.uploadBtn} onClick={() => setShowModal(true)}>
-          Upload New Summary
-        </button>
-      </div>
+      <section className={styles.wrapper}>
+        <div className={styles.controlsCard}>
+          <SummaryFilters
+            search={search}
+            onSearch={setSearch}
+            authors={authors}
+            authorFilter={authorFilter}
+            onAuthorChange={setAuthorFilter}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+          />
+          <button className={styles.uploadBtn} onClick={() => setShowModal(true)}>
+            Upload New Summary
+          </button>
+        </div>
 
-      <SummariesGrid summaries={sorted} />
+        <SummariesGrid summaries={sorted} />
 
-      {showModal && (
-        <UploadSummaryModal
-          onClose={() => setShowModal(false)}
-          onSend={addSummary}
-        />
-      )}
-    </section>
+        {showModal && (
+          <UploadSummaryModal
+            onClose={() => setShowModal(false)}
+            onSend={addSummary}
+          />
+        )}
+      </section>
+    </>
   );
 }

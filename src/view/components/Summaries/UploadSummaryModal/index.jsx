@@ -33,14 +33,7 @@ export default function UploadSummaryModal({ onClose, onSend }) {
         uploadDate: Date.now(),
         rating: 0,
         status: "pending",
-      });
-      await onSend({
-        ...form,
-        pdfURL: fileURL,
-        author: currentUser?.username || currentUser?.email || "Anonymous",
-        uploadDate: Date.now(),
-        rating: 0,
-        status: "pending",
+        uploaderUid: currentUser.uid,
       });
       onClose();
     } catch (err) {

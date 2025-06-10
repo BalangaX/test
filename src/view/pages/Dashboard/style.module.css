@@ -1,49 +1,19 @@
-/* ===== Dashboard Page Layout ===== */
+/* src/view/pages/Dashboard/style.module.css */
 
+/* ===== Dashboard Page Layout ===== */
 .container {
-  /* Center page and add padding */
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem;
+  /* Removed top padding, PageHeader handles it */
+  padding: 0 1.25rem 1.5rem; 
 
-  /* 3 vertical sections: header, KPI grid, main area */
+  /* 3 vertical sections: KPI grid, main area, actions */
   display: grid;
   grid-template-rows: auto auto 1fr;
   grid-template-columns: 1fr;
   gap: 1.5rem;
   background: var(--bg-light);
   color: var(--text-primary);
-}
-
-/* ---- Header ---- */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.greeting {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.date {
-  font-size: 0.875rem;
-  color: var(--text-primary);
-}
-
-.refreshBtn {
-  background: none;
-  border: none;
-  font-size: 1.25rem;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
-}
-
-.refreshBtn:hover {
-  opacity: 1;
 }
 
 /* ---- KPI Cards Grid ---- */
@@ -65,12 +35,10 @@
   background: var(--sb-surface);
   border-radius: 12px;
   padding: 1rem;
-  /* Allows chart to stretch */
   display: flex;
 }
 
 .feed {
-  /* Feed already has internal styles, but ensure full height */
   height: 100%;
 }
 
@@ -89,4 +57,9 @@
   .actions {
     order: 4; /* move actions below chart/feed on small screens */
   }
+}
+
+/* You can add a specific error class if needed */
+.error {
+    color: var(--error-color, red);
 }

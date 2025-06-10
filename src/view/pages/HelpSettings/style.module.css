@@ -1,18 +1,17 @@
+/* src/view/pages/HelpSettings/style.module.css */
+
 /* ---------- Page Wrapper ---------- */
 .page {
-  padding: 32px 24px;
+  /* Removed top padding, as the PageHeader handles it */
+  padding: 0 24px 32px;
+  max-width: 1200px; /* Added max-width for consistency */
+  margin: 0 auto;
   background: var(--bg-light);
 }
 
-/* ---------- Main Heading ---------- */
-.title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 24px;
-  color: var(--text-primary);
-}
+/* The old .title class is no longer needed and has been removed */
 
-/* ---------- 2‑Column Grid ---------- */
+/* ---------- 2-Column Grid ---------- */
 .grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -35,9 +34,11 @@
 }
 
 .sectionTitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem; /* Slightly increased font size */
   font-weight: 600;
   margin: 0 0 16px 0;
+  padding-bottom: 12px; /* Added padding */
+  border-bottom: 1px solid #eee; /* Added border */
   color: var(--text-primary);
 }
 

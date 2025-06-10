@@ -1,32 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase/config";
+import React, { useEffect, useState } from "react";
 import styles from "./UserRow.module.css";
+import { db } from "../../../firebase/config";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
-export default function UserRow({ userId, email, username }) {
-  const [postCount, setPostCount] = useState(0);
+export default function UserRow({ user }) {
+  const { uid, username, email } = user;
+  const [completedTasks, setCompletedTasks] = useState(0);
   const [summaryCount, setSummaryCount] = useState(0);
 
   useEffect(() => {
-    async function fetchCounts() {
-      const postsRef = collection(db, "posts");
-      const postsQuery = query(postsRef, where("authorUid", "==", userId));
-      const postsSnap = await getDocs(postsQuery);
-      setPostCount(postsSnap.size);
+    if (!uid) return;
 
-      const summariesRef = collection(db, "summaries");
-      const summariesQuery = query(summariesRef, where("uploaderUid", "==", userId));
-      const summariesSnap = await getDocs(summariesQuery);
-      setSummaryCount(summariesSnap.size);
-    }
+    const fetchCounts = async () => {
+      try {
+        const tasksQuery = query(
+          collection(db, "users", uid, "tasks"),
+          where("completed", "==", true)
+        );
+        const tasksSnapshot = await getDocs(tasksQuery);
+        console.log(`DEBUG UserRow: uid=${uid} completedTasks=`, tasksSnapshot.size);
+        setCompletedTasks(tasksSnapshot.size);
+
+        const summariesQuery = query(
+          collection(db, "summaries"),
+          where("uploaderUid", "==", uid),
+          where("status", "==", "approved")
+        );
+        const summariesSnapshot = await getDocs(summariesQuery);
+        console.log(`DEBUG UserRow: uid=${uid} summaryCount=`, summariesSnapshot.size);
+        setSummaryCount(summariesSnapshot.size);
+      } catch (error) {
+        console.error("Error fetching post/summary counts:", error);
+      }
+    };
+
     fetchCounts();
-  }, [userId]);
+  }, [uid]);
 
   return (
     <tr className={styles.row}>
       <td>{username || email}</td>
       <td>{email}</td>
-      <td>{postCount}</td>
+      <td>{completedTasks}</td>
       <td>{summaryCount}</td>
     </tr>
   );

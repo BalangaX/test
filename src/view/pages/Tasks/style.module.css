@@ -1,28 +1,18 @@
 /* src/view/pages/Tasks/style.module.css */
 
 .tasksWrapper {
-  min-height: 100vh;
-  background: var(--bg-light);
-  padding: 48px 16px 32px;
+  padding: 0 16px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: var(--text-primary);
-  text-align: center;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: var(--text-color-muted, #666);
+.viewSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 32px;
-  font-weight: 500;
-  text-align: center;
+  justify-content: center;
 }
 
 .grid {
@@ -106,14 +96,14 @@
 }
 
 .groupTaskTag {
-  font-size: 0.75rem; /* Smaller font size */
-  margin-left: 5px; /* Little spacing from task title */
-  padding: 2px 6px; /* Some padding */
-  background-color: var(--primary-color-light); /* Light purple background */
-  color: white; /* White text */
-  border-radius: 4px; /* Slightly rounded corners */
-  font-weight: normal; /* Normal font weight */
-  white-space: nowrap; /* Prevent wrapping */
+  font-size: 0.75rem;
+  margin-left: 5px;
+  padding: 2px 6px;
+  background-color: var(--primary-color-light);
+  color: white;
+  border-radius: 4px;
+  font-weight: normal;
+  white-space: nowrap;
 }
 
 /* === TaskForm Styles === */
@@ -147,7 +137,7 @@
   justify-content: flex-end;
 }
 
-/* === Unified Button Styles (No 'composes') === */
+/* === Unified Button Styles === */
 .btn {
   padding: 10px 20px;
   border-radius: 8px;
@@ -155,7 +145,7 @@
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 .btn:focus-visible {
@@ -215,31 +205,7 @@
   margin-top: 16px;
 }
 
-/* Calendar Styles */
-:global .react-calendar {
-  width: 100%;
-  border-radius: 12px;
-  background: var(--bg-light);
-  border: none;
-  font-family: inherit;
-  margin-top: 8px;
-}
-:global .react-calendar__tile { color: #39395b !important; }
-:global .react-calendar__tile--neighboringMonth { color: #c0bfe7 !important; }
-:global .react-calendar__tile--now { background: var(--primary-color) !important; color: #fff !important; }
-:global .react-calendar__tile--hasTask { position: relative; background: #ede9fa !important; }
-:global .react-calendar__tile--hasTask::after { content: ""; position: absolute; bottom: 4px; right: 4px; width: 6px; height: 6px; background: var(--primary-color); border-radius: 50%; }
-:global .react-calendar__tile--active { background: #4caf50 !important; color: #ffffff !important; border-radius: 6px; }
-:global .react-calendar__month-view__weekdays__weekday { color: #5d50af; font-weight: 600; text-decoration: none; }
-:global .react-calendar__month-view__days__day--weekend { color: var(--primary-color) !important; }
-:global .react-calendar__navigation button { color: #5757ad; background: transparent; border: none; font-weight: 600; }
-:global .react-calendar__navigation__label { font-size: 1.05rem; color: #5757ad; }
-
-/* ====================================================== */
-/* IMPROVED CALENDAR STYLES
-/* ====================================================== */
-
-/* Base calendar container */
+/* === Calendar Styles === */
 :global(.react-calendar) {
   width: 100%;
   border: none;
@@ -248,8 +214,6 @@
   background: var(--background-color-body, #f9fafb);
   padding: 10px;
 }
-
-/* Navigation buttons (<, >) */
 :global(.react-calendar__navigation button) {
   color: var(--primary-color);
   font-weight: 600;
@@ -260,15 +224,11 @@
 :global(.react-calendar__navigation button:hover) {
   background-color: rgba(123, 92, 240, 0.1);
 }
-
-/* Month and year label */
 :global(.react-calendar__navigation__label) {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-color-headings, #343a40);
 }
-
-/* Weekday names (SUN, MON...) */
 :global(.react-calendar__month-view__weekdays__weekday) {
   color: var(--text-color-muted, #6c757d);
   font-weight: 600;
@@ -276,10 +236,6 @@
   text-transform: uppercase;
   font-size: 0.75rem;
 }
-
-/* === Day Tiles === */
-
-/* General tile styling */
 :global(.react-calendar__tile) {
   display: flex;
   flex-direction: column;
@@ -290,35 +246,23 @@
   color: var(--text-color-default);
   transition: background-color 0.2s, color 0.2s;
 }
-
-/* Remove default background on hover/focus */
 :global(.react-calendar__tile:enabled:hover),
 :global(.react-calendar__tile:enabled:focus) {
   background-color: rgba(123, 92, 240, 0.15);
 }
-
-/* Styling for days of previous/next month */
 :global(.react-calendar__tile--neighboringMonth) {
   color: var(--secondary-color-light, #adb5bd);
 }
-
-/* === Special Day States === */
-
-/* The selected day (the one you clicked) */
 :global(.react-calendar__tile--active) {
   background: var(--primary-color) !important;
   color: #fff !important;
 }
-
-/* Today's date */
 :global(.react-calendar__tile--now) {
   background: transparent !important;
   color: var(--primary-color) !important;
   font-weight: 700;
   border: 2px solid var(--primary-color);
 }
-
-/* The dot for days that have tasks - this uses the class you already created! */
 :global(.react-calendar__tile--hasTask)::after {
   content: "";
   display: block;
@@ -333,4 +277,27 @@
   .grid {
     grid-template-columns: 1fr;
   }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  text-align: center;
+}
+.modalContent button {
+  margin-top: 10px;
 }
