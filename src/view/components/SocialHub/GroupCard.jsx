@@ -1,5 +1,3 @@
-// src/view/components/SocialHub/GroupCard.jsx
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
@@ -20,7 +18,6 @@ export default function GroupCard({ group }) {
     setIsMember(currentUser && members.includes(currentUser.uid));
   }, [members, currentUser]);
 
-  // Effect to count open tasks for the group
   useEffect(() => {
     const tasksRef = collection(db, "studyGroups", id, "tasks");
     const q = query(tasksRef, where("completed", "==", false));
@@ -29,7 +26,6 @@ export default function GroupCard({ group }) {
     });
     return () => unsubscribe();
   }, [id]);
-
 
   const handleJoin = async () => {
     if (!currentUser) return;
@@ -53,7 +49,6 @@ export default function GroupCard({ group }) {
       </div>
       <p className={styles.topic}>{topic}</p>
       <p className={styles.membersCount}>{members.length} member(s)</p>
-
       <div className={styles.cardFooter}>
         {currentUser?.uid === group.ownerUid ? (
           <span className={styles.ownerTag}>Owner</span>

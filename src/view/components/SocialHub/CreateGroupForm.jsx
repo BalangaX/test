@@ -7,7 +7,6 @@ import styles from "./CreateGroupForm.module.css";
 export default function CreateGroupForm() {
   const auth = getAuth();
   const currentUser = auth.currentUser;
-
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
@@ -17,7 +16,6 @@ export default function CreateGroupForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
     if (!name.trim() || !topic.trim()) {
       setError("Please provide both a group name and topic.");
       return;
@@ -26,7 +24,6 @@ export default function CreateGroupForm() {
       setError("You must be logged in to create a group.");
       return;
     }
-
     setLoading(true);
     try {
       await addDoc(collection(db, "studyGroups"), {
@@ -54,28 +51,15 @@ export default function CreateGroupForm() {
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.field}>
         <label>Group Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
       </div>
       <div className={styles.field}>
         <label>Topic</label>
-        <input
-          type="text"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          required
-        />
+        <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} required />
       </div>
       <div className={styles.field}>
         <label>Description (optional)</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
       </div>
       <button type="submit" disabled={loading}>
         {loading ? "Creating..." : "Create Group"}

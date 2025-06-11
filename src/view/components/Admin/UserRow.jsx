@@ -10,8 +10,8 @@ export default function UserRow({ user }) {
   const [summaryCount, setSummaryCount] = useState(0);
 
   const { currentUser } = useAuth();
+
   useEffect(() => {
-    // רק אדמין יבצע את השאילתה
     if (!uid || !currentUser?.isAdmin) return;
 
     const fetchCounts = async () => {
@@ -21,7 +21,6 @@ export default function UserRow({ user }) {
           where("completed", "==", true)
         );
         const tasksSnapshot = await getDocs(tasksQuery);
-        console.log(`DEBUG UserRow: uid=${uid} completedTasks=`, tasksSnapshot.size);
         setCompletedTasks(tasksSnapshot.size);
 
         const summariesQuery = query(
@@ -30,7 +29,6 @@ export default function UserRow({ user }) {
           where("status", "==", "approved")
         );
         const summariesSnapshot = await getDocs(summariesQuery);
-        console.log(`DEBUG UserRow: uid=${uid} summaryCount=`, summariesSnapshot.size);
         setSummaryCount(summariesSnapshot.size);
       } catch (error) {
         console.error("Error fetching post/summary counts:", error);

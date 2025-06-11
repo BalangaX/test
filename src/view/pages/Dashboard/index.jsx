@@ -14,42 +14,40 @@ export default function Dashboard() {
 
   const { kpis, progressData, activityFeed, loading, error } = useUserStats(userId);
 
-  // You can still use this if you want to display the date somewhere else
   const today = useMemo(
     () => new Date().toLocaleDateString("en-US", { dateStyle: "full" }),
     []
   );
 
   return (
-    // The PageHeader is now at the top level
     <>
       <PageHeader
         title={`Welcome, ${currentUser?.displayName || 'User'}!`}
         subtitle="Here's a quick overview of your academic progress."
       />
-      
-      {/* The rest of the page content is wrapped separately */}
-      <div className={styles.dashboardWrapper}>
-        <section className={styles.statsGrid}>
-          {loading ? (
-            <span>Loading stats...</span>
-          ) : error ? (
-            <span className={styles.error}>Error loading data</span>
-          ) : (
-            kpis.map((kpi) => (
-              <StatsCard key={kpi.label} label={kpi.label} value={kpi.value} />
-            ))
-          )}
-        </section>
+      <div className={styles.wrapper}>
+        <div className={styles.dashboardWrapper}>
+          <section className={styles.statsGrid}>
+            {loading ? (
+              <span>Loading stats...</span>
+            ) : error ? (
+              <span className={styles.error}>Error loading data</span>
+            ) : (
+              kpis.map((kpi) => (
+                <StatsCard key={kpi.label} label={kpi.label} value={kpi.value} />
+              ))
+            )}
+          </section>
 
-        <main className={styles.mainGrid}>
-          <ProgressChart className={styles.chart} data={progressData} loading={loading} />
-          <ActivityFeed className={styles.feed} data={activityFeed} loading={loading} />
-        </main>
+          <main className={styles.mainGrid}>
+            <ProgressChart className={styles.chart} data={progressData} loading={loading} />
+            <ActivityFeed className={styles.feed} data={activityFeed} loading={loading} />
+          </main>
 
-        <aside className={styles.actions}>
-          <QuickActions />
-        </aside>
+          <aside className={styles.actions}>
+            <QuickActions />
+          </aside>
+        </div>
       </div>
     </>
   );

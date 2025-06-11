@@ -4,21 +4,9 @@ import styles from "./QuickActions.module.css";
 
 export default function QuickActions({ className = "" }) {
   const actions = [
-    {
-      label: "Create Task",
-      to: "/tasks",
-      icon: "➕",
-    },
-    {
-      label: "Upload Summary",
-      to: "/summaries",
-      icon: "⬆️",
-    },
-    {
-      label: "Writing Assistant",
-      to: "/writing-assistant",
-      icon: "✍️",
-    },
+    { label: "Create Task", to: "/tasks", icon: "➕" },
+    { label: "Upload Summary", to: "/summaries", icon: "⬆️" },
+    { label: "Writing Assistant", to: "/writing-assistant", icon: "✍️" },
   ];
 
   return (

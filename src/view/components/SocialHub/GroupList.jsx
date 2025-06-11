@@ -6,9 +6,11 @@ export default function GroupList({ groups, loading }) {
   if (loading) {
     return <div className={styles.loading}>Loading groups...</div>;
   }
+
   if (!groups || groups.length === 0) {
     return <div className={styles.noGroups}>No study groups found.</div>;
   }
+
   return (
     <div className={styles.grid}>
       {groups.map((g) => (

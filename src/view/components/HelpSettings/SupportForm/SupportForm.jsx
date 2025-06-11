@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import styles from "./SupportForm.module.css";
+import React, { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../../../firebase/config";
-import { query, where, orderBy, getDocs } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, query, where, orderBy } from "firebase/firestore";
 import { onSnapshot } from "firebase/firestore";
+import { db } from "../../../../firebase/config";
+import styles from "./SupportForm.module.css";
 
 export default function SupportForm() {
   const [message, setMessage] = useState("");
@@ -26,24 +25,24 @@ export default function SupportForm() {
       setStatus("Thank you! Your request has been sent to support.");
       setMessage("");
     } catch (error) {
-      console.error("Error sending support request:", error);
       setStatus("An error occurred. Please try again later.");
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const auth = getAuth();
     const currentUser = auth.currentUser;
     if (!currentUser) return;
-    
+
     const ticketsQuery = query(
       collection(db, "supportTickets"),
       where("userId", "==", currentUser.uid),
       orderBy("createdAt", "desc")
     );
+
     const unsubscribe = onSnapshot(
       ticketsQuery,
-      snapshot => {
+      (snapshot) => {
         if (!snapshot.empty) {
           const latestData = snapshot.docs[0].data();
           setAdminResponse(latestData.adminResponse || "");
@@ -51,10 +50,9 @@ export default function SupportForm() {
           setAdminResponse("");
         }
       },
-      err => {
-        console.error("Error listening to supportTickets:", err);
-      }
+      () => {}
     );
+
     return () => unsubscribe();
   }, []);
 
@@ -69,7 +67,9 @@ export default function SupportForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button type="submit" className={styles.button}>Send</button>
+        <button type="submit" className={styles.button}>
+          Send
+        </button>
       </form>
       {status && <div className={styles.status}>{status}</div>}
       {adminResponse && (

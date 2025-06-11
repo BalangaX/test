@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./style.module.css";
-import PageHeader from "../../components/Common/PageHeader"; // Import the new header
+import PageHeader from "../../components/Common/PageHeader";
 import FAQSection from "../../components/HelpSettings/FAQSection/FAQSection";
 import SupportForm from "../../components/HelpSettings/SupportForm/SupportForm";
 import SettingsPanel from "../../components/HelpSettings/SettingsPanel/SettingsPanel";
@@ -14,7 +14,6 @@ export default function HelpSettingsPage() {
       />
 
       <div className={styles.page}>
-        {/* The old h1 title is removed from here */}
         <div className={styles.grid}>
           <div className={styles.column}>
             <section className={styles.section}>

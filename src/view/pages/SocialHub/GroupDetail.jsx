@@ -1,13 +1,11 @@
-// src/view/pages/SocialHub/GroupDetail.jsx
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import { doc, onSnapshot, collection, query, orderBy, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, onSnapshot, collection, query, orderBy, addDoc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import GroupChat from "../../components/SocialHub/GroupChat";
-import Tasklist from "../../components/Tasks/Tasklist"; // Reuse the Tasklist component
-import TaskForm from "../../components/Tasks/TaskForm";   // Reuse the TaskForm component
+import Tasklist from "../../components/Tasks/Tasklist";
+import TaskForm from "../../components/Tasks/TaskForm";
 import styles from "./GroupDetail.module.css";
 
 export default function GroupDetail() {
@@ -17,11 +15,11 @@ export default function GroupDetail() {
 
   const [group, setGroup] = useState(null);
   const [members, setMembers] = useState([]);
+  const [memberNames, setMemberNames] = useState({});
   const [groupTasks, setGroupTasks] = useState([]);
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Fetch group details
   useEffect(() => {
     const groupRef = doc(db, "studyGroups", groupId);
     const unsubscribe = onSnapshot(groupRef, (docSnap) => {
@@ -37,7 +35,29 @@ export default function GroupDetail() {
     return () => unsubscribe();
   }, [groupId]);
 
-  // Fetch group tasks
+  useEffect(() => {
+    const fetchMemberNames = async () => {
+      const names = {};
+      for (const uid of members) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", uid));
+          if (userDoc.exists()) {
+            names[uid] = userDoc.data().username || uid;
+          } else {
+            names[uid] = uid;
+          }
+        } catch {
+          names[uid] = uid;
+        }
+      }
+      setMemberNames(names);
+    };
+
+    if (members.length > 0) {
+      fetchMemberNames();
+    }
+  }, [members]);
+
   useEffect(() => {
     const tasksRef = collection(db, "studyGroups", groupId, "tasks");
     const q = query(tasksRef, orderBy("createdAt", "desc"));
@@ -48,7 +68,6 @@ export default function GroupDetail() {
     return () => unsubscribe();
   }, [groupId]);
 
-  // Task Handlers
   const handleAddTask = async (taskData) => {
     const tasksRef = collection(db, "studyGroups", groupId, "tasks");
     await addDoc(tasksRef, {
@@ -73,7 +92,6 @@ export default function GroupDetail() {
     }
   };
 
-
   if (loading) {
     return <div className={styles.loading}>Loading group details...</div>;
   }
@@ -93,7 +111,6 @@ export default function GroupDetail() {
       </div>
 
       <div className={styles.mainGrid}>
-        {/* Left Column: Tasks and Chat */}
         <div className={styles.leftColumn}>
           <div className={styles.tasksSection}>
             <div className={styles.sectionHeader}>
@@ -114,13 +131,12 @@ export default function GroupDetail() {
           </div>
         </div>
 
-        {/* Right Column: Members */}
         <div className={styles.rightColumn}>
           <div className={styles.membersList}>
             <h3>{members.length} Members</h3>
             <ul>
               {members.map((uid) => (
-                <li key={uid}>{uid === currentUser?.uid ? "You" : uid}</li>
+                <li key={uid}>{uid === currentUser?.uid ? "You" : memberNames[uid] || uid}</li>
               ))}
             </ul>
           </div>

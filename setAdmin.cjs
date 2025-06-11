@@ -9,10 +9,8 @@ const uid = "8zfmpeiXzeOL1GsJhOATOir1Bvn2";
 
 admin.auth().setCustomUserClaims(uid, { admin: true })
   .then(() => {
-    console.log("🟢 Custom claim 'admin' הוגדר בהצלחה ל-UID:", uid);
     process.exit(0);
   })
-  .catch((err) => {
-    console.error("🔴 שגיאה בהגדרת ה-Custom claim:", err);
+  .catch(() => {
     process.exit(1);
   });

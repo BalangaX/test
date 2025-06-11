@@ -6,14 +6,13 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
 import CreateGroupForm from '../../components/SocialHub/CreateGroupForm';
 import GroupList from '../../components/SocialHub/GroupList';
-import PageHeader from '../../components/Common/PageHeader'; // Import the new header
+import PageHeader from '../../components/Common/PageHeader';
 import styles from './style.module.css';
 
 export default function SocialHubPage() {
   const [studyGroups, setStudyGroups] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // This hook checks if the current URL matches the pattern for a group detail page.
   const isGroupDetailPage = useMatch("/social-hub/groups/:groupId");
 
   useEffect(() => {
@@ -28,7 +27,6 @@ export default function SocialHubPage() {
 
   return (
     <>
-      {/* The PageHeader is shown only on the main hub page */}
       {!isGroupDetailPage && (
         <PageHeader
           title="Social Hub"
@@ -38,7 +36,6 @@ export default function SocialHubPage() {
 
       <div className={styles.page}>
         <div className={styles.hubLayout}>
-          {/* Main Content Column: Renders either the list or the detail page */}
           <main className={styles.mainContent}>
             {isGroupDetailPage ? (
               <Outlet />
@@ -50,7 +47,6 @@ export default function SocialHubPage() {
             )}
           </main>
 
-          {/* Sidebar Column: Renders only on the main hub page */}
           {!isGroupDetailPage && (
             <aside className={styles.sidebar}>
               <section>

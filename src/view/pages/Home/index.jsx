@@ -2,7 +2,7 @@ import React from "react";
 import { FaChartBar, FaBookOpen, FaPenNib, FaUsers, FaCog } from "react-icons/fa";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import PageHeader from "../../components/Common/PageHeader"; // Import the new header
+import PageHeader from "../../components/Common/PageHeader";
 import HomeCard from "../../components/Home/HomeCard";
 import styles from "./style.module.css";
 
@@ -27,7 +27,6 @@ export default function Home() {
       />
 
       <section className={styles.wrapper}>
-        {/* The old hero section is now replaced by the PageHeader */}
 
         <div className={styles.grid}>
           <HomeCard
@@ -63,9 +62,6 @@ export default function Home() {
           />
         </div>
 
-        {/* The logout button is usually part of a Navbar or user menu. 
-          For now, we can place it here or you can decide where it fits best.
-        */}
         <div className={styles.logoutContainer}>
             <button onClick={handleLogout} className={styles.logoutBtn}>
                 Logout

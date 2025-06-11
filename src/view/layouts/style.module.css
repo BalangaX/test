@@ -6,3 +6,16 @@
   margin: 0 auto; /* Center content */
   margin-top: var(--spacing-unit-md); /* Add some space below the NavBar */
 }
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* מבטיח שהלייאאוט יתפוס את כל גובה המסך */
+}
+
+.content {
+  flex-grow: 1; /* מאפשר לתוכן הראשי לתפוס את השטח הפנוי */
+  padding: var(--spacing-unit-lg); /* השתמש במשתני CSS שלך עבור מרווחים, לדוגמה: 24px */
+  max-width: var(--container-max-width-xl, 1200px); /* רוחב מקסימלי לתוכן, עם ברירת מחדל */
+  margin: 0 auto; /* מרכוז התוכן */
+}

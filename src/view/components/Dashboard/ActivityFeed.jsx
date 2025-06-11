@@ -5,7 +5,7 @@ export default function ActivityFeed({ className = "", data = [], loading = fals
   const timeAgo = (date) => {
     if (!date) return "";
     const d = typeof date === "string" ? new Date(date) : date;
-    const diff = Math.floor((Date.now() - d.getTime()) / 60000); // minutes
+    const diff = Math.floor((Date.now() - d.getTime()) / 60000);
     if (diff < 60) return `${diff}m`;
     const hrs = Math.floor(diff / 60);
     if (hrs < 24) return `${hrs}h`;

@@ -1,5 +1,3 @@
-// src/view/components/Summaries/SummaryCard/index.jsx
-
 import React from 'react';
 import styles from './style.module.css';
 
@@ -11,9 +9,7 @@ export default function SummaryCard({ summary }) {
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.author}>By: {author}</p>
-        <p className={styles.date}>
-          {new Date(uploadDate).toLocaleDateString()}
-        </p>
+        <p className={styles.date}>{new Date(uploadDate).toLocaleDateString()}</p>
       </div>
       <div className={styles.actions}>
         <a

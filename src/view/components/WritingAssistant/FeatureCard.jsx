@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import styles from "./FeatureCard.module.css";
 
 export default function FeatureCard({ icon, title, subtitle, onClick }) {
+  const handleKeyDown = (e) => {
+    if ((e.key === "Enter" || e.key === " ") && onClick) {
+      onClick();
+    }
+  };
+
   return (
     <div
       className={styles.card}
       role="button"
       tabIndex={0}
       onClick={onClick}
-      onKeyDown={(e) => {
-        if ((e.key === "Enter" || e.key === " ") && onClick) {
-          onClick();
-        }
-      }}
+      onKeyDown={handleKeyDown}
     >
       <div className={styles.icon}>{icon}</div>
       <div className={styles.info}>

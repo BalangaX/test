@@ -42,10 +42,9 @@ export default function Login() {
         {error && <div className="error-message">{error}</div>}
 
         <div className="form-group">
-          <label htmlFor="identifier" className="form-label">Email or Username</label>
+          <label htmlFor="identifier">Email or Username</label>
           <input
             id="identifier"
-            className="form-input"
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
             autoComplete="username"
@@ -54,10 +53,9 @@ export default function Login() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password" className="form-label">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
-            className="form-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -66,7 +64,7 @@ export default function Login() {
           />
         </div>
 
-        <button className="submit-btn" type="submit">Login</button>
+        <button type="submit">Login</button>
 
         <div className="switch-auth">
           <span>Don’t have an account? </span>

@@ -6,7 +6,7 @@ import styles from "./style.module.css";
 import TaskForm from "../../components/Tasks/TaskForm";
 import Tasklist from "../../components/Tasks/Tasklist";
 import MyCalendar from "../../components/Tasks/MyCalendar";
-import PageHeader from "../../components/Common/PageHeader"; // ייבוא של הרכיב החדש
+import PageHeader from "../../components/Common/PageHeader";
 
 const isFutureDate = (taskDate) => {
   const today = new Date();
@@ -28,7 +28,6 @@ export default function TasksPage() {
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  // Effect to fetch personal tasks
   useEffect(() => {
     if (!currentUser) {
       setLoading(false);
@@ -48,14 +47,10 @@ export default function TasksPage() {
       }));
       setPersonalTasks(tasksData);
       setLoading(false);
-    }, (error) => {
-      console.error("Error fetching personal tasks:", error);
-      setLoading(false);
     });
     return () => unsubPersonal();
   }, [currentUser]);
 
-  // Effect to fetch user groups and their respective tasks
   useEffect(() => {
     if (!currentUser) return;
     const groupListeners = [];
@@ -83,8 +78,6 @@ export default function TasksPage() {
               groupName: group.name,
             }));
             setGroupTasksMap(prevMap => ({ ...prevMap, [group.id]: tasksForThisGroup }));
-          }, (error) => {
-            console.error(`Error fetching tasks for group ${group.name}:`, error);
           });
           groupListeners.push(unsub);
         });
@@ -101,8 +94,6 @@ export default function TasksPage() {
       } else {
         setGroupTasksMap({});
       }
-    }, (error) => {
-      console.error("Error fetching user groups:", error);
     });
     return () => {
       unsubGroups();
@@ -110,7 +101,6 @@ export default function TasksPage() {
     };
   }, [currentUser]);
 
-  // Effect to combine personal and group tasks into a single 'tasks' state
   useEffect(() => {
     const allGroupTasks = Object.values(groupTasksMap).flat();
     setTasks([...personalTasks, ...allGroupTasks]);

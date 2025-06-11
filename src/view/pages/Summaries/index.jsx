@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 import useApprovedSummaries from "../../../hooks/useApprovedSummaries";
 import useSummaries from "../../../hooks/useSummaries";
 
-import PageHeader from "../../components/Common/PageHeader"; // Import the new, unified header
+import PageHeader from "../../components/Common/PageHeader";
 import SummaryFilters from "../../components/Summaries/SummaryFilters/SummaryFilters";
 import SummariesGrid from "../../components/Summaries/SummariesGrid";
 import UploadSummaryModal from "../../components/Summaries/UploadSummaryModal";

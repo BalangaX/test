@@ -1,6 +1,6 @@
 import React from "react";
 import { paperTypes } from "../../../data/writingTemplates";
-import pageStyles from "../../pages/WritingAssistant/style.module.css"; // Import page styles
+import pageStyles from "../../pages/WritingAssistant/style.module.css";
 
 export default function PaperTypeSelect({ value, onChange }) {
   return (

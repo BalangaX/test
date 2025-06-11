@@ -9,10 +9,17 @@ export default function FeedbackTips({ tips = [] }) {
 
   return (
     <div className={styles.card}>
-      <button className={styles.header} onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className={styles.header}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <FaLightbulb className={styles.icon} />
         <span className={styles.heading}>Feedback & Tips</span>
-        <span className={`${styles.chevron} ${isOpen ? styles.open : ""}`}>▼</span>
+        <span
+          className={`${styles.chevron} ${isOpen ? styles.open : ""}`}
+        >
+          ▼
+        </span>
       </button>
       {isOpen && (
         <ol className={styles.list}>

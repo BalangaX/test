@@ -1,5 +1,3 @@
-// src/view/components/Summaries/SummariesGrid/index.jsx
-
 import React from 'react';
 import SummaryCard from '../SummaryCard';
 import styles from './style.module.css';

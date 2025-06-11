@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import styles from "./style.module.css";
 
 import writingTemplates from "../../../data/writingTemplates";
-import PageHeader from "../../components/Common/PageHeader"; // Using the new unified header
+import PageHeader from "../../components/Common/PageHeader";
 import PaperTypeSelect from "../../components/WritingAssistant/PaperTypeSelect";
 import TemplateSelect from "../../components/WritingAssistant/TemplateSelect";
 import FeedbackTips from "../../components/WritingAssistant/FeedbackTips";
@@ -19,7 +19,6 @@ export default function WritingAssistantPage() {
   const [paperType, setPaperType] = useState("");
   const [templateId, setTemplateId] = useState(0);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-
   const [modalMessage, setModalMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
@@ -31,11 +30,7 @@ export default function WritingAssistantPage() {
   const handlePaperTypeChange = (newType) => {
     setPaperType(newType);
     setTemplateId(0);
-    if (newType) {
-      setStep(2);
-    } else {
-      setStep(1);
-    }
+    setStep(newType ? 2 : 1);
   };
 
   const handleSubmit = () => {
@@ -48,7 +43,7 @@ export default function WritingAssistantPage() {
       setSelectedTemplate(template);
     }
   };
-  
+
   const tips = [
     "Structure your paper with clear sections (introduction, body, conclusion).",
     "Include a strong thesis statement at the end of your introduction.",
@@ -117,17 +112,17 @@ export default function WritingAssistantPage() {
             </div>
           )}
         </div>
-        
+
         <div className={styles.submitSection}>
           <SubmitButton onClick={handleSubmit} />
         </div>
 
         <div className={styles.featuresGrid}>
-          {features.map((f, i) => (
-            <FeatureCard key={i} {...f} />
+          {features.map((feature, index) => (
+            <FeatureCard key={index} {...feature} />
           ))}
         </div>
-        
+
         <FeedbackTips tips={tips} />
       </main>
 
@@ -138,7 +133,7 @@ export default function WritingAssistantPage() {
 
       {showModal && (
         <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
-          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <p>{modalMessage}</p>
             <button onClick={() => setShowModal(false)}>Close</button>
           </div>

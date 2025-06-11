@@ -6,7 +6,8 @@ import {
   onSnapshot,
   addDoc,
   serverTimestamp,
-  getDoc, doc
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import styles from "./GroupChat.module.css";
@@ -19,18 +20,20 @@ export default function GroupChat({ groupId, currentUser }) {
 
   useEffect(() => {
     if (!groupId) return;
+
     const messagesRef = collection(db, "studyGroups", groupId, "messages");
     const q = query(messagesRef, orderBy("sentAt", "asc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const msgs = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       }));
       setMessages(msgs);
       if (scrollRef.current) {
         scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
       }
     });
+
     return () => unsubscribe();
   }, [groupId]);
 
@@ -39,18 +42,16 @@ export default function GroupChat({ groupId, currentUser }) {
     setSending(true);
     try {
       const messagesRef = collection(db, "studyGroups", groupId, "messages");
-      // Fetch the username of the current user
       const userDoc = await getDoc(doc(db, "users", currentUser.uid));
       const username = userDoc.exists() ? userDoc.data().username : "Unknown";
       await addDoc(messagesRef, {
         text: newMessage.trim(),
         authorUid: currentUser.uid,
         authorUsername: username,
-        sentAt: serverTimestamp()
+        sentAt: serverTimestamp(),
       });
       setNewMessage("");
     } catch (err) {
-      console.error("Error sending message:", err);
     } finally {
       setSending(false);
     }

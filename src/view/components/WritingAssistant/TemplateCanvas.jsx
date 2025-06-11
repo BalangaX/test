@@ -9,6 +9,7 @@ export default function TemplateCanvas({ template, onClose }) {
   useEffect(() => {
     setText(template?.content || "");
   }, [template]);
+
   const textareaRef = useRef();
 
   if (!template) return null;
@@ -22,10 +23,7 @@ export default function TemplateCanvas({ template, onClose }) {
 
   return (
     <div className={styles.backdrop} onClick={onClose}>
-      <div
-        className={styles.canvas}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.canvas} onClick={(e) => e.stopPropagation()}>
         <header className={styles.header}>
           <h2 className={styles.title}>{template.name}</h2>
           <button className={styles.closeBtn} onClick={onClose} aria-label="Close">

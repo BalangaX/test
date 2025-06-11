@@ -20,12 +20,7 @@ export default function RegisterPage() {
       return setError("Passwords do not match");
     }
     try {
-      const { user } = await register(email, password, username);
-      await setDoc(doc(db, "users", user.uid), {
-        username: username.toLowerCase(),
-        email: email,
-        createdAt: Date.now(),
-      });
+      await register(email, password, username);
       navigate("/", { replace: true });
     } catch (authError) {
       setError(authError.message);
@@ -33,62 +28,58 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="auth-page">
-      <form className="auth-form" onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleSubmit}>
         <h1>Create Account</h1>
-        {error && <div className="error-message">{error}</div>}
+        {error && <div>{error}</div>}
 
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">Email</label>
+        <div>
+          <label htmlFor="email">Email</label>
           <input
             id="email"
             type="email"
             required
-            className="form-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="username" className="form-label">Username</label>
+        <div>
+          <label htmlFor="username">Username</label>
           <input
             id="username"
             type="text"
             required
-            className="form-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">Password</label>
+        <div>
+          <label htmlFor="password">Password</label>
           <input
             id="password"
             type="password"
             required
-            className="form-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="confirm" className="form-label">Confirm Password</label>
+        <div>
+          <label htmlFor="confirm">Confirm Password</label>
           <input
             id="confirm"
             type="password"
             required
-            className="form-input"
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}
           />
         </div>
 
-        <button type="submit" className="submit-btn">Register</button>
+        <button type="submit">Register</button>
 
-        <div className="switch-auth">
+        <div>
           <span>Already have an account? </span>
           <a href="/login">Login</a>
         </div>

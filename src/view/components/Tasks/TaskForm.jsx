@@ -1,24 +1,22 @@
-// src/view/components/Tasks/TaskForm.jsx
 import React, { useState, useEffect } from "react";
-import styles from "../../pages/Tasks/style.module.css"; // Using unified styles
+import styles from "../../pages/Tasks/style.module.css";
 
 export default function TaskForm({ onSave, onCancel, taskToEdit, userGroups }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("personal"); // Default to 'personal', but can be 'deadline' or 'study' from DB
-  const [assignedTo, setAssignedTo] = useState("personal"); // 'personal' or group ID
+  const [type, setType] = useState("personal");
+  const [assignedTo, setAssignedTo] = useState("personal");
 
   useEffect(() => {
     if (taskToEdit) {
       setTitle(taskToEdit.title);
       setDescription(taskToEdit.description || "");
-      setType(taskToEdit.type || "personal"); // Ensure type is correctly set from taskToEdit
+      setType(taskToEdit.type || "personal");
       setAssignedTo(taskToEdit.isGroupTask ? taskToEdit.groupId : "personal");
     } else {
-      // Reset form when not editing or starting new task
       setTitle("");
       setDescription("");
-      setType("personal"); // Default type for new task
+      setType("personal");
       setAssignedTo("personal");
     }
   }, [taskToEdit]);
@@ -27,7 +25,7 @@ export default function TaskForm({ onSave, onCancel, taskToEdit, userGroups }) {
     e.preventDefault();
     if (!title.trim()) return;
 
-    onSave({ title, description, type }, assignedTo); // Pass type with taskData
+    onSave({ title, description, type }, assignedTo);
   };
 
   return (
@@ -52,12 +50,10 @@ export default function TaskForm({ onSave, onCancel, taskToEdit, userGroups }) {
         onChange={(e) => setType(e.target.value)}
         className={styles.formInput}
       >
-        <option value="personal">General Task</option> {/* Changed 'Personal' to 'General Task' for clarity */}
-        <option value="deadline">Deadline Task</option> {/* Added 'Deadline' option */}
-        {/* Removed <option value="study">Study</option> */}
+        <option value="personal">General Task</option>
+        <option value="deadline">Deadline Task</option>
       </select>
 
-      {/* New dropdown for group assignment */}
       {userGroups && userGroups.length > 0 && (
         <select
           value={assignedTo}

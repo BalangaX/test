@@ -8,7 +8,6 @@ export default function MainLayout() {
     <div className={styles.layout}>
       <NavBar />
       <main className={styles.content}>
-        {/* כאן נטען כל עמוד בהתאם ל-route */}
         <Outlet />
       </main>
     </div>

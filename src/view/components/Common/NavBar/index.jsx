@@ -2,15 +2,14 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './style.module.css';
 import { useAuth } from '../../../../context/AuthContext';
- 
 
 export default function NavBar() {
   const { currentUser } = useAuth();
   const isAdmin = currentUser?.isAdmin;
 
   const links = [
-    { to: '/',       label: 'Home' },
-    { to: '/tasks',  label: 'Tasks' },
+    { to: '/', label: 'Home' },
+    { to: '/tasks', label: 'Tasks' },
     { to: '/summaries', label: 'Summaries' },
     { to: '/writing-assistant', label: 'Writing Assistant' },
     { to: '/social-hub', label: 'Social Hub' },
@@ -30,9 +29,7 @@ export default function NavBar() {
           <li key={to}>
             <NavLink
               to={to}
-              className={({ isActive }) =>
-                isActive ? styles.activeLink : styles.link
-              }
+              className={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
               end={to === '/'}
             >
               {label}
@@ -42,9 +39,13 @@ export default function NavBar() {
       </ul>
       <div className={styles.userInfo}>
         {currentUser ? (
-          <span className={styles.username}>Hello, {currentUser.username || currentUser.email}</span>
+          <span className={styles.username}>
+            Hello, {currentUser.username || currentUser.email}
+          </span>
         ) : (
-          <NavLink to="/login" className={styles.loginLink}>Login</NavLink>
+          <NavLink to="/login" className={styles.loginLink}>
+            Login
+          </NavLink>
         )}
       </div>
     </nav>

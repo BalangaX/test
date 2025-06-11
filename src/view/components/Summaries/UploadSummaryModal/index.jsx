@@ -37,7 +37,6 @@ export default function UploadSummaryModal({ onClose, onSend }) {
       });
       onClose();
     } catch (err) {
-      console.error('UploadSummaryModal: handleSubmit error', err);
       alert('Error uploading summary: ' + err.message);
     }
   };

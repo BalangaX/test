@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SettingsPanel.module.css";
 import { getAuth, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { useAuth } from "../../../../context/AuthContext";
@@ -49,7 +49,7 @@ export default function SettingsPanel() {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.documentElement.classList.toggle("dark-mode", darkMode);
     setLS("sb_darkMode", darkMode);
   }, [darkMode]);

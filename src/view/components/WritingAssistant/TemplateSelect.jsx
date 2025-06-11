@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import pageStyles from "../../pages/WritingAssistant/style.module.css"; // Import page styles
+import pageStyles from "../../pages/WritingAssistant/style.module.css";
 
 export default function TemplateSelect({ templates, value, onChange }) {
   const isDisabled = templates.length === 0;
