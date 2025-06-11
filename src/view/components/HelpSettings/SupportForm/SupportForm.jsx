@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, addDoc, serverTimestamp, query, where, orderBy } from "firebase/firestore";
-import { onSnapshot } from "firebase/firestore";
+import { useAuth } from "../../../../context/AuthContext";
+import { collection, addDoc, serverTimestamp, query, where, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../firebase/config";
 import styles from "./SupportForm.module.css";
 
@@ -10,11 +10,11 @@ export default function SupportForm() {
   const [status, setStatus] = useState("");
   const [adminResponse, setAdminResponse] = useState("");
 
+  const { currentUser } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const auth = getAuth();
-      const currentUser = auth.currentUser;
       const userId = currentUser ? currentUser.uid : null;
       await addDoc(collection(db, "supportTickets"), {
         message: message,
@@ -30,8 +30,6 @@ export default function SupportForm() {
   };
 
   useEffect(() => {
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
     if (!currentUser) return;
 
     const ticketsQuery = query(
@@ -54,7 +52,7 @@ export default function SupportForm() {
     );
 
     return () => unsubscribe();
-  }, []);
+  }, [currentUser]);
 
   return (
     <div className={styles.card}>

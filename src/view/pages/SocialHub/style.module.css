@@ -16,6 +16,18 @@
   gap: 32px;
 }
 
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;            /* spacing between sections inside main */
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;            /* vertical spacing between sidebar sections */
+}
+
 .mainContent:only-child {
   grid-column: 1 / -1;
 }

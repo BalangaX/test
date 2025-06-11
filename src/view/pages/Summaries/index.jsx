@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import styles from "./style.module.css";
 import useApprovedSummaries from "../../../hooks/useApprovedSummaries";
-import useSummaries from "../../../hooks/useSummaries";
+import { addSummary } from "../../../hooks/useSummaries";
 
 import PageHeader from "../../components/Common/PageHeader";
 import SummaryFilters from "../../components/Summaries/SummaryFilters/SummaryFilters";
@@ -17,7 +17,6 @@ export default function SummariesPage() {
   const [showModal, setShowModal] = useState(false);
 
   const availableSummaries = useApprovedSummaries() || [];
-  const { addSummary } = useSummaries();
 
   const authors = ["All", ...new Set(availableSummaries.map((s) => s.author))];
 

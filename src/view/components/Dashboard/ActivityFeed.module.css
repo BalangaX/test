@@ -46,3 +46,8 @@
   font-size: 0.75rem;
   color: #5f6368;
 }
+
+.placeholder {
+  padding: 2rem;
+  text-align: center;
+}

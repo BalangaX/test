@@ -37,19 +37,23 @@ export default function GroupDetail() {
 
   useEffect(() => {
     const fetchMemberNames = async () => {
+      // Fetch all user docs in parallel for better performance
+      const snapshots = await Promise.all(
+        members.map((uid) =>
+          getDoc(doc(db, "users", uid)).catch(() => null) // swallow individual errors
+        )
+      );
+
       const names = {};
-      for (const uid of members) {
-        try {
-          const userDoc = await getDoc(doc(db, "users", uid));
-          if (userDoc.exists()) {
-            names[uid] = userDoc.data().username || uid;
-          } else {
-            names[uid] = uid;
-          }
-        } catch {
+      snapshots.forEach((snap, idx) => {
+        const uid = members[idx];
+        if (snap && snap.exists()) {
+          names[uid] = snap.data().username || uid;
+        } else {
           names[uid] = uid;
         }
-      }
+      });
+
       setMemberNames(names);
     };
 

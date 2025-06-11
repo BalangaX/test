@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   const { currentUser } = useAuth();
   const [pendingSummaries, setPendingSummaries] = useState([]);
   const [userList, setUserList] = useState([]);
-  const [contentStats, setContentStats] = useState({ summaries: 0, posts: 0 });
+  const [contentStats, setContentStats] = useState({ summaries: 0, completedTasks: 0 });
   const [userStats, setUserStats] = useState({ total: 0, growth: [], newSignups: 0 });
   const [supportList, setSupportList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +45,13 @@ export default function AdminDashboard() {
         const allTasksSnap = await getDocs(query(collectionGroup(db, "tasks"), where("completed", "==", true)));
         const totalCompletedTasks = allTasksSnap.size;
 
+        // Build a per‑user map of completed tasks
+        const completedTasksByUid = {};
+        allTasksSnap.forEach((taskDoc) => {
+          const uid = taskDoc.ref.parent.parent.id; // users/{uid}/tasks/{docId}
+          completedTasksByUid[uid] = (completedTasksByUid[uid] || 0) + 1;
+        });
+
         const allSummariesSnap = await getDocs(collection(db, "summaries"));
         const totalSummaries = allSummariesSnap.size;
 
@@ -56,6 +63,7 @@ export default function AdminDashboard() {
 
         const enrichedUsers = users.map((user) => ({
           ...user,
+          completedTasks: completedTasksByUid[user.id] || 0,
           summaryCount: summariesByUploader[user.id] || 0,
         }));
         setUserList(enrichedUsers);
@@ -63,12 +71,15 @@ export default function AdminDashboard() {
 
         const now = Date.now();
         const dayMs = 24 * 60 * 60 * 1000;
-        let growthMap = {};
-        let newSignups = 0;
-        for (let i = 6; i >= 0; i--) {
-          const d = new Date(now - i * dayMs).toISOString().slice(0, 10);
-          growthMap[d] = 0;
+        const daysBack = 29; // last 30 days including today
+
+        const growthMap = {};
+        for (let i = daysBack; i >= 0; i--) {
+          const iso = new Date(now - i * dayMs).toISOString().slice(0, 10);
+          growthMap[iso] = 0;
         }
+
+        let newSignups = 0;
         users.forEach((u) => {
           if (u.createdAt) {
             const d = new Date(u.createdAt);
@@ -77,9 +88,17 @@ export default function AdminDashboard() {
             if (d > new Date(now - 7 * dayMs)) newSignups++;
           }
         });
+        // Format date as d/m for chart labels
+        const fmtDate = (iso) => {
+          const d = new Date(iso);
+          return `${d.getDate()}/${d.getMonth() + 1}`;
+        };
         setUserStats({
           total: users.length,
-          growth: Object.entries(growthMap).map(([date, count]) => ({ date, count })),
+          growth: Object.entries(growthMap).map(([date, count]) => ({
+            date: fmtDate(date),
+            count,
+          })),
           newSignups,
         });
 
@@ -291,7 +310,7 @@ export default function AdminDashboard() {
         </div>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
-            <h3>User Growth (Last 7 Days)</h3>
+            <h3>User Growth (Last 30 Days)</h3>
             <div className={styles.chartContainer}>
               {loading ? (
                 <div>Loading...</div>
@@ -318,7 +337,7 @@ export default function AdminDashboard() {
                     <Pie
                       data={[
                         { name: "Summaries", value: contentStats.summaries || 0 },
-                        { name: "Completed Tasks", value: contentStats.posts || 0 },
+                        { name: "Completed Tasks", value: contentStats.completedTasks || 0 },
                       ]}
                       dataKey="value"
                       nameKey="name"
@@ -356,7 +375,7 @@ export default function AdminDashboard() {
                 </tr>
                 <tr>
                   <td>Total Completed Tasks</td>
-                  <td>{loading ? "..." : contentStats.posts}</td>
+                  <td>{loading ? "..." : contentStats.completedTasks}</td>
                 </tr>
               </tbody>
             </table>

@@ -229,20 +229,6 @@ select:focus {
 }
 
 /* ---------- Utility Classes (from original) ---------- */
-.btn-primary {
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 2.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.btn-primary:hover {
-  filter: brightness(1.07);
-  background: var(--primary-color-dark);
-}
 .input {
   width: 100%;
   padding: 0.65rem 1rem;

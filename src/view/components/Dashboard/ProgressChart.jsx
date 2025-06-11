@@ -8,14 +8,15 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import styles from "./ProgressChart.module.css";
 
 export default function ProgressChart({ className = "", data = [], loading = false }) {
   return (
-    <div className={className} style={{ width: "100%", height: "100%" }}>
+    <div className={`${styles.wrapper} ${className}`}>
       {loading ? (
-        <div style={{ padding: "2rem", textAlign: "center" }}>טוען גרף...</div>
+        <div className={styles.placeholder}>Loading chart...</div>
       ) : !data || data.length === 0 ? (
-        <div style={{ padding: "2rem", textAlign: "center" }}>אין נתונים לגרף השבועי</div>
+        <div className={styles.placeholder}>No data for this week</div>
       ) : (
         <ResponsiveContainer width="100%" height={260}>
           <LineChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>

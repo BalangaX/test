@@ -74,10 +74,17 @@ export default function UploadSummaryModal({ onClose, onSend }) {
             />
           </label>
           <div className={styles.actions}>
-            <button type="button" onClick={onClose}>
+            <button
+              type="button"
+              onClick={onClose}
+              className={`${styles.button} ${styles.cancelBtn}`}
+            >
               Cancel
             </button>
-            <button type="submit" className={styles.send}>
+            <button
+              type="submit"
+              className={`${styles.button} ${styles.sendBtn}`}
+            >
               Send
             </button>
           </div>

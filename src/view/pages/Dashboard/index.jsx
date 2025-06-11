@@ -14,15 +14,11 @@ export default function Dashboard() {
 
   const { kpis, progressData, activityFeed, loading, error } = useUserStats(userId);
 
-  const today = useMemo(
-    () => new Date().toLocaleDateString("en-US", { dateStyle: "full" }),
-    []
-  );
 
   return (
     <>
       <PageHeader
-        title={`Welcome, ${currentUser?.displayName || 'User'}!`}
+        title={`Welcome, ${currentUser?.username || currentUser?.displayName || currentUser?.email || 'User'}!`}
         subtitle="Here's a quick overview of your academic progress."
       />
       <div className={styles.wrapper}>

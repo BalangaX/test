@@ -27,35 +27,14 @@
     accent-color: var(--accent, #3b82f6);   /* modern browsers */
     margin-inline-start: 0;                 /* reset default */
   }
-  .select {
-    padding: 6px 10px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    background: var(--sb-surface, #ffffff);
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .select:focus {
-    outline: none;
-    border-color: var(--accent, #3b82f6);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
-  }
 
   /* ---------- Dark‑mode overrides ---------- */
-  .dark-mode .card {
+  :global(.dark-mode) .card {
     background: #1e1e2f;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
   }
 
-  .dark-mode .label {
-    color: #e5e5e5;
-  }
-
-  .dark-mode .select {
-    background: #2b2b3f;
-    border-color: #444;
+  :global(.dark-mode) .label {
     color: #e5e5e5;
   }
 

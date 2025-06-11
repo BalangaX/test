@@ -84,6 +84,19 @@
   border-bottom: none;
 }
 
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-color-muted);
+}
+
 @media (max-width: 900px) {
   .mainGrid {
     grid-template-columns: 1fr;

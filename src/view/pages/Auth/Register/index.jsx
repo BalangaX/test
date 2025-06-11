@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../context/AuthContext";
-import { db } from "../../../../firebase/config";
-import { doc, setDoc } from "firebase/firestore";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -28,12 +26,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="auth-page">
+      <form className="auth-form" onSubmit={handleSubmit}>
         <h1>Create Account</h1>
-        {error && <div>{error}</div>}
+        {error && <div className="error-message">{error}</div>}
 
-        <div>
+        <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -44,7 +42,7 @@ export default function RegisterPage() {
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
             id="username"
@@ -55,7 +53,7 @@ export default function RegisterPage() {
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -66,7 +64,7 @@ export default function RegisterPage() {
           />
         </div>
 
-        <div>
+        <div className="form-group">
           <label htmlFor="confirm">Confirm Password</label>
           <input
             id="confirm"
@@ -77,9 +75,9 @@ export default function RegisterPage() {
           />
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit" className="submit-btn">Register</button>
 
-        <div>
+        <div className="switch-auth">
           <span>Already have an account? </span>
           <a href="/login">Login</a>
         </div>

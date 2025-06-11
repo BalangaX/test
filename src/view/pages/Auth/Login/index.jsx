@@ -45,6 +45,7 @@ export default function Login() {
           <label htmlFor="identifier">Email or Username</label>
           <input
             id="identifier"
+            className="form-input"
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
             autoComplete="username"
@@ -57,6 +58,7 @@ export default function Login() {
           <input
             id="password"
             type="password"
+            className="form-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"

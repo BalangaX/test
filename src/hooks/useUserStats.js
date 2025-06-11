@@ -49,12 +49,12 @@ export default function useUserStats(userId) {
         ]);
 
         const progressArr = [];
-        for (let i = 6; i >= 0; i--) {
+        for (let i = 29; i >= 0; i--) {          // last 30 days including today
           const d = new Date(now);
           d.setDate(now.getDate() - i);
           const dStr = d.toISOString().slice(0, 10);
           progressArr.push({
-            day: d.toLocaleDateString("he-IL", { weekday: "short" }),
+            day: `${d.getDate()}/${d.getMonth() + 1}`,   // label format d/m
             completed: tasks.filter(
               (t) => t.completed && t.date === dStr
             ).length,
@@ -63,13 +63,20 @@ export default function useUserStats(userId) {
         setProgressData(progressArr);
 
         const feed = tasks
-          .map((t) => ({
-            id: t.id,
-            text: t.completed
-              ? `סיימת משימה: "${t.title}"`
-              : `הוספת משימה: "${t.title}"`,
-            ts: new Date(t.date),
-          }))
+          .map((t) => {
+            // use completedAt if present, otherwise fallback to task date
+            const rawDate = t.completed && t.completedAt ? t.completedAt : t.date;
+            const dt = new Date(rawDate);
+
+            return {
+              id: t.id,
+              text: t.completed
+                ? `Completed task: "${t.title}"`
+                : `Added task: "${t.title}"`,
+              ts: dt,                        // keep Date object for sort
+              displayDate: `${dt.getDate()}/${dt.getMonth() + 1}`, // d/m
+            };
+          })
           .sort((a, b) => b.ts - a.ts)
           .slice(0, 5);
 

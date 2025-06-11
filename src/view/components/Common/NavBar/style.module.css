@@ -68,3 +68,32 @@
     padding: var(--spacing-unit-md); /* More touch-friendly padding */
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* User-info section (right side)                                     */
+/* ------------------------------------------------------------------ */
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-unit-lg);
+}
+
+.username {
+  color: var(--text-color-light); /* keep text light on dark bg */
+  font-size: var(--font-size-base);
+}
+
+.loginLink {
+  color: var(--text-color-light);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-unit-sm) var(--spacing-unit-md);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-base);
+}
+
+.loginLink:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
