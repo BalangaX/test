@@ -15,10 +15,12 @@ export default function MyCalendar({ selectedDate, onSelectDate, tasks }) {
 
   return (
     <Calendar
-      onChange={onSelectDate}
-      value={selectedDate}
-      className={styles['react-calendar']}
-      tileClassName={tileClassName}
-    />
+  onChange={onSelectDate}
+  value={selectedDate}
+  className={styles['react-calendar']}
+  tileClassName={tileClassName}
+  locale="en-IL"
+  calendarType="gregory"
+/>
   );
 }

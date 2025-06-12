@@ -13,7 +13,6 @@ import UploadSummaryModal from "../../components/Summaries/UploadSummaryModal";
 export default function SummariesPage() {
   const [search, setSearch] = useState("");
   const [authorFilter, setAuthorFilter] = useState("All");
-  const [sortBy, setSortBy] = useState("Popularity");
   const [showModal, setShowModal] = useState(false);
 
   const availableSummaries = useApprovedSummaries() || [];
@@ -24,18 +23,13 @@ export default function SummariesPage() {
     const text = search.toLowerCase();
     const matchesText =
       s.title.toLowerCase().includes(text) ||
-      s.subject.toLowerCase().includes(text) ||
       s.author.toLowerCase().includes(text);
     const matchesAuthor = authorFilter === "All" || s.author === authorFilter;
     return matchesText && matchesAuthor;
   });
 
   const sorted = [...filtered].sort((a, b) => {
-    if (sortBy === "Popularity") {
-      return (b.downloads || 0) - (a.downloads || 0);
-    } else {
-      return new Date(b.uploadDate) - new Date(a.uploadDate);
-    }
+    return new Date(b.uploadDate) - new Date(a.uploadDate);
   });
 
   return (
@@ -53,8 +47,6 @@ export default function SummariesPage() {
             authors={authors}
             authorFilter={authorFilter}
             onAuthorChange={setAuthorFilter}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
           />
           <button className={styles.uploadBtn} onClick={() => setShowModal(true)}>
             Upload New Summary

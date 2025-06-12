@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { getAuth } from "firebase/auth";
+import { useAuth } from "../../../context/AuthContext";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import styles from "./CreateGroupForm.module.css";
 
 export default function CreateGroupForm() {
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
+  const { currentUser } = useAuth();
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");

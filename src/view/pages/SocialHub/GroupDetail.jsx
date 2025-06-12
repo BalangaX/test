@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { useAuth } from "../../../context/AuthContext";
 import { doc, onSnapshot, collection, query, orderBy, addDoc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import GroupChat from "../../components/SocialHub/GroupChat";
@@ -10,8 +10,7 @@ import styles from "./GroupDetail.module.css";
 
 export default function GroupDetail() {
   const { groupId } = useParams();
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
+  const { currentUser } = useAuth();
 
   const [group, setGroup] = useState(null);
   const [members, setMembers] = useState([]);

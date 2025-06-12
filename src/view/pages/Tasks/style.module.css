@@ -271,6 +271,7 @@
   height: 6px;
   background-color: var(--primary-color-light, #8f74f8);
   border-radius: 50%;
+  box-sizing: content-box;
 }
 
 @media (max-width: 800px) {
@@ -292,7 +293,7 @@
   z-index: 999;
 }
 .modalContent {
-  background: white;
+  background: var(--sb-surface); /* שימוש במשתנה הגלובלי המעודכן */
   padding: 20px;
   border-radius: 8px;
   max-width: 90%;

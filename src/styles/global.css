@@ -1,3 +1,5 @@
+/* src/styles/global.css */
+
 /* ---------- Theme Variables (from theme.css) ---------- */
 :root {
   /* Color Palette */
@@ -19,16 +21,14 @@
   --text-color-headings: #343a40;
   --text-color-links: var(--primary-color);
   --text-color-links-hover: var(--primary-color-dark);
-  --text-color-light: #f8f9fa;
+  --text-color-light: #f8f9fa; /* טקסט בהיר, לא ישתנה בדרך כלל ב-dark mode */
   --text-color-muted: var(--secondary-color);
 
   /* Background Colors */
   --background-color-body: #f8f9fa;
   --background-color-cards: #ffffff;
-  --background-color-navbar: var(--primary-color);
-  --background-color-footer: #343a40;
-  --background-color-dark: #343a40;
-  --background-color-light: #f8f9fa;
+  --background-color-navbar: var(--primary-color); /* משתמש בצבע ראשי */
+  --background-color-footer: #343a40; /* צבע קבוע לפוטר */
 
   /* Font Families */
   --font-family-sans-serif: system-ui, -apple-system, BlinkMacSystemFont,
@@ -93,14 +93,12 @@
   --sb-surface: var(--background-color-cards);
   --bg-light: var(--background-color-body);
   --accent: var(--primary-color);
-
-  /* Additional variables for modules */
   --sb-primary: var(--primary-color);
   --sb-primary-dark: var(--primary-color-dark);
   --card-bg: var(--sb-surface);
 }
 
-/* ----------  CSS Reset (from index.css)  ---------- */
+/* ---------- CSS Reset ---------- */
 *,
 *::before,
 *::after {
@@ -228,11 +226,11 @@ select:focus {
   box-shadow: 0 0 3px var(--primary-color-light);
 }
 
-/* ---------- Utility Classes (from original) ---------- */
+/* ---------- Utility Classes ---------- */
 .input {
   width: 100%;
   padding: 0.65rem 1rem;
-  border: 1px solid #cfd3dc;
+  border: 1px solid var(--secondary-color-light); /* שימוש במשתנה */
   border-radius: 5px;
   outline: none;
   font-size: 0.95rem;
@@ -241,19 +239,49 @@ select:focus {
   border-color: var(--primary-color);
 }
 
-/* ---------- Dark‑Mode Overrides ---------- */
-.dark-mode {
-  --background-color-body: #1e1e2f;
-  --background-color-cards: #2b2b3f;
-  --text-color-default: #e6e6e6;
-  --text-color-headings: #ffffff;
-  --text-color-links-hover: #70b0ff;
-  --text-primary: var(--text-color-default);
-  --sb-surface: var(--background-color-cards);
-  --bg-light: var(--background-color-body);
-  --sb-primary: var(--primary-color);
-  --sb-primary-dark: var(--primary-color-dark);
+/*
+/* ---------- Dark-Mode Overrides (Fixed) ---------- */
+/* נגדיר את הכלל ישירות על אלמנט ה-html כאשר יש לו את המחלקה dark-mode */
+html.dark-mode { /* שינוי הכלל: html.dark-mode */
+  /* שינוי משתני הבסיס בלבד עבור Dark Mode */
+  --primary-color: #a080ff; /* צבע ראשי חדש ל-dark mode */
+  --primary-color-dark: #8f74f8; /* כהה יותר */
+  --primary-color-light: #b59fff; /* בהיר יותר */
+
+  --secondary-color: #929299; /* אפור חדש ל-dark mode */
+  --secondary-color-dark: #7a7a80; /* כהה יותר */
+  --secondary-color-light: #6a6a70; /* בהיר יותר */
+
+  --success-color: #4CAF50; /* גוון ירוק ל-dark mode */
+  --warning-color: #FFC107; /* גוון צהוב ל-dark mode */
+  --error-color: #EF5350;   /* גוון אדום ל-dark mode */
+  --info-color: #26C6DA;    /* גוון כחול ל-dark mode */
+
+  --text-color-default: #e6e6e6; /* צבע טקסט ראשי ל-dark mode */
+  --text-color-headings: #ffffff; /* כותרות ל-dark mode */
+  --text-color-links: var(--primary-color); /* יגזור את הצבע מה-primary החדש */
+  --text-color-links-hover: var(--primary-color-dark); /* יגזור את הצבע מה-primary-dark החדש */
+  --text-color-muted: var(--secondary-color); /* יגזר את הצבע מה-secondary החדש */
+
+  --background-color-body: #1e1e2f; /* צבע רקע גוף ל-dark mode */
+  --background-color-cards: #2b2b3f; /* צבע רקע כרטיסים ל-dark mode */
+  --background-color-navbar: var(--primary-color); /* יגזור את הצבע מה-primary החדש */
+
+  /* הגדרת צלליות ספציפיות למצב כהה - חשוב! */
+  --box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.4);
+  --box-shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  --box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+
+  /* משתני העזר (Aliases) יקבלו עכשיו את הערכים המעודכנים אוטומטית */
+  /* --text-primary: var(--text-color-default); */
+  /* --sb-surface: var(--background-color-cards); */
+  /* --bg-light: var(--background-color-body); */
+  /* --accent: var(--primary-color); */
+  /* --sb-primary: var(--primary-color); */
+  /* --sb-primary-dark: var(--primary-color-dark); */
+  /* --card-bg: var(--sb-surface); */
 }
+
 
 /*
 ==================================================================
@@ -300,7 +328,7 @@ select:focus {
 .auth-form .form-label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #555;
+  color: var(--text-primary); /* שימוש במשתנה */
   margin-bottom: 0.5rem;
 }
 
@@ -315,6 +343,8 @@ select:focus {
   transition: border-color 0.2s, box-shadow 0.2s;
   /* מונע התנגשות עם הגדרת margin-bottom כללית */
   margin-bottom: 0; 
+  background-color: var(--background-color-cards); /* לוודא שמשתמש בצבע הרקע של הכרטיסים */
+  color: var(--text-primary); /* לוודא שמשתמש בצבע הטקסט הראשי */
 }
 
 .auth-form .form-input:focus {
@@ -328,7 +358,7 @@ select:focus {
   margin-top: 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-color-light); /* שימוש במשתנה */
   /* === התיקון שהתבקש === */
   background-color: var(--primary-color);
   border: none;
@@ -342,9 +372,9 @@ select:focus {
 }
 
 .auth-form .error-message {
-  background-color: #ffe9e9;
-  color: #b91212;
-  border: 1px solid #f5b5b5;
+  background-color: var(--error-color); /* שימוש במשתנה */
+  color: var(--text-color-light); /* טקסט בהיר על רקע אדום */
+  border: 1px solid var(--error-color); /* שימוש במשתנה */
   padding: 0.8rem 1rem;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -356,9 +386,10 @@ select:focus {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   text-align: center;
-  color: #666;
+  color: var(--text-color-muted); /* שימוש במשתנה */
 }
 
 .auth-form .switch-auth a {
   font-weight: 600;
+  color: var(--text-color-links); /* שימוש במשתנה */
 }

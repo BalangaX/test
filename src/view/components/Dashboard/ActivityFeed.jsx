@@ -7,9 +7,9 @@ export default function ActivityFeed({ className = "", data = [], loading = fals
     <div className={`${styles.feed} ${className}`}>
       <h3 className={styles.title}>Recent Activity</h3>
       {loading ? (
-        <div className={styles.placeholder}>טוען פעילות...</div>
+        <div className={styles.placeholder}>Loading activity...</div>
       ) : !data || data.length === 0 ? (
-        <div className={styles.placeholder}>אין פעילות להצגה</div>
+        <div className={styles.placeholder}>No activity to display</div>
       ) : (
         <ul className={styles.list}>
           {data.map((item) => (

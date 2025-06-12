@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAuth } from "firebase/auth";
+import { useAuth } from "../../../context/AuthContext";
 import { doc, updateDoc, arrayUnion, arrayRemove, collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import styles from "./GroupCard.module.css";
 
 export default function GroupCard({ group }) {
-  const auth = getAuth();
-  const currentUser = auth.currentUser;
+  const { currentUser } = useAuth();
 
   const { id, name, topic, members = [] } = group;
 

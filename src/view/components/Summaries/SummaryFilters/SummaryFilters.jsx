@@ -7,8 +7,6 @@ export default function SummaryFilters({
   authors,
   authorFilter,
   onAuthorChange,
-  sortBy,
-  onSortChange,
 }) {
   return (
     <div className={styles.filters}>
@@ -32,14 +30,6 @@ export default function SummaryFilters({
         ))}
       </select>
 
-      <select
-        value={sortBy}
-        onChange={(e) => onSortChange(e.target.value)}
-        className={styles.select}
-      >
-        <option value="Popularity">Popularity</option>
-        <option value="Date">Date</option>
-      </select>
     </div>
   );
 }

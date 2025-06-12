@@ -108,7 +108,10 @@ export default function TasksPage() {
 
 
   const handleSave = async (taskData, assignedGroupId) => {
-    const taskDate = selectedDate.toISOString().slice(0, 10);
+    const year = selectedDate.getFullYear();
+    const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = selectedDate.getDate().toString().padStart(2, '0');
+    const taskDate = `${year}-${month}-${day}`;
     if (assignedGroupId && assignedGroupId !== "personal") {
       const groupTasksRef = collection(db, "studyGroups", assignedGroupId, "tasks");
       if (editingTask && editingTask.isGroupTask && editingTask.groupId === assignedGroupId) {

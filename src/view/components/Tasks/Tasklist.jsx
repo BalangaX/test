@@ -1,6 +1,5 @@
-// src/view/components/Tasks/Tasklist.jsx
 import React from "react";
-import styles from "../../pages/Tasks/style.module.css"; // Using unified styles
+import styles from "../../pages/Tasks/style.module.css"; 
 
 export default function Tasklist({ tasks, onToggle, onEdit, onDelete }) {
   if (!tasks || tasks.length === 0) {
@@ -18,7 +17,13 @@ export default function Tasklist({ tasks, onToggle, onEdit, onDelete }) {
           <span className={`${styles.taskTitle} ${t.completed ? styles.completed : ""}`}>
             {t.title}
             {t.type === "deadline" && (
-              <span className={styles.deadlineTag}>DEADLINE</span>
+              <span className={styles.deadlineTag}>DEADLINE - {
+                (() => {
+                  const [year, month, day] = t.date.split('-').map(Number);
+                  const localDate = new Date(year, month - 1, day);
+                  return localDate.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit', year: 'numeric' });
+                })()
+              }</span>
             )}
             {t.isGroupTask && t.groupName && (
               <span className={styles.groupTaskTag}> ({t.groupName})</span>

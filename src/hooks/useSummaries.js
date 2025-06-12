@@ -15,7 +15,7 @@ export default function useSummaries({ status = "approved", subscribe = true } =
   const [summaries, setSummaries] = useState([]);
 
   useEffect(() => {
-    if (!subscribe) return; // caller only needs helper funcs
+    if (!subscribe) return;
 
     const constraints = [orderBy("uploadDate", "desc")];
     if (status && status !== "*") {

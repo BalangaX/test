@@ -115,7 +115,7 @@
   z-index: 999;
 }
 .modalContent {
-  background: white;
+  background: var(--sb-surface); /* שימוש במשתנה הגלובלי המעודכן */
   padding: 20px;
   border-radius: 8px;
   max-width: 90%;

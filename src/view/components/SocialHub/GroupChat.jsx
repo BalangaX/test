@@ -1,14 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  addDoc,
-  serverTimestamp,
-  getDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import styles from "./GroupChat.module.css";
 
@@ -42,8 +33,7 @@ export default function GroupChat({ groupId, currentUser }) {
     setSending(true);
     try {
       const messagesRef = collection(db, "studyGroups", groupId, "messages");
-      const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-      const username = userDoc.exists() ? userDoc.data().username : "Unknown";
+      const username = currentUser.username;
       await addDoc(messagesRef, {
         text: newMessage.trim(),
         authorUid: currentUser.uid,

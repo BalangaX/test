@@ -1,8 +1,5 @@
-// src/view/pages/WritingAssistant/index.jsx
-
 import React, { useState, useMemo } from "react";
 import styles from "./style.module.css";
-
 import writingTemplates from "../../../data/writingTemplates";
 import PageHeader from "../../components/Common/PageHeader";
 import PaperTypeSelect from "../../components/WritingAssistant/PaperTypeSelect";
@@ -11,8 +8,7 @@ import FeedbackTips from "../../components/WritingAssistant/FeedbackTips";
 import FeatureCard from "../../components/WritingAssistant/FeatureCard";
 import SubmitButton from "../../components/WritingAssistant/SubmitButton";
 import TemplateCanvas from "../../components/WritingAssistant/TemplateCanvas";
-
-import { FaRegFileAlt, FaCopy, FaSpellCheck } from "react-icons/fa";
+import { FaSpellCheck } from "react-icons/fa";
 
 export default function WritingAssistantPage() {
   const [step, setStep] = useState(1);
@@ -52,24 +48,6 @@ export default function WritingAssistantPage() {
   ];
 
   const features = [
-    {
-      icon: <FaRegFileAlt />,
-      title: "Format Guide",
-      subtitle: "APA, MLA examples",
-      onClick: () => {
-        setModalMessage("Format Guide feature coming soon!");
-        setShowModal(true);
-      }
-    },
-    {
-      icon: <FaCopy />,
-      title: "Templates",
-      subtitle: "Pre-formatted documents",
-      onClick: () => {
-        setModalMessage("Templates feature coming soon!");
-        setShowModal(true);
-      }
-    },
     {
       icon: <FaSpellCheck />,
       title: "Grammar Check",

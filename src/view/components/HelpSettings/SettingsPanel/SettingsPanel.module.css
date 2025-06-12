@@ -28,14 +28,14 @@
     margin-inline-start: 0;                 /* reset default */
   }
 
-  /* ---------- Dark‑mode overrides ---------- */
+/* ---------- Dark-mode overrides ---------- */
   :global(.dark-mode) .card {
-    background: #1e1e2f;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    background: var(--sb-surface); /* שימוש במשתנה הגלובלי המעודכן */
+    box-shadow: var(--box-shadow-sm); /* שימוש במשתנה הצללית הגלובלי המעודכן */
   }
 
   :global(.dark-mode) .label {
-    color: #e5e5e5;
+    color: var(--text-primary); /* שימוש במשתנה הגלובלי המעודכן */
   }
 
 .changePasswordSection {

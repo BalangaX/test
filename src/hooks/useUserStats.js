@@ -49,12 +49,12 @@ export default function useUserStats(userId) {
         ]);
 
         const progressArr = [];
-        for (let i = 29; i >= 0; i--) {          // last 30 days including today
+        for (let i = 29; i >= 0; i--) {          
           const d = new Date(now);
           d.setDate(now.getDate() - i);
           const dStr = d.toISOString().slice(0, 10);
           progressArr.push({
-            day: `${d.getDate()}/${d.getMonth() + 1}`,   // label format d/m
+            day: `${d.getDate()}/${d.getMonth() + 1}`,   
             completed: tasks.filter(
               (t) => t.completed && t.date === dStr
             ).length,
@@ -64,7 +64,6 @@ export default function useUserStats(userId) {
 
         const feed = tasks
           .map((t) => {
-            // use completedAt if present, otherwise fallback to task date
             const rawDate = t.completed && t.completedAt ? t.completedAt : t.date;
             const dt = new Date(rawDate);
 
@@ -73,8 +72,8 @@ export default function useUserStats(userId) {
               text: t.completed
                 ? `Completed task: "${t.title}"`
                 : `Added task: "${t.title}"`,
-              ts: dt,                        // keep Date object for sort
-              displayDate: `${dt.getDate()}/${dt.getMonth() + 1}`, // d/m
+              ts: dt,                        
+              displayDate: `${dt.getDate()}/${dt.getMonth() + 1}`, 
             };
           })
           .sort((a, b) => b.ts - a.ts)

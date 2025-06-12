@@ -45,10 +45,9 @@ export default function AdminDashboard() {
         const allTasksSnap = await getDocs(query(collectionGroup(db, "tasks"), where("completed", "==", true)));
         const totalCompletedTasks = allTasksSnap.size;
 
-        // Build a per‑user map of completed tasks
         const completedTasksByUid = {};
         allTasksSnap.forEach((taskDoc) => {
-          const uid = taskDoc.ref.parent.parent.id; // users/{uid}/tasks/{docId}
+          const uid = taskDoc.ref.parent.parent.id;
           completedTasksByUid[uid] = (completedTasksByUid[uid] || 0) + 1;
         });
 
@@ -71,7 +70,7 @@ export default function AdminDashboard() {
 
         const now = Date.now();
         const dayMs = 24 * 60 * 60 * 1000;
-        const daysBack = 29; // last 30 days including today
+        const daysBack = 29; 
 
         const growthMap = {};
         for (let i = daysBack; i >= 0; i--) {
@@ -88,7 +87,6 @@ export default function AdminDashboard() {
             if (d > new Date(now - 7 * dayMs)) newSignups++;
           }
         });
-        // Format date as d/m for chart labels
         const fmtDate = (iso) => {
           const d = new Date(iso);
           return `${d.getDate()}/${d.getMonth() + 1}`;

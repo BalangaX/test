@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SettingsPanel.module.css";
-import { getAuth, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { useAuth } from "../../../../context/AuthContext";
 
 export default function SettingsPanel() {
@@ -20,7 +20,6 @@ export default function SettingsPanel() {
   const [changeError, setChangeError] = useState("");
   const [changeSuccess, setChangeSuccess] = useState("");
 
-  const auth = getAuth();
   const { currentUser } = useAuth();
 
   async function handleChangePassword(e) {
@@ -38,8 +37,8 @@ export default function SettingsPanel() {
         currentUser.email,
         currentPassword
       );
-      await reauthenticateWithCredential(auth.currentUser, credential);
-      await updatePassword(auth.currentUser, newPassword);
+      await reauthenticateWithCredential(currentUser, credential);
+      await updatePassword(currentUser, newPassword);
       setChangeSuccess("Password updated successfully.");
       setCurrentPassword("");
       setNewPassword("");
